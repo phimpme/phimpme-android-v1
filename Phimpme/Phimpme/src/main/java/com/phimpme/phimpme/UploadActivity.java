@@ -1,20 +1,18 @@
 package com.phimpme.phimpme;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UploadActivity extends ActionBarActivity {
 
@@ -27,13 +25,17 @@ public class UploadActivity extends ActionBarActivity {
         mApps = pManager.queryIntentActivities(intent, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
         return mApps;
     }*/
+    ImageView preview;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
         // Show picture
-        ImageView preview = (ImageView) findViewById(R.id.uploadActivityImageView);
+
+        preview = (ImageView) findViewById(R.id.uploadActivityImageView);
+        textView = (TextView) findViewById(R.id.uplpadActivityTextview);
         try {
             preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(),
                     (Uri) getIntent().getExtras().get("photoUri")));
@@ -48,11 +50,11 @@ public class UploadActivity extends ActionBarActivity {
                 Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
                 uploadPhotoIntent.setType("image/*");
                 uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, (Uri) getIntent().getExtras().get("photoUri"));
+                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, textView.getText().toString());
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

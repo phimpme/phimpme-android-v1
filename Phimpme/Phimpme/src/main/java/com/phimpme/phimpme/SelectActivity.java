@@ -1,30 +1,28 @@
 package com.phimpme.phimpme;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class SelectActivity extends ActionBarActivity {
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
     private static final int CHOOSE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 200;
-    public static final int MEDIA_TYPE_IMAGE = 1;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 300;
-    public static final int MEDIA_TYPE_VIDEO = 2;
-
     private Uri fileUri;
     private Intent captureIntent;
     private Intent chooseIntent;
@@ -78,23 +76,28 @@ public class SelectActivity extends ActionBarActivity {
                 if (resultCode == RESULT_OK) {
                     // Enter PreviewActivity
                     Toast.makeText(this, "Now in PreviewActivity.", Toast.LENGTH_LONG).show();
-                    Intent toPreviewIntent = new Intent();
-                    toPreviewIntent.setClass(this, PreviewActivity.class);
                     Uri uri = data.getData();
                     if (uri != null) {
+                        Intent toPreviewIntent = new Intent();
+                        toPreviewIntent.setClass(this, PreviewActivity.class);
                         toPreviewIntent.putExtra("photoUri", uri);
                         startActivity(toPreviewIntent);
-                    }else {
+                    } else {
                         Toast.makeText(this, "Uri is null.", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
-                    // Image captured and saved to fileUri specified in the Intent
-                    Toast.makeText(this, "Image saved to:\n" + fileUri, Toast.LENGTH_LONG).show();
-                    Toast.makeText(this, "Now in UploadActivity.", Toast.LENGTH_LONG).show();
-
+                    // Image captured and saved to uri specified in the Intent
+                    if (fileUri != null) {
+                        Toast.makeText(this, "Image saved to:\n" + fileUri, Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Now in UploadActivity.", Toast.LENGTH_LONG).show();
+                        Intent toPreviewIntent = new Intent();
+                        toPreviewIntent.setClass(this, PreviewActivity.class);
+                        toPreviewIntent.putExtra("photoUri", fileUri);
+                        startActivity(toPreviewIntent);
+                    }
                 } else if (resultCode == RESULT_CANCELED) {
                     // User cancelled the image capture
                 } else {
@@ -149,7 +152,6 @@ public class SelectActivity extends ActionBarActivity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
