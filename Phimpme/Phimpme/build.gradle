@@ -19,8 +19,9 @@ android {
 }
 
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile files('libs/weibosdkcore.jar')
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.android.support:gridlayout-v7:19.1.0'
     compile 'com.android.support:support-v4:19.1.0'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 }

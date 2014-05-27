@@ -1,6 +1,7 @@
 package com.phimpme.phimpme;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -11,8 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UploadActivity extends ActionBarActivity {
 
@@ -27,15 +31,17 @@ public class UploadActivity extends ActionBarActivity {
     }*/
     ImageView preview;
     TextView textView;
+    Button sinaWeibo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
-        // Show picture
 
+        // Show picture
         preview = (ImageView) findViewById(R.id.uploadActivityImageView);
         textView = (TextView) findViewById(R.id.uplpadActivityTextview);
+        sinaWeibo = (Button) findViewById(R.id.uplpadActivitySinaWeiboButton);
         try {
             preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(),
                     (Uri) getIntent().getExtras().get("photoUri")));
@@ -52,6 +58,26 @@ public class UploadActivity extends ActionBarActivity {
                 uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, (Uri) getIntent().getExtras().get("photoUri"));
                 uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, textView.getText().toString());
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
+            }
+        });
+
+        sinaWeibo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Uri uri = (Uri) getIntent().getExtras().get("photoUri");
+                if (uri != null) {
+                    Toast.makeText(UploadActivity.this, "Uploading to SinaWeibo.", Toast.LENGTH_LONG).show();
+                    try {
+                        new SinaWeibo(
+                                MediaStore.Images.Media.getBitmap(
+                                        UploadActivity.this.getContentResolver(),                                        (Uri) getIntent().getExtras().get("photoUri")),
+                                textView.getText().toString(),
+                                getApplicationContext()).uploadImageToSinaWeibo();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(UploadActivity.this, "Uri is null.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
