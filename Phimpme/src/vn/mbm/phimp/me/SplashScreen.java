@@ -7,52 +7,36 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 
 public class SplashScreen extends Activity {
-	
-	protected int _splashTime = 2000; 
-	
-	private Thread splashTread;
 
+	protected int _splashTime = 1000;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.splash);	    
-	    
-	    final SplashScreen sPlashScreen = this; 
-	   
-	    // thread for displaying the SplashScreen
-	    splashTread = new Thread() {
-	        @Override
-	        public void run() {	        	
-	            try {	            	
-	            	synchronized(this){
-	            		wait(_splashTime);
-	            	}
-	            	
-	            } catch(InterruptedException e) {} 
-	            finally {
-	                finish();
-	                
-	                Intent i = new Intent();
-	                i.setClass(sPlashScreen, PhimpMe.class);
-	        		startActivity(i);
-	                
-	                //stop();
-	            }
-	        }
-	    };
-	    
-	    splashTread.start();
+		super.onCreate(savedInstanceState);
+		final Intent intent = new Intent();
+		intent.setClass(SplashScreen.this, PhimpMe.class);
+		if (_splashTime > 0) {
+			setContentView(R.layout.splash);
+			// thread for displaying the SplashScreen
+			new Thread() {
+				@Override
+				public void run() {
+					try {
+						synchronized (this) {
+							wait(_splashTime);
+						}
+					} catch (InterruptedException ignored) {
+					} finally {
+						finish();
+						startActivity(intent);
+						// stop();
+					}
+				}
+			}.start();
+		} else {
+			startActivity(intent);
+		}
 	}
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-	    if (event.getAction() == MotionEvent.ACTION_DOWN) {
-	    	synchronized(splashTread){
-	    		splashTread.notifyAll();
-	    	}
-	    }
-	    return true;
-	}
-	
+
 }
