@@ -3,4 +3,7 @@ android
 
 Phimp.me Android App
 
-This project is created by Android Studio 0.5.8
+This project is created by Eclipse KEPLER + ADT-22.6.3
+
+Development device: Nexus 5, Nexue 4
+Platform version: Android 4.4.2
