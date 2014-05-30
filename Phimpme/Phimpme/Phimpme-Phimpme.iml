@@ -73,6 +73,7 @@
     <orderEntry type="library" exported="" name="gridlayout-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-4.3.23" level="project" />
     <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
   </component>
 </module>

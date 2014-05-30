@@ -19,5 +19,6 @@
     <string name="weibosdk_send_sucess">图片发送成功</string>
     <string name="weibosdk_send_failed">图片发送失败</string>
     <string name="title_activity_auth">AuthActivity</string>
+    <string name="title_activity_map">MapActivity</string>
 
 </resources>

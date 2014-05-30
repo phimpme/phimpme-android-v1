@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -14,15 +12,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button toAuthActivity = (Button) findViewById(R.id.mainActivityToAuthActivityButton);
-        toAuthActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent toAuthActivity = new Intent();
-                toAuthActivity.setClass(MainActivity.this, AuthActivity.class);
-                startActivity(toAuthActivity);
-            }
-        });
+
     }
 
     @Override
@@ -44,10 +34,22 @@ public class MainActivity extends ActionBarActivity {
             startActivity(toSelectIntent);
             return true;
         }
-        if (id == R.id.action_settings) {
-            // TODO: Implement the settings part
+        if (id == R.id.action_auth) {
+            Intent toAuthActivity = new Intent();
+            toAuthActivity.setClass(MainActivity.this, AuthActivity.class);
+            startActivity(toAuthActivity);
             return true;
         }
+        if (id == R.id.action_map) {
+            Intent toMapActivity = new Intent();
+            toMapActivity.setClass(MainActivity.this, MapActivity.class);
+            startActivity(toMapActivity);
+            return true;
+        }
+        /*if (id == R.id.action_settings) {
+            // TODO: Implement the settings part
+            return true;
+        }*/
         return super.onOptionsItemSelected(item);
     }
 }

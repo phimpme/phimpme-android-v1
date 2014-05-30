@@ -1,7 +1,6 @@
 package com.phimpme.phimpme;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UploadActivity extends ActionBarActivity {
 
@@ -69,9 +66,10 @@ public class UploadActivity extends ActionBarActivity {
                     try {
                         new SinaWeibo(
                                 MediaStore.Images.Media.getBitmap(
-                                        UploadActivity.this.getContentResolver(),                                        (Uri) getIntent().getExtras().get("photoUri")),
+                                        UploadActivity.this.getContentResolver(), (Uri) getIntent().getExtras().get("photoUri")),
                                 textView.getText().toString(),
-                                getApplicationContext()).uploadImageToSinaWeibo();
+                                getApplicationContext()
+                        ).uploadImageToSinaWeibo();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

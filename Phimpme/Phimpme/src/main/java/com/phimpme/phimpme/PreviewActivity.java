@@ -23,8 +23,10 @@ public class PreviewActivity extends ActionBarActivity {
 
         preview = (ImageView) findViewById(R.id.previewActivityImageView);
         try {
-            preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(),
-                    (Uri) getIntent().getExtras().get("photoUri")));
+            preview.setImageBitmap(
+                    MediaStore.Images.Media.getBitmap(
+                            this.getContentResolver(), (Uri) getIntent().getExtras().get("photoUri"))
+            );
         } catch (IOException e) {
             e.printStackTrace();
         }

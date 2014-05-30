@@ -23,6 +23,8 @@ public class SelectActivity extends ActionBarActivity {
     private static final int CHOOSE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 200;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 300;
+    private static final int EDIT_IMAGE_ACTIVITY_REQUEST_CODE = 400;
+    Uri uri;
     private Uri fileUri;
     private Intent captureIntent;
     private Intent chooseIntent;
@@ -75,18 +77,25 @@ public class SelectActivity extends ActionBarActivity {
             case CHOOSE_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     // Enter PreviewActivity
-                    Toast.makeText(this, "Now in PreviewActivity.", Toast.LENGTH_LONG).show();
-                    Uri uri = data.getData();
+                    Toast.makeText(this, "Now in EditActivity.", Toast.LENGTH_LONG).show();
+                    uri = data.getData();
                     if (uri != null) {
-                        Intent toPreviewIntent = new Intent();
-                        toPreviewIntent.setClass(this, PreviewActivity.class);
-                        toPreviewIntent.putExtra("photoUri", uri);
-                        startActivity(toPreviewIntent);
+                        Intent toEditIntent = new Intent(Intent.ACTION_EDIT, uri);
+                        startActivityForResult(toEditIntent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
                     } else {
                         Toast.makeText(this, "Uri is null.", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
+            case EDIT_IMAGE_ACTIVITY_REQUEST_CODE: {
+                // Enter PreviewActivity
+                Toast.makeText(this, "Now in PreviewActivity.", Toast.LENGTH_LONG).show();
+                Intent toPreviewIntent = new Intent();
+                toPreviewIntent.setClass(SelectActivity.this, PreviewActivity.class);
+                toPreviewIntent.putExtra("photoUri", uri);
+                startActivity(toPreviewIntent);
+                break;
+            }
             case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     // Image captured and saved to uri specified in the Intent
