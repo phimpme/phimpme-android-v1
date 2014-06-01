@@ -3,6 +3,7 @@ package com.phimpme.phimpme;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -16,14 +17,18 @@ import android.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+
 
 public class MapActivity extends ActionBarActivity {
 
+    GoogleMap mMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +37,7 @@ public class MapActivity extends ActionBarActivity {
     }
 
     private void init_map() {
-        GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
@@ -45,7 +50,7 @@ public class MapActivity extends ActionBarActivity {
             Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(getCriteria(), true));
             CameraPosition cameraPosition = new CameraPosition.Builder().
                     target(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .zoom(10)
+                    .zoom(13)
                     .build();
             mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
@@ -59,14 +64,26 @@ public class MapActivity extends ActionBarActivity {
             );
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                double latitude = cursor.getDouble(0);
-                double longtitude = cursor.getDouble(1);
-                if (!(latitude == 0.0 && longtitude == 0.0)) {
-                    LatLng latLng = new LatLng(latitude, longtitude);
-                    Marker maker = mMap.addMarker(new MarkerOptions()
-                            .position(latLng)
-                            .title(cursor.getString(2))
-                            .snippet(cursor.getString(3)));
+                Bitmap image = null;
+                try {
+                    image = MediaStore.Images.Media.getBitmap(
+                            this.getContentResolver(), Uri.parse("content://media/external/images/media/" + cursor.getString(3)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(image != null) {
+                    Bitmap icon = Bitmap.createScaledBitmap(image, 75, 100, false);
+                    image.recycle();
+                    double latitude = cursor.getDouble(0);
+                    double longtitude = cursor.getDouble(1);
+                    if (!(latitude == 0.0 && longtitude == 0.0)) {
+                        LatLng latLng = new LatLng(latitude, longtitude);
+                        Marker marker = mMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .title(cursor.getString(2))
+                                .snippet(cursor.getString(3))
+                                .icon(BitmapDescriptorFactory.fromBitmap(icon)));
+                    }
                 }
                 cursor.moveToNext();
             }
@@ -95,7 +112,16 @@ public class MapActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_satellite) {
+            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            return true;
+        }
+        if (id == R.id.action_normal) {
+            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            return true;
+        }
+        if (id == R.id.action_hybird) {
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             return true;
         }
 

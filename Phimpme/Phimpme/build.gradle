@@ -4,16 +4,27 @@ android {
     compileSdkVersion 19
     buildToolsVersion "19.1"
 
+    signingConfigs {
+        debug {
+            storeFile file("/home/sensing/android.keystore")
+            storePassword "Lcaroline0120"
+            keyAlias "android.keystore"
+            keyPassword "Lcaroline0120"
+        }
+    }
+
+
     defaultConfig {
         minSdkVersion 10
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            runProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt', 'proguard-project.txt'
         }
     }
 }
@@ -24,4 +35,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.android.support:gridlayout-v7:19.1.0'
     compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.google.android.gms:play-services:4.3.23'
 }
