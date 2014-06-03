@@ -15,6 +15,7 @@ import java.io.IOException;
 public class PreviewActivity extends ActionBarActivity {
 
     ImageView preview;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +23,9 @@ public class PreviewActivity extends ActionBarActivity {
         setContentView(R.layout.activity_preview);
 
         preview = (ImageView) findViewById(R.id.previewActivityImageView);
+        imageUri = (Uri) getIntent().getExtras().get("imageUri");
         try {
-            preview.setImageBitmap(
-                    MediaStore.Images.Media.getBitmap(
-                            this.getContentResolver(), (Uri) getIntent().getExtras().get("photoUri"))
-            );
+            preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,12 +48,11 @@ public class PreviewActivity extends ActionBarActivity {
         if (id == R.id.action_upload) {
             Intent toUploadIntent = new Intent();
             toUploadIntent.setClass(this, UploadActivity.class);
-            Uri uri = (Uri) getIntent().getExtras().get("photoUri");
-            if (uri != null) {
-                toUploadIntent.putExtra("photoUri", uri);
+            if (imageUri != null) {
+                toUploadIntent.putExtra("imageUri", imageUri);
                 startActivity(toUploadIntent);
             } else {
-                Toast.makeText(this, "Uri is null.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "ImageUri is null.", Toast.LENGTH_LONG).show();
             }
             return true;
         } else if (id == R.id.action_settings) {

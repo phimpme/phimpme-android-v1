@@ -66,6 +66,10 @@
             android:name="com.phimpme.phimpme.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity
+            android:name="com.phimpme.phimpme.GPSManagerActivity"
+            android:label="@string/title_activity_gpsmanager" >
+        </activity>
     </application>
 
 </manifest>

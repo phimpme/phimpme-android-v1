@@ -5,7 +5,7 @@
     tools:context="com.phimpme.phimpme.MapActivity">
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/map"
+              android:id="@+id/mapActivityMap"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:name="com.google.android.gms.maps.MapFragment"

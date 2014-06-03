@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="weibosdkcore">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Phimpme/libs/weibosdkcore.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

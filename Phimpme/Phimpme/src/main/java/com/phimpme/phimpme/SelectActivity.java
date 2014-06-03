@@ -18,13 +18,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SelectActivity extends ActionBarActivity {
+
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     private static final int CHOOSE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 200;
-    private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 300;
     private static final int EDIT_IMAGE_ACTIVITY_REQUEST_CODE = 400;
-    Uri uri;
+    Uri imageUri;
     private Uri fileUri;
     private Intent captureIntent;
     private Intent chooseIntent;
@@ -78,12 +78,11 @@ public class SelectActivity extends ActionBarActivity {
                 if (resultCode == RESULT_OK) {
                     // Enter PreviewActivity
                     Toast.makeText(this, "Now in EditActivity.", Toast.LENGTH_LONG).show();
-                    uri = data.getData();
-                    if (uri != null) {
-                        Intent toEditIntent = new Intent(Intent.ACTION_EDIT, uri);
-                        startActivityForResult(toEditIntent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
+                    imageUri = data.getData();
+                    if (imageUri != null) {
+                        startActivityForResult(new Intent(Intent.ACTION_EDIT, imageUri), EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
                     } else {
-                        Toast.makeText(this, "Uri is null.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "ImageUri is null.", Toast.LENGTH_LONG).show();
                     }
                 }
                 break;
@@ -92,7 +91,7 @@ public class SelectActivity extends ActionBarActivity {
                 Toast.makeText(this, "Now in PreviewActivity.", Toast.LENGTH_LONG).show();
                 Intent toPreviewIntent = new Intent();
                 toPreviewIntent.setClass(SelectActivity.this, PreviewActivity.class);
-                toPreviewIntent.putExtra("photoUri", uri);
+                toPreviewIntent.putExtra("imageUri", imageUri);
                 startActivity(toPreviewIntent);
                 break;
             }
@@ -101,27 +100,12 @@ public class SelectActivity extends ActionBarActivity {
                     // Image captured and saved to uri specified in the Intent
                     if (fileUri != null) {
                         Toast.makeText(this, "Image saved to:\n" + fileUri, Toast.LENGTH_LONG).show();
-                        Toast.makeText(this, "Now in UploadActivity.", Toast.LENGTH_LONG).show();
-                        Intent toPreviewIntent = new Intent();
-                        toPreviewIntent.setClass(this, PreviewActivity.class);
-                        toPreviewIntent.putExtra("photoUri", fileUri);
-                        startActivity(toPreviewIntent);
+                        startActivityForResult(captureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
                     }
                 } else if (resultCode == RESULT_CANCELED) {
                     // User cancelled the image capture
                 } else {
                     // Image capture failed, advise user
-                }
-                break;
-            case CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    // Video captured and saved to fileUri specified in the Intent
-                    Toast.makeText(this, "Video saved to:\n" +
-                            data.getData(), Toast.LENGTH_LONG).show();
-                } else if (resultCode == RESULT_CANCELED) {
-                    // User cancelled the video capture
-                } else {
-                    // Video capture failed, advise user
                 }
                 break;
             default:
@@ -141,8 +125,9 @@ public class SelectActivity extends ActionBarActivity {
         choosePhotos.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
+                // Call Gallery of Android
                 chooseIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);//调用android的图库
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(chooseIntent, CHOOSE_IMAGE_ACTIVITY_REQUEST_CODE);
             }
         });

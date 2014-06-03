@@ -10,14 +10,15 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_map"
+        android:orderInCategory="100"
+        android:title="Map"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_auth"
         android:orderInCategory="100"
         android:title="AuthManager"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/action_map"
-        android:orderInCategory="100"
-        android:title="Map"
-        app:showAsAction="never"/>
 </menu>
