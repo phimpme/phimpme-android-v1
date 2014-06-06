@@ -2,11 +2,10 @@ package com.phimpme.phimpme;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.location.Location;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class GPSManagerActivity extends ActionBarActivity {
     GoogleMap mMap;
     Uri imageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +40,8 @@ public class GPSManagerActivity extends ActionBarActivity {
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     new String[]{MediaStore.Images.Media.LATITUDE,
                             MediaStore.Images.Media.LONGITUDE},
-                    MediaStore.Images.Media._ID + "=" + _ID, null, null);
+                    MediaStore.Images.Media._ID + "=" + _ID, null, null
+            );
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 CameraPosition cameraPosition = new CameraPosition.Builder().

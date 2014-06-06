@@ -54,7 +54,7 @@ public class MapActivity extends ActionBarActivity {
             // Animate to user location
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(getCriteria(), true));
-            while(location == null) {
+            while (location == null) {
                 locationManager.requestLocationUpdates(
                         locationManager.getBestProvider(getCriteria(), true), 60000, 50, new LocationListener() {
                             @Override
@@ -76,7 +76,8 @@ public class MapActivity extends ActionBarActivity {
                             public void onProviderDisabled(String s) {
 
                             }
-                        });
+                        }
+                );
             }
             CameraPosition cameraPosition = new CameraPosition.Builder().
                     target(new LatLng(location.getLatitude(), location.getLongitude()))
@@ -101,7 +102,8 @@ public class MapActivity extends ActionBarActivity {
                         MediaStore.Images.Media.LONGITUDE,
                         MediaStore.Images.Media.DISPLAY_NAME,
                         MediaStore.Images.Media._ID},
-                null, null, null);
+                null, null, null
+        );
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Bitmap image = null;
@@ -111,7 +113,7 @@ public class MapActivity extends ActionBarActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if(image != null) {
+            if (image != null) {
                 Bitmap icon = Bitmap.createScaledBitmap(image, 75, 100, false);
                 image.recycle();
                 double latitude = cursor.getDouble(0);

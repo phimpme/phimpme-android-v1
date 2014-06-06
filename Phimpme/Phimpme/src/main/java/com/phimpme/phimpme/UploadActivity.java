@@ -52,9 +52,9 @@ public class UploadActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Uri uri = (Uri) getIntent().getExtras().get("photoUri");
                 if (uri != null) {
-                    Toast.makeText(UploadActivity.this, "Uploading to SinaWeibo.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UploadActivity.this, "Uploading to ShareToSinaWeibo.", Toast.LENGTH_LONG).show();
                     try {
-                        new SinaWeibo(
+                        new ShareToSinaWeibo(
                                 MediaStore.Images.Media.getBitmap(
                                         UploadActivity.this.getContentResolver(), imageUri),
                                 textView.getText().toString(),

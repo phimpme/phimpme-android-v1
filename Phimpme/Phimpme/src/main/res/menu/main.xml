@@ -4,21 +4,24 @@
       tools:context="com.phimpme.phimpme.MainActivity">
 
     <item
-        android:id="@+id/action_select"
+        android:id="@+id/action_upload"
         android:orderInCategory="100"
-        android:title="Select"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/action_map"
-        android:orderInCategory="100"
-        android:title="Map"
+        android:title="Upload"
+        android:icon="@android:drawable/ic_menu_camera"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_auth"
         android:orderInCategory="100"
         android:title="AuthManager"
+        android:icon="@android:drawable/ic_menu_edit"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Settings"
+        android:icon="@android:drawable/ic_menu_manage"
         app:showAsAction="never"/>
 
 </menu>

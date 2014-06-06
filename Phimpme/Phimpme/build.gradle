@@ -6,10 +6,12 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("/home/sensing/android.keystore")
+            storeFile file("/Users/yzq/android.keystore")
             storePassword "Lcaroline0120"
             keyAlias "android.keystore"
             keyPassword "Lcaroline0120"
+            // This password is not uploaded by mistake
+            // It's only a temporary one for debugging
         }
     }
 
