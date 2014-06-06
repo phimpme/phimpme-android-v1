@@ -2,11 +2,10 @@ package com.phimpme.phimpme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -14,15 +13,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button toAuthActivity = (Button) findViewById(R.id.mainActivityToAuthActivityButton);
-        toAuthActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent toAuthActivity = new Intent();
-                toAuthActivity.setClass(MainActivity.this, AuthActivity.class);
-                startActivity(toAuthActivity);
-            }
-        });
     }
 
     @Override
@@ -38,10 +28,15 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_select) {
-            Intent toSelectIntent = new Intent();
-            toSelectIntent.setClass(this, SelectActivity.class);
-            startActivity(toSelectIntent);
+        if (id == R.id.action_upload) {
+            DialogFragment newFragment = new SelectDialogFragment();
+            newFragment.show(getSupportFragmentManager(), "SelectDialogFragment");
+            return true;
+        }
+        if (id == R.id.action_auth) {
+            Intent toAuthActivity = new Intent();
+            toAuthActivity.setClass(MainActivity.this, AuthActivity.class);
+            startActivity(toAuthActivity);
             return true;
         }
         if (id == R.id.action_settings) {

@@ -11,12 +11,12 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
 
 
-public class SinaWeibo {
+public class ShareToSinaWeibo {
     private Bitmap image;
     private String imageDescribe;
     private Context applicationContext;
 
-    public SinaWeibo(Bitmap image, String imageDescribe, Context applicationContext) {
+    public ShareToSinaWeibo(Bitmap image, String imageDescribe, Context applicationContext) {
         this.image = image;
         this.imageDescribe = imageDescribe;
         this.applicationContext = applicationContext;

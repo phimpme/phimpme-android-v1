@@ -1,7 +1,6 @@
 package com.phimpme.phimpme;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,36 +14,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UploadActivity extends ActionBarActivity {
 
-    /*public static List getShareApps(Context context) {
-        List mApps = new ArrayList();
-        Intent intent = new Intent(Intent.ACTION_SEND, null);
-        intent.addCategory(Intent.CATEGORY_DEFAULT);
-        intent.setType("audio/*");
-        PackageManager pManager = context.getPackageManager();
-        mApps = pManager.queryIntentActivities(intent, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
-        return mApps;
-    }*/
     ImageView preview;
     TextView textView;
-    Button sinaWeibo;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
-        // Show picture
         preview = (ImageView) findViewById(R.id.uploadActivityImageView);
         textView = (TextView) findViewById(R.id.uplpadActivityTextview);
-        sinaWeibo = (Button) findViewById(R.id.uplpadActivitySinaWeiboButton);
+        imageUri = (Uri) getIntent().getExtras().get("imageUri");
+
         try {
-            preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(),
-                    (Uri) getIntent().getExtras().get("photoUri")));
+            preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,28 +42,29 @@ public class UploadActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
                 uploadPhotoIntent.setType("image/*");
-                uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, (Uri) getIntent().getExtras().get("photoUri"));
+                uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                 uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, textView.getText().toString());
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
             }
         });
 
-        sinaWeibo.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.uplpadActivitySinaWeiboButton).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Uri uri = (Uri) getIntent().getExtras().get("photoUri");
                 if (uri != null) {
-                    Toast.makeText(UploadActivity.this, "Uploading to SinaWeibo.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UploadActivity.this, "Uploading to ShareToSinaWeibo.", Toast.LENGTH_LONG).show();
                     try {
-                        new SinaWeibo(
+                        new ShareToSinaWeibo(
                                 MediaStore.Images.Media.getBitmap(
-                                        UploadActivity.this.getContentResolver(),                                        (Uri) getIntent().getExtras().get("photoUri")),
+                                        UploadActivity.this.getContentResolver(), imageUri),
                                 textView.getText().toString(),
-                                getApplicationContext()).uploadImageToSinaWeibo();
+                                getApplicationContext()
+                        ).uploadImageToSinaWeibo();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    Toast.makeText(UploadActivity.this, "Uri is null.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(UploadActivity.this, "ImageUri is null.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -84,7 +72,6 @@ public class UploadActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.upload, menu);
         return true;
@@ -96,7 +83,11 @@ public class UploadActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_GPSManager) {
+            Intent toGPSManagerActivity = new Intent();
+            toGPSManagerActivity.putExtra("imageUri", imageUri);
+            toGPSManagerActivity.setClass(UploadActivity.this, GPSManagerActivity.class);
+            startActivity(toGPSManagerActivity);
             return true;
         }
         return super.onOptionsItemSelected(item);
