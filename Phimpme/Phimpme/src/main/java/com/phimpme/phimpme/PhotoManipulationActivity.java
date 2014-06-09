@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-
 public class PhotoManipulationActivity extends Activity {
 
     private static final int EDIT_IMAGE_ACTIVITY_REQUEST_CODE = 400;
@@ -24,11 +23,10 @@ public class PhotoManipulationActivity extends Activity {
         if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE) {
             // Get the result of photo manipulation function
             assert (imageUri != null);
-            Intent toPreviewIntent = new Intent(this, PreviewActivity.class);
-            toPreviewIntent.putExtra("imageUri", imageUri);
-            startActivity(toPreviewIntent);
-        } else {
-            finish();
+            Intent intent = new Intent(this, UploadActivity.class);
+            intent.putExtra("imageUri", imageUri);
+            startActivity(intent);
         }
+        finish();
     }
 }

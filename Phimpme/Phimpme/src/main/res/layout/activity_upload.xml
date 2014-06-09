@@ -35,7 +35,7 @@
         />
 
     <Button
-        android:id="@+id/uploadActivityUploadButton"
+        android:id="@+id/otherButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/uplpadActivityTextview"
@@ -46,26 +46,25 @@
         android:layout_columnSpan="2"
         android:layout_gravity="fill"
         android:layout_rowSpan="1"
-        android:text="System sharing"
-        />
-
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New ToggleButton"
-        android:id="@+id/toggleButton"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:text="Other Destinations"
         />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sina Weibo"
-        android:id="@+id/uplpadActivitySinaWeiboButton"
-        android:layout_above="@+id/uploadActivityUploadButton"
+        android:id="@+id/sinaWeiboButton"
+        android:layout_above="@+id/otherButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bluetooth"
+        android:id="@+id/bluetoothButton"
+        android:layout_above="@+id/otherButton"
+        android:layout_alignLeft="@+id/uplpadActivityTextview"
+        android:layout_alignStart="@+id/uplpadActivityTextview"/>
 
 </RelativeLayout>

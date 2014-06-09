@@ -12,11 +12,8 @@ import android.os.Bundle;
  */
 
 public class ChooseFromLibraryActivity extends Activity {
-
-
     private static final int CHOOSE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     Uri imageUri = null;
-
     private Intent chooseIntent;
 
     @Override
@@ -27,13 +24,17 @@ public class ChooseFromLibraryActivity extends Activity {
                 // User chose an image
                 imageUri = data.getData();
                 if (imageUri != null) {
-                    Intent intent = new Intent(this, PhotoManipulationActivity.class);
+                    Intent intent = new Intent();
+                    if (Configuration.ENABLE_PHOTO_MANIPULATION) {
+                        intent.setClass(this, PhotoManipulationActivity.class);
+                    } else {
+                        intent.setClass(this, PreviewActivity.class);
+                    }
                     intent.putExtra("imageUri", imageUri);
                     startActivity(intent);
                 }
-            } else {
-                finish();
             }
+            finish();
         }
     }
 

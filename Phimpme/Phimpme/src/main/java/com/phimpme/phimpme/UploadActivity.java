@@ -17,15 +17,21 @@ import java.io.IOException;
 
 public class UploadActivity extends ActionBarActivity {
 
-    ImageView preview;
-    TextView textView;
-    Uri imageUri;
+    private Button otherButton;
+    private Button bluetoothButton;
+    private Button sinaWeiboButton;
+    private ImageView preview;
+    private TextView textView;
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
+        bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
+        otherButton = (Button) findViewById(R.id.otherButton);
+        sinaWeiboButton = (Button) findViewById(R.id.sinaWeiboButton);
         preview = (ImageView) findViewById(R.id.uploadActivityImageView);
         textView = (TextView) findViewById(R.id.uplpadActivityTextview);
         imageUri = (Uri) getIntent().getExtras().get("imageUri");
@@ -37,8 +43,7 @@ public class UploadActivity extends ActionBarActivity {
         }
 
         // Call share method of Android
-        Button uploadPhotos = (Button) findViewById(R.id.uploadActivityUploadButton);
-        uploadPhotos.setOnClickListener(new View.OnClickListener() {
+        otherButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
                 uploadPhotoIntent.setType("image/*");
@@ -48,7 +53,19 @@ public class UploadActivity extends ActionBarActivity {
             }
         });
 
-        findViewById(R.id.uplpadActivitySinaWeiboButton).setOnClickListener(new View.OnClickListener() {
+        bluetoothButton.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
+                uploadPhotoIntent.setType("image/*");
+                uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, textView.getText().toString());
+                uploadPhotoIntent.setPackage("com.android.bluetooth");
+                startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
+            }
+        });
+
+        sinaWeiboButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Uri uri = (Uri) getIntent().getExtras().get("photoUri");
                 if (uri != null) {

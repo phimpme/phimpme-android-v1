@@ -6,37 +6,63 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class SelectDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        String[] array = {"Capture a new photo", "Choose from library", "Select from map"};
+        // The title list contains text labels of each function
+        // The action list contains associated behaviors of each menu item
+        final ArrayList<String> title = new ArrayList<String>();
+        final ArrayList<Behavior> action = new ArrayList<Behavior>();
+        if (Configuration.ENABLE_PHOTO_CAPTURING) {
+            title.add("Capture a new photo");
+            action.add(Behavior.CAPTURE);
+        }
+        if (Configuration.ENABLE_CHOOSE_FROM_LIBRARY) {
+            title.add("Choose from library");
+            action.add(Behavior.CHOOSE);
+        }
+        if (Configuration.ENABLE_MAP) {
+            title.add("Select from map");
+            action.add(Behavior.MAP);
+        }
+        // If only one function is enabled, just perform it.
+        assert (!action.isEmpty());
+        if (action.size() == 1) {
+            perform(action.get(0));
+        }
+
         builder.setTitle("Upload a Photo")
-                .setItems(array, new DialogInterface.OnClickListener() {
+                .setItems(title.toArray(new String[0]), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // The 'which' argument contains the index position
                         // of the selected item
-                        switch (which) {
-                            case 0:
-                                // Capture a new photo
-                                startActivity(new Intent(getActivity(), CaptureActivity.class));
-                                break;
-                            case 1:
-                                // Choose from library
-                                startActivity(new Intent(getActivity(), ChooseFromLibraryActivity.class));
-                                break;
-                            case 2:
-                                // Select from map
-                                Toast.makeText(getActivity(), "Loading...", Toast.LENGTH_LONG);
-                                startActivity(new Intent(getActivity(), MapActivity.class));
-                                break;
-                        }
+                        perform(action.get(which));
                     }
                 });
+
         return builder.create();
     }
 
+    private void perform(Behavior behavior) {
+        Intent intent = new Intent();
+        switch (behavior) {
+            case CAPTURE:
+                intent.setClass(getActivity(), CaptureActivity.class);
+                break;
+            case CHOOSE:
+                intent.setClass(getActivity(), ChooseFromLibraryActivity.class);
+                break;
+            case MAP:
+                intent.setClass(getActivity(), MapActivity.class);
+                break;
+        }
+        startActivity(intent);
+    }
+
+    private enum Behavior {CAPTURE, CHOOSE, MAP}
 }

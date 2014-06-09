@@ -39,6 +39,8 @@ public class MapActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        Toast.makeText(this, "Loading the map...", Toast.LENGTH_LONG).show();
+        // TODO: The loading is too slow
         initMap();
         setThumbnails();
     }
