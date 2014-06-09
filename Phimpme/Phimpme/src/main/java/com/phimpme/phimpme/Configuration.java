@@ -11,6 +11,7 @@ public class Configuration {
     public static final boolean ENABLE_CHOOSE_FROM_LIBRARY = true;
     public static final boolean ENABLE_PHOTO_MANIPULATION = true;
     public static final boolean ENABLE_PHOTO_GPS_DATA_MODIFICATION = true;
+    public static final boolean ENABLE_NFC = true;
 
     // Social networks
     public static final boolean ENABLE_SHARING_TO_WEIBO = true;

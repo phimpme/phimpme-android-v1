@@ -2,6 +2,8 @@ package com.phimpme.phimpme;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -25,7 +28,8 @@ public class UploadActivity extends ActionBarActivity {
     private Button bluetoothButton;
     private Button sinaWeiboButton;
     private ImageView preview;
-    private TextView textView;
+    private TextView descriptionEditText;
+    private TextView nfcTextView;
     private Uri imageUri;
 
     @Override
@@ -39,10 +43,33 @@ public class UploadActivity extends ActionBarActivity {
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         otherButton = (Button) findViewById(R.id.otherButton);
         sinaWeiboButton = (Button) findViewById(R.id.sinaWeiboButton);
-        preview = (ImageView) findViewById(R.id.uploadActivityImageView);
-        textView = (TextView) findViewById(R.id.uplpadActivityTextview);
+        preview = (ImageView) findViewById(R.id.imageView);
+        descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
+        nfcTextView = (TextView) findViewById(R.id.nfcTextView);
         imageUri = (Uri) getIntent().getExtras().get("imageUri");
 
+        // NFC
+        if(Configuration.ENABLE_NFC) {
+            nfcTextView.setVisibility(View.VISIBLE);
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            if (nfcAdapter != null) {
+                // NFC is available on this device
+                nfcAdapter.setBeamPushUris(null, this);
+                nfcAdapter.setBeamPushUrisCallback(new NfcAdapter.CreateBeamUrisCallback() {
+                    @Override
+                    public Uri[] createBeamUris(NfcEvent event) {
+                        Uri[] nfcPushUris = new Uri[1];
+                        nfcPushUris[0] = imageUri;
+                        return nfcPushUris;
+                    }
+                }, this);
+            }
+        } else {
+            nfcTextView.setVisibility(View.GONE);
+        }
+
+
+        // Initialize
         // TODO: Init locationSwitch (visible if GPS data is available)
 
         try {
@@ -58,6 +85,7 @@ public class UploadActivity extends ActionBarActivity {
             }
         });
 
+        // Set listeners
         locationButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(UploadActivity.this, GPSManagerActivity.class);
@@ -72,7 +100,7 @@ public class UploadActivity extends ActionBarActivity {
                 Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
                 uploadPhotoIntent.setType("image/*");
                 uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, textView.getText().toString());
+                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
             }
         });
@@ -83,7 +111,7 @@ public class UploadActivity extends ActionBarActivity {
                 Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
                 uploadPhotoIntent.setType("image/*");
                 uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, textView.getText().toString());
+                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
                 uploadPhotoIntent.setPackage("com.android.bluetooth");
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
             }
@@ -98,7 +126,7 @@ public class UploadActivity extends ActionBarActivity {
                         new ShareToSinaWeibo(
                                 MediaStore.Images.Media.getBitmap(
                                         UploadActivity.this.getContentResolver(), imageUri),
-                                textView.getText().toString(),
+                                descriptionEditText.getText().toString(),
                                 getApplicationContext()
                         ).uploadImageToSinaWeibo();
                     } catch (IOException e) {

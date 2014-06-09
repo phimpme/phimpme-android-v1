@@ -10,28 +10,24 @@
 
 
     <ImageView
-        android:id="@+id/uploadActivityImageView"
+        android:id="@+id/imageView"
+        android:contentDescription="Photo"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:layout_columnSpan="3"
         android:layout_gravity="fill"
         android:paddingRight="8dp"
-        android:layout_rowSpan="4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"/>
 
     <EditText
-
-        android:id="@+id/uplpadActivityTextview"
+        android:id="@+id/descriptionEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/uploadActivityImageView"
+        android:layout_alignBottom="@+id/imageView"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_columnSpan="2"
         android:layout_gravity="fill"
-        android:layout_rowSpan="3"
         android:editable="true"
         android:ems="10"
         android:inputType="textMultiLine"
@@ -42,33 +38,14 @@
         android:id="@+id/otherButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="fill"
+        android:text="Other Destinations"
+        android:layout_below="@+id/locationButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_columnSpan="2"
-        android:layout_gravity="fill"
-        android:layout_rowSpan="1"
-        android:text="Other Destinations"
+        android:layout_marginTop="46dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sina Weibo"
-        android:id="@+id/sinaWeiboButton"
-        android:layout_above="@+id/otherButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bluetooth"
-        android:id="@+id/bluetoothButton"
-        android:layout_above="@+id/otherButton"
-        android:layout_alignRight="@+id/uplpadActivityTextview"
-        android:layout_alignEnd="@+id/uplpadActivityTextview"/>
 
     <Switch
         android:layout_width="wrap_content"
@@ -77,22 +54,67 @@
         android:paddingBottom="12dp"
         android:text="Geographical Location"
         android:id="@+id/locationSwitch"
-        android:layout_below="@+id/uploadActivityImageView"
+        android:checked="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:checked="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/imageView"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change geographical location"
         android:id="@+id/locationButton"
+        android:layout_below="@+id/locationSwitch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnCount="2"
+        android:layout_below="@+id/otherButton"
+        android:rowCount="2"
+        android:columnOrderPreserved="true"
+        android:rowOrderPreserved="true"
+        android:useDefaultMargins="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/nfcTextView">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sina Weibo"
+            android:id="@+id/sinaWeiboButton"
+            android:layout_row="0"
+            android:layout_column="0"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bluetooth"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:id="@+id/bluetoothButton"/>
+    </GridLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Android Beam (NFC) is active\nTap devices together to beam this photo"
+        android:id="@+id/nfcTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/locationSwitch"/>
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        />
 
 </RelativeLayout>
