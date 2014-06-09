@@ -15,8 +15,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.MethodNotSupportedException;
-
 import java.io.IOException;
 
 public class UploadActivity extends ActionBarActivity {

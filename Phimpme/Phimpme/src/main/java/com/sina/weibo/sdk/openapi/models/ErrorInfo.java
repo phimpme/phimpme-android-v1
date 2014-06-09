@@ -16,10 +16,10 @@
 
 package com.sina.weibo.sdk.openapi.models;
 
+import android.text.TextUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.text.TextUtils;
 
 /**
  * 错误信息结构体。

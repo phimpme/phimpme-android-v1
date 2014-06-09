@@ -16,11 +16,11 @@
 
 package com.sina.weibo.sdk.openapi.legacy;
 
-import java.net.URLEncoder;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+
+import java.net.URLEncoder;
 /**
  * 此类封装了打开微博的各界面接口
  * 

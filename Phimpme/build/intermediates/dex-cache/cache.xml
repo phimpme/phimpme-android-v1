@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/classes-0d15be4da9283eea8b5d602e4e8960b7d4913b81.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af4cc326e6cd92f88db12298767e521743aedd36"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/classes-ad0aa444e237e92e20eca1647427dbfccfbf81c3.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.3.23/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7676c0cb230efa6ac41c47867d372ed5913029d4"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/classes-ff18e7107c5019879fb53f8701d31fab160c4682.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/weibosdkcore-4268ecc6e3446190ca76292bf63c1657151d2800.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/libs/weibosdkcore.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="1908a7cce9571ee314fdf434701ca1c85c59ed5d"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/support-v4-19.1.0-fe930dc68beb1e566675ce71b270d4091c6c249b.jar"
+        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+
+</pre-dex-items>

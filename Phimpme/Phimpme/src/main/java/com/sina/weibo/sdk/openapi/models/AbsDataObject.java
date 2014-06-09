@@ -16,10 +16,10 @@
 
 package com.sina.weibo.sdk.openapi.models;
 
+import android.text.TextUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.text.TextUtils;
 
 /**
  * 该类用于解析Object类型数据。

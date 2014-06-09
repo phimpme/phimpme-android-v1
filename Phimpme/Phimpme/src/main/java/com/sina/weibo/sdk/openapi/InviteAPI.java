@@ -16,14 +16,14 @@
 
 package com.sina.weibo.sdk.openapi;
 
-import org.json.JSONObject;
-
 import android.text.TextUtils;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.sina.weibo.sdk.utils.LogUtil;
+
+import org.json.JSONObject;
 
 /**
  * 该类提供了好友邀请接口，支持登录用户向自己的微博互粉好友发送私信邀请、礼物。
