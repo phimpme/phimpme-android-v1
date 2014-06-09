@@ -35,20 +35,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChooseFromLibraryActivity"
+            android:name="com.phimpme.phimpme.ChooseFromLibraryActivity"
             android:label="@string/title_activity_select">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.phimpme.phimpme.MainActivity" />
         </activity>
         <activity
             android:name="com.phimpme.phimpme.PreviewActivity"
             android:label="@string/title_activity_preview">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.phimpme.phimpme.ChooseFromLibraryActivity" />
         </activity>
         <activity
             android:name="com.phimpme.phimpme.UploadActivity"
             android:label="@string/title_activity_upload">
-        </activity>
-        <activity
-            android:name=".ShareToSinaWeibo"
-            android:label="@string/title_activity_sina_weibo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.phimpme.phimpme.PreviewActivity" />
         </activity>
         <activity
             android:name="com.phimpme.phimpme.AuthActivity"
@@ -65,18 +70,30 @@
         <activity
             android:name="com.phimpme.phimpme.MapActivity"
             android:label="@string/title_activity_map">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.phimpme.phimpme.MainActivity" />
         </activity>
         <activity
             android:name="com.phimpme.phimpme.GPSManagerActivity"
             android:label="@string/title_activity_gpsmanager">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.phimpme.phimpme.UploadActivity" />
         </activity>
         <activity
             android:name="com.phimpme.phimpme.CaptureActivity"
             android:label="@string/title_activity_capture">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.phimpme.phimpme.MainActivity" />
         </activity>
         <activity
             android:name=".PhotoManipulationActivity"
             android:label="@string/title_activity_manipulation">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.phimpme.phimpme.PreviewActivity" />
         </activity>
     </application>
 

@@ -9,14 +9,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.http.MethodNotSupportedException;
 
 import java.io.IOException;
 
 public class UploadActivity extends ActionBarActivity {
 
+    private Switch locationSwitch;
+    private Button locationButton;
     private Button otherButton;
     private Button bluetoothButton;
     private Button sinaWeiboButton;
@@ -28,7 +34,10 @@ public class UploadActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        locationSwitch = (Switch) findViewById(R.id.locationSwitch);
+        locationButton = (Button) findViewById(R.id.locationButton);
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         otherButton = (Button) findViewById(R.id.otherButton);
         sinaWeiboButton = (Button) findViewById(R.id.sinaWeiboButton);
@@ -36,11 +45,28 @@ public class UploadActivity extends ActionBarActivity {
         textView = (TextView) findViewById(R.id.uplpadActivityTextview);
         imageUri = (Uri) getIntent().getExtras().get("imageUri");
 
+        // TODO: Init locationSwitch (visible if GPS data is available)
+
         try {
             preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                locationButton.setVisibility(b ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        locationButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(UploadActivity.this, GPSManagerActivity.class);
+                intent.putExtra("imageUri", imageUri);
+                startActivity(intent);
+            }
+        });
 
         // Call share method of Android
         otherButton.setOnClickListener(new Button.OnClickListener() {
@@ -65,8 +91,8 @@ public class UploadActivity extends ActionBarActivity {
             }
         });
 
-        sinaWeiboButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        sinaWeiboButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View view) {
                 Uri uri = (Uri) getIntent().getExtras().get("photoUri");
                 if (uri != null) {
                     Toast.makeText(UploadActivity.this, "Uploading to ShareToSinaWeibo.", Toast.LENGTH_LONG).show();
@@ -100,11 +126,9 @@ public class UploadActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_GPSManager) {
-            Intent toGPSManagerActivity = new Intent();
-            toGPSManagerActivity.putExtra("imageUri", imageUri);
-            toGPSManagerActivity.setClass(UploadActivity.this, GPSManagerActivity.class);
-            startActivity(toGPSManagerActivity);
+        if (id == R.id.action_send) {
+            // TODO: Add sending function
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

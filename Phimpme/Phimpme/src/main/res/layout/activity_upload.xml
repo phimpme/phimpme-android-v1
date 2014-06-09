@@ -15,7 +15,11 @@
         android:layout_height="128dp"
         android:layout_columnSpan="3"
         android:layout_gravity="fill"
-        android:layout_rowSpan="4"/>
+        android:paddingRight="8dp"
+        android:layout_rowSpan="4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"/>
 
     <EditText
 
@@ -25,29 +29,28 @@
         android:layout_alignBottom="@+id/uploadActivityImageView"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/uploadActivityImageView"
         android:layout_columnSpan="2"
         android:layout_gravity="fill"
         android:layout_rowSpan="3"
         android:editable="true"
         android:ems="10"
         android:inputType="textMultiLine"
-        />
+        android:layout_alignParentTop="true"
+        android:hint="Description..."/>
 
     <Button
         android:id="@+id/otherButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/uplpadActivityTextview"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/uplpadActivityTextview"
         android:layout_columnSpan="2"
         android:layout_gravity="fill"
         android:layout_rowSpan="1"
         android:text="Other Destinations"
-        />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -64,7 +67,32 @@
         android:text="Bluetooth"
         android:id="@+id/bluetoothButton"
         android:layout_above="@+id/otherButton"
-        android:layout_alignLeft="@+id/uplpadActivityTextview"
-        android:layout_alignStart="@+id/uplpadActivityTextview"/>
+        android:layout_alignRight="@+id/uplpadActivityTextview"
+        android:layout_alignEnd="@+id/uplpadActivityTextview"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Geographical Location"
+        android:id="@+id/locationSwitch"
+        android:layout_below="@+id/uploadActivityImageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:checked="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change geographical location"
+        android:id="@+id/locationButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/locationSwitch"/>
 
 </RelativeLayout>

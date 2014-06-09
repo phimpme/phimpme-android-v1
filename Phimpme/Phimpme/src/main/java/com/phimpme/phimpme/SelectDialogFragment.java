@@ -62,6 +62,7 @@ public class SelectDialogFragment extends DialogFragment {
                 break;
         }
         startActivity(intent);
+        dismiss();
     }
 
     private enum Behavior {CAPTURE, CHOOSE, MAP}

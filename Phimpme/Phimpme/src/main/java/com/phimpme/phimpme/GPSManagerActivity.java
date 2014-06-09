@@ -8,8 +8,6 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,20 +49,6 @@ public class GPSManagerActivity extends ActionBarActivity {
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 cursor.moveToNext();
             }
-            Button updateGPS = (Button) findViewById(R.id.GPSManagerActivityButton);
-            updateGPS.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    CameraPosition positon = mMap.getCameraPosition();
-                    Intent toUploadActivity = new Intent();
-                    toUploadActivity.putExtra("latitude", positon.target.latitude);
-                    toUploadActivity.putExtra("longitude", positon.target.longitude);
-                    Toast.makeText(GPSManagerActivity.this, positon.target.latitude + " " + positon.target.longitude, Toast.LENGTH_LONG).show();
-                    toUploadActivity.putExtra("imageUri", imageUri);
-                    toUploadActivity.setClass(GPSManagerActivity.this, UploadActivity.class);
-                    startActivity(toUploadActivity);
-                }
-            });
         }
     }
 
@@ -82,7 +66,15 @@ public class GPSManagerActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_ok) {
+            CameraPosition position = mMap.getCameraPosition();
+            Intent toUploadActivity = new Intent();
+            toUploadActivity.putExtra("latitude", position.target.latitude);
+            toUploadActivity.putExtra("longitude", position.target.longitude);
+            Toast.makeText(GPSManagerActivity.this, position.target.latitude + " " + position.target.longitude, Toast.LENGTH_LONG).show();
+            toUploadActivity.putExtra("imageUri", imageUri);
+            toUploadActivity.setClass(GPSManagerActivity.this, UploadActivity.class);
+            startActivity(toUploadActivity);
             return true;
         }
         return super.onOptionsItemSelected(item);
