@@ -22,8 +22,6 @@ import java.io.IOException;
 
 public class UploadActivity extends ActionBarActivity {
 
-    private Switch locationSwitch;
-    private Button locationButton;
     private Button otherButton;
     private Button bluetoothButton;
     private Button sinaWeiboButton;
@@ -38,8 +36,7 @@ public class UploadActivity extends ActionBarActivity {
         setContentView(R.layout.activity_upload);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        locationSwitch = (Switch) findViewById(R.id.locationSwitch);
-        locationButton = (Button) findViewById(R.id.locationButton);
+
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         otherButton = (Button) findViewById(R.id.otherButton);
         sinaWeiboButton = (Button) findViewById(R.id.sinaWeiboButton);
@@ -49,7 +46,7 @@ public class UploadActivity extends ActionBarActivity {
         imageUri = (Uri) getIntent().getExtras().get("imageUri");
 
         // NFC
-        if(Configuration.ENABLE_NFC) {
+        if (Configuration.ENABLE_NFC) {
             nfcTextView.setVisibility(View.VISIBLE);
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             if (nfcAdapter != null) {
@@ -68,6 +65,9 @@ public class UploadActivity extends ActionBarActivity {
             nfcTextView.setVisibility(View.GONE);
         }
 
+        if (Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION) {
+            init_location_modification();
+        }
 
         // Initialize
         // TODO: Init locationSwitch (visible if GPS data is available)
@@ -78,21 +78,6 @@ public class UploadActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                locationButton.setVisibility(b ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        // Set listeners
-        locationButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(UploadActivity.this, GPSManagerActivity.class);
-                intent.putExtra("imageUri", imageUri);
-                startActivity(intent);
-            }
-        });
 
         // Call share method of Android
         otherButton.setOnClickListener(new Button.OnClickListener() {
@@ -135,6 +120,26 @@ public class UploadActivity extends ActionBarActivity {
                 } else {
                     Toast.makeText(UploadActivity.this, "ImageUri is null.", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+    }
+
+    private void init_location_modification() {
+        final Switch locationSwitch = (Switch) findViewById(R.id.locationSwitch);
+        final Button locationButton = (Button) findViewById(R.id.locationButton);
+
+        locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                locationButton.setVisibility(b ? View.VISIBLE : View.GONE);
+            }
+        });
+
+        locationButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(UploadActivity.this, GPSManagerActivity.class);
+                intent.putExtra("imageUri", imageUri);
+                startActivity(intent);
             }
         });
     }
