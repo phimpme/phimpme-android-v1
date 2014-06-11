@@ -2,6 +2,7 @@ package com.phimpme.phimpme;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -24,7 +25,7 @@ public class CaptureActivity extends Activity {
     /**
      * Create a file Uri for saving an image or video
      */
-    private static Uri getOutputMediaFileUri(int type) {
+    public static Uri getOutputMediaFileUri(int type) {
         return Uri.fromFile(getOutputMediaFile(type));
     }
 
@@ -71,13 +72,12 @@ public class CaptureActivity extends Activity {
                 // Image captured and saved to uri specified in the Intent
                 assert (mediaFileUri != null);
                 Log.d(this.getLocalClassName(), "Image saved to: " + mediaFileUri);
-                // Intent intent = new Intent(this, PhotoManipulationActivity.class);
-                // TODO: Convert mediaFileUri to imageUri
-                //intent.putExtra("imageUri", mediaFileUri);
-                //startActivity(intent);
-            } else {
-                finish();
+                // TODO: Convert mediaFileUri to imageUri6
+                Intent intent = new Intent(this, PreviewActivity.class);
+                intent.putExtra("imageUri", mediaFileUri);
+                startActivity(intent);
             }
+            finish();
         }
     }
 
