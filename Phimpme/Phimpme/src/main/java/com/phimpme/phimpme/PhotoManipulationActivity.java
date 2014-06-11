@@ -15,6 +15,7 @@ public class PhotoManipulationActivity extends Activity {
         super.onCreate(savedInstanceState);
         imageUri = (Uri) getIntent().getExtras().get("imageUri"); // Make sure the Extra is put in
         Intent intent = new Intent(Intent.ACTION_EDIT, imageUri);
+        intent.setDataAndType(imageUri, "image/*");
         startActivityForResult(intent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 

@@ -71,10 +71,9 @@ public class CaptureActivity extends Activity {
                 // Image captured and saved to uri specified in the Intent
                 assert (mediaFileUri != null);
                 Log.d(this.getLocalClassName(), "Image saved to: " + mediaFileUri);
-                // Intent intent = new Intent(this, PhotoManipulationActivity.class);
-                // TODO: Convert mediaFileUri to imageUri
-                //intent.putExtra("imageUri", mediaFileUri);
-                //startActivity(intent);
+                Intent intent = new Intent(this, PreviewActivity.class);
+                intent.putExtra("imageUri", mediaFileUri);
+                startActivity(intent);
             } else {
                 finish();
             }
