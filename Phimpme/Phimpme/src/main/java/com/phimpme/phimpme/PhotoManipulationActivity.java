@@ -21,9 +21,10 @@ public class PhotoManipulationActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE) {
-            // Get the result of photo manipulation function
+            Intent intent = new Intent();
+            intent.putExtra("imageUri", data.getData());
+            setResult(EDIT_IMAGE_ACTIVITY_REQUEST_CODE, intent);
             finish();
         }
     }

@@ -14,6 +14,7 @@ import java.io.IOException;
 
 public class PreviewActivity extends ActionBarActivity {
 
+    private static final int EDIT_IMAGE_ACTIVITY_REQUEST_CODE = 400;
     ImageView preview;
     Uri imageUri;
 
@@ -66,9 +67,17 @@ public class PreviewActivity extends ActionBarActivity {
         } else if (id == R.id.action_manipulation) {
             Intent intent = new Intent(this, PhotoManipulationActivity.class);
             intent.putExtra("imageUri", imageUri);
-            startActivity(intent);
+            startActivityForResult(intent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE) {
+            imageUri = (Uri) data.getExtras().get("imageUri");
+        }
     }
 }
