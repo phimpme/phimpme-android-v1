@@ -1,0 +1,28 @@
+<!-- From: file:/Users/daniloercoli/git/Android-PasscodeLock/library/AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="0.0.5" package="org.wordpress.passcodelock">
+
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17"/>
+
+<!-- Define the following activities in your project 
+    <activity
+        android:name="org.wordpress.passcodelock.PasscodeUnlockActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.Sherlock.Light.NoActionBar"
+        android:windowSoftInputMode="stateHidden" >
+    </activity>
+    <activity
+        android:name="org.wordpress.passcodelock.PasscodePreferencesActivity"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.Sherlock.Light"
+        android:windowSoftInputMode="stateHidden" >
+    </activity>
+    <activity
+        android:name="org.wordpress.passcodelock.PasscodeManagePasswordActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.Sherlock.Light.NoActionBar"
+        android:windowSoftInputMode="stateHidden" >
+    </activity>
+ -->
+
+</manifest>

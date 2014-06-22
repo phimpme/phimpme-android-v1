@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/main"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#FFFFFF"
+            android:layout_gravity="center">
+
+    <LinearLayout
+            android:layout_width="@dimen/login_width"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:gravity="center"
+            android:layout_gravity="center|top">
+
+        <ImageView
+                android:id="@+id/logo_login"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/logo_login"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/app_name" />
+
+        <EditText
+                android:id="@+id/email_address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:hint="@string/email_hint"
+                android:inputType="textEmailAddress"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"/>
+
+        <EditText
+                android:id="@+id/password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"/>
+
+        <EditText
+                android:id="@+id/password2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:hint="@string/confirm_password_hint"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"/>
+
+        <TextView
+                android:id="@+id/l_agree_terms_of_service"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/agree_terms_of_service"
+                android:textColor="#AAAAAA"
+                android:textSize="12sp"/>
+
+        <Button
+                android:id="@+id/signup_button"
+                android:background="@drawable/login_button_selector"
+                android:textColor="#FFFFFF"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/signup_label"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/signin_button"
+                android:background="@drawable/login_button_selector"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="16dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:text="@string/signin_label"
+                android:visibility="gone"/>
+
+        <TextView
+                android:id="@+id/forgot_password_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="16sp"
+                android:textColor="#3489d6"
+                android:gravity="center_horizontal"
+                android:text="@string/forgot_password"
+                android:visibility="gone"/>
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/no_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/have_account"
+                android:textColor="#777777"
+                android:textSize="16sp"
+                />
+
+        <TextView
+                android:id="@+id/create_account_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="16sp"
+                android:textColor="#3489d6"
+                android:text="@string/signup_label"
+                android:visibility="gone"/>
+
+        <TextView
+                android:id="@+id/have_account_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="16sp"
+                android:textColor="#3489d6"
+                android:text="@string/signin_label"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView><!-- From: file:/Users/dan/git/simperium-android/Simperium/src/main/res/layout/login.xml -->
