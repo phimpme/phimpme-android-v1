@@ -128,12 +128,18 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if(imageUri != null) {
-                    ShareToWordPress wordPress = new ShareToWordPress(UploadActivity.this);
-                    if(wordPress.uploadImage(imageUri)) {
-                        System.out.println("aaaaaaaaaaaaaaaaa");
-                    }else {
-                        System.out.println("bbbbbbbbbbbbbbbbb");
-                    }
+                    ShareToWordPress wordPress = new ShareToWordPress();
+                    Bundle data = new Bundle();
+                    data.putStringArray("id", new String[]{"1"});
+                    data.putStringArray("service", new String[]{"wordpress"});
+                    data.putStringArray("name", new String[]{wordPress.userName});
+                    data.putString("imagelist", imageUri.getPath());
+                    data.putString("userName", wordPress.userName);
+                    data.putString("passWord", wordPress.passWord);
+                    data.putString("userUrl", wordPress.userUrl);
+                    Intent intent = new Intent(UploadActivity.this, UploadProgress.class);
+                    intent.putExtras(data);
+                    startActivity(intent);
                 }
             }
         });
