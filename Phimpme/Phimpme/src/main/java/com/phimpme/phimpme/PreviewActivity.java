@@ -67,6 +67,7 @@ public class PreviewActivity extends ActionBarActivity {
         } else if (id == R.id.action_manipulation) {
             Intent intent = new Intent(this, PhotoManipulationActivity.class);
             intent.putExtra("imageUri", imageUri);
+            intent.setType("image/*");
             startActivityForResult(intent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
             return true;
         }

@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.channels.FileChannel;
 
 
@@ -33,8 +33,26 @@ public class ChooseFromLibraryActivity extends Activity {
             if (resultCode == RESULT_OK) {
                 // User chose an image
                 imageUri = data.getData();
+                System.out.println("O.O  " + data.getData().toString());
                 if (imageUri != null) {
-                    imageUri = fileChannelCopy(imageUri, CaptureActivity.getOutputMediaFileUri(MEDIA_TYPE_IMAGE));
+                    //Copy Uri contents into temp File.
+                    File tempFile = new File(this.getFilesDir().getAbsolutePath(), "temp_image");
+                    try {
+                        tempFile.createNewFile();
+                        InputStream inputStream = this.getContentResolver().openInputStream(imageUri);
+                        FileOutputStream fileOutputStream = new FileOutputStream(tempFile);
+                        while(inputStream.available() > 0) {
+                            byte[] buffer = new byte[inputStream.available()];
+                            inputStream.read(buffer);
+                            fileOutputStream.write(buffer);
+                        }
+                    } catch (IOException e) {
+                        //Log Error
+                    }
+                    //Now fetch the new URI
+                    imageUri = Uri.fromFile(tempFile);
+                    System.out.println("O.O  " + imageUri.toString());
+                    //imageUri = fileChannelCopy(imageUri, CaptureActivity.getOutputMediaFileUri(MEDIA_TYPE_IMAGE));
                     Intent intent = new Intent(this, PreviewActivity.class);
                     intent.putExtra("imageUri", imageUri);
                     startActivity(intent);
@@ -75,8 +93,9 @@ public class ChooseFromLibraryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Call built-in Gallery
-        chooseIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        chooseIntent = new Intent(Intent.ACTION_PICK);
+        chooseIntent.setType("image/*");
+        chooseIntent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(chooseIntent, CHOOSE_IMAGE_ACTIVITY_REQUEST_CODE);
     }
 }

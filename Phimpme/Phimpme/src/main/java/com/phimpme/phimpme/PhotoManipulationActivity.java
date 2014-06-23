@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 public class PhotoManipulationActivity extends Activity {
 
@@ -21,11 +22,11 @@ public class PhotoManipulationActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE && data != null) {
             Intent intent = new Intent();
             intent.putExtra("imageUri", data.getData());
             setResult(EDIT_IMAGE_ACTIVITY_REQUEST_CODE, intent);
-            finish();
         }
+        finish();
     }
 }
