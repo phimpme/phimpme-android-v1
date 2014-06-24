@@ -2,13 +2,9 @@ package com.phimpme.phimpme;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.wordpress.android.AddCatagory;
 import org.wordpress.android.models.MediaFile;
 import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
@@ -19,26 +15,18 @@ import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.LinearLayout;
 
 public class UploadProgress extends Activity {
     Context ctx;
-    Bundle data;
-    LinearLayout lytUploadProgress;
+    protected AccountInfo accountInfo;
+    private ConnectivityManager mSystemService;
 
-    public static String[] account_id;
-    public static String[] account_name;
-    static String[] account_service;
+    //private static int progressStatus = 0, progressStatus1 = 0;
     //static String MAINTAG = "MBM";
     //static String DRUPALTAG = "MBM.Drupal";
-    static String imagelist;
-    static ArrayList<Integer> checked_ids = new ArrayList<Integer>();
+    //static ArrayList<Integer> checked_ids = new ArrayList<Integer>();
     //static ArrayList<ProgressBar> progressbar_array = new ArrayList<ProgressBar>();
-    static String[] path;
     //static final String default_tag_separate = ",";
-    private static int progressStatus = 0, progressStatus1 = 0;
-    private ConnectivityManager mSystemService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,30 +34,14 @@ public class UploadProgress extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ctx = this;
         mSystemService = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        data = getIntent().getExtras();
-        account_id = data.getStringArray("id");
-        account_service = data.getStringArray("service");
-        account_name = data.getStringArray("name");
-        imagelist = data.getString("imagelist");
-        path = imagelist.split("#");
+        accountInfo = (AccountInfo) getIntent().getSerializableExtra("account");
         new UploadProgressAsyncTask().execute(0);
     }
 
-    @Override
-    public void onBackPressed() {
-        try {
-            checked_ids.clear();
-            lytUploadProgress.removeAllViews();
-            finish();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private class UploadProgressAsyncTask extends AsyncTask<Integer, Integer, Boolean> {
-        private int pos;
+        //private int pos;
         //long totalSize;
-        ResponseHandler<String> res = new BasicResponseHandler();
+        //ResponseHandler<String> res = new BasicResponseHandler();
         /*DrupalItem acc = null;
         String session_id = "";
         String session_name = "";
@@ -82,7 +54,7 @@ public class UploadProgress extends Activity {
                 HttpPost post = new HttpPost(url);
                 HttpClient client = new DefaultHttpClient();*/
                 /* Why does each subroutines only works with its own HttpClient and not share HttpClient
-				 * with each other? */
+                 * with each other? */
 
                 /*MultipartEntity multi = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
@@ -293,9 +265,84 @@ public class UploadProgress extends Activity {
         @Override
         protected Boolean doInBackground(Integer... params) {
             Boolean result = false;
-            pos = params[0];
-            String _s = account_service[pos].toLowerCase();
+            String _s = accountInfo.getAccountCategory();
+            if ("wordPress".equals(_s)) {
+                if (mSystemService.getActiveNetworkInfo() == null) {
+                    return false;
+                } else {
+                    String userName = accountInfo.getUserName();
+                    String passWord = accountInfo.getPassWord();
+                    String userUrl = accountInfo.getUserUrl();
+                    String imagePath = accountInfo.getImagePath();
+                    XMLRPCClient client = new XMLRPCClient(userUrl, "", "");
 
+                    //create temp file for media upload
+                    String tempFileName = "wp-" + System.currentTimeMillis();
+                    try {
+                        ctx.openFileOutput(tempFileName, Context.MODE_PRIVATE);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    MediaFile mediaFile = new MediaFile();
+                    mediaFile.setFilePath(imagePath);
+                    Map<String, Object> imageProperties = new HashMap<String, Object>();
+                    imageProperties.put("name", new File(imagePath).getName());
+                    imageProperties.put("type", "image/jpeg");
+                    imageProperties.put("bits", mediaFile);
+                    imageProperties.put("overwrite", true);
+
+                    Object[] imageUploadParams = {1, userName, passWord, imageProperties};
+                    HashMap<?, ?> imageUploadResult = new HashMap<Object, Object>();
+                    try {
+                        imageUploadResult = (HashMap<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, ctx.getFileStreamPath(tempFileName));
+                    } catch (XMLRPCException e) {
+                        e.printStackTrace();
+                    }
+                    String imageuploadResultURL = imageUploadResult.get("url").toString();
+                    int featuredImageID = -1;
+                    try {
+                        if (imageUploadResult.get("id") != null) {
+                            featuredImageID = Integer.parseInt(imageUploadResult.get("id").toString());
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                    String articleUploadAlignmentCSS = "class=\"" + "alignnone" + "\" ";
+                    String content = "";
+                    if (imageuploadResultURL != null) {
+                        content += "<a href=\""
+                                + imageuploadResultURL
+                                + "\"><img title=\""
+                                + mediaFile.getTitle() + "\" "
+                                + articleUploadAlignmentCSS
+                                + "alt=\"image\" src=\""
+                                + imageuploadResultURL + "\" /></a>";
+
+                    }
+                    Map<String, Object> contentStruct = new HashMap<String, Object>();
+                    contentStruct.put("wp_post_format", "standard");
+                    contentStruct.put("post_type", "post");
+                    contentStruct.put("title", "");
+                    contentStruct.put("wp_password", "");
+                    contentStruct.put("description", content);
+                    contentStruct.put("mt_keywords", "");
+                    contentStruct.put("categories", new String[]{"phimpme mobile"});
+                    contentStruct.put("mt_excerpt", "");
+                    contentStruct.put("post_status", "publish");
+                    if (featuredImageID != -1) {
+                        contentStruct.put("wp_post_thumbnail", featuredImageID);
+                    }
+
+                    Object[] articleUploadParams = new Object[]{1, userName, passWord, contentStruct, false};
+                    try {
+                        client.call("metaWeblog.newPost", articleUploadParams);
+                        result = true;
+                    } catch (final XMLRPCException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             /*if (DrupalServices.title.toLowerCase().equals(_s)) {
                 acc = DrupalItem.getItem(ctx, account_id[pos]);
                 String username = acc.getUsername();
@@ -477,119 +524,7 @@ public class UploadProgress extends Activity {
                     }
 
                 }
-            } else*/ if ("wordpress".equals(_s)) {
-                if (mSystemService.getActiveNetworkInfo() == null) {
-                    return false;
-                } else {
-                    for (int i = 0; i < path.length; i++) {
-                        progressStatus1 = 0;
-                        String content = "";
-                        int featuredImageID = -1;
-                        MediaFile mf = new MediaFile();
-
-
-                        String username = data.getString("userName");
-                        String password = data.getString("passWord");
-                        String url = data.getString("userUrl");
-
-                        AddCatagory add = new AddCatagory();
-                        add.getCategories(url, username, password);
-
-                        String[] theCategories = null;
-                        theCategories = new String[1];
-                        theCategories[0] = "phimpme mobile";
-
-                        XMLRPCClient client = new XMLRPCClient(url, "", "");
-                        //create temp file for media upload
-                        String tempFileName = "wp-" + System.currentTimeMillis();
-
-                        String imagepath = path[i].split(";")[0];
-                        try {
-                            ctx.openFileOutput(tempFileName, Context.MODE_PRIVATE);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-
-                        File tempFile = ctx.getFileStreamPath(tempFileName);
-                        mf.setFilePath(imagepath);
-
-                        Map<String, Object> m = new HashMap<String, Object>();
-                        File jpeg = new File(imagepath);
-                        String filename = jpeg.getName();
-                        Log.d("UploadProgress", "filename : " + filename);
-                        m.put("name", filename);
-                        m.put("type", "image/jpeg");
-                        m.put("bits", mf);
-                        m.put("overwrite", true);
-
-                        Object[] params1 = {1, username, password, m};
-                        Object result1 = null;
-
-                        try {
-                            result1 = (Object) client.callUploadFile("wp.uploadFile", params1, tempFile);
-                            Log.d("UploadProgress", "result : " + result1.toString());
-                        } catch (XMLRPCException e) {
-                            e.printStackTrace();
-                        }
-                        HashMap<?, ?> contentHash = new HashMap<Object, Object>();
-
-                        contentHash = (HashMap<?, ?>) result1;
-
-                        String resultURL = contentHash.get("url").toString();
-                        System.out.println("aaaaaaaaaa " + resultURL);
-
-                        try {
-                            if (contentHash.get("id") != null) {
-                                featuredImageID = Integer.parseInt(contentHash.get("id").toString());
-                            }
-                        } catch (NumberFormatException e) {
-                            e.printStackTrace();
-                        }
-
-                        String alignmentCSS = "class=\"" + "alignnone" + "\" ";
-                        if (resultURL != null) {
-                            content = content
-                                    + "<a href=\""
-                                    + resultURL
-                                    + "\"><img title=\""
-                                    + mf.getTitle() + "\" "
-                                    + alignmentCSS
-                                    + "alt=\"image\" src=\""
-                                    + resultURL + "\" /></a>";
-
-                        }
-
-                        Map<String, Object> contentStruct = new HashMap<String, Object>();
-                        contentStruct.put("wp_post_format", "standard");
-                        contentStruct.put("post_type", "post");
-                        contentStruct.put("title", "");
-                        contentStruct.put("wp_password", "");
-                        contentStruct.put("description", content);
-                        contentStruct.put("mt_keywords", "");
-                        contentStruct.put("categories", theCategories);
-                        contentStruct.put("mt_excerpt", "");
-                        contentStruct.put("post_status", "publish");
-
-                        if (featuredImageID != -1)
-                            contentStruct.put("wp_post_thumbnail", featuredImageID);
-
-                        Object[] params2;
-                        params2 = new Object[]{1, username, password, contentStruct, false};
-                        XMLRPCClient client1 = new XMLRPCClient(url, "", "");
-
-                        try {
-                            Object result3 = null;
-                            result3 = (Object) client1.call("metaWeblog.newPost", params2);
-                            Log.d("UploadProgress", "result upload : " + result3.toString());
-                            result = true;
-
-                        } catch (final XMLRPCException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }
-            } /*else if ("joomla".equals(_s)) {
+            } else if ("joomla".equals(_s)) {
                 if (mSystemService.getActiveNetworkInfo() == null) {
                     return false;
                 } else {
