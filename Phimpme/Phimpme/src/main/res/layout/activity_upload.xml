@@ -75,7 +75,7 @@
     <GridLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:columnCount="2"
+        android:columnCount="3"
         android:layout_below="@+id/otherButton"
         android:rowCount="2"
         android:columnOrderPreserved="true"
@@ -102,6 +102,16 @@
             android:layout_row="0"
             android:layout_column="1"
             android:id="@+id/bluetoothButton"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WordPress"
+            android:id="@+id/wordPressButton"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_row="0"
+            android:layout_column="2"/>
     </GridLayout>
 
     <TextView
@@ -116,13 +126,5 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WordPress"
-        android:id="@+id/wordPressButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -34,6 +34,7 @@ public class PreviewActivity extends ActionBarActivity {
         try {
             preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri));
         } catch (IOException e) {
+            Toast.makeText(this, "Error occurred while loading the image.", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -55,18 +56,16 @@ public class PreviewActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_upload) {
-            Intent toUploadIntent = new Intent();
-            toUploadIntent.setClass(this, UploadActivity.class);
-            if (imageUri != null) {
-                toUploadIntent.putExtra("imageUri", imageUri);
-                startActivity(toUploadIntent);
-            } else {
-                Toast.makeText(this, "ImageUri is null.", Toast.LENGTH_LONG).show();
-            }
+            assert (imageUri != null);
+            Intent intent = new Intent();
+            intent.setClass(this, UploadActivity.class);
+            intent.putExtra("imageUri", imageUri);
+            startActivity(intent);
             return true;
         } else if (id == R.id.action_manipulation) {
             Intent intent = new Intent(this, PhotoManipulationActivity.class);
             intent.putExtra("imageUri", imageUri);
+            intent.setType("image/*");
             startActivityForResult(intent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
             return true;
         }
