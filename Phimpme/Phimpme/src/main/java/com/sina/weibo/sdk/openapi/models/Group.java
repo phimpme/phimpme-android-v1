@@ -23,36 +23,60 @@ import java.util.ArrayList;
 
 /**
  * 好友分组信息。
- * 
+ *
  * @author SINA
  * @date 2013-11-27
  */
 public class Group {
     public static final String GROUP_ID_ALL = "1";
 
-    /** 微博分组ID **/
+    /**
+     * 微博分组ID *
+     */
     public String id;
-    /** 微博分组字符串ID **/
+    /**
+     * 微博分组字符串ID *
+     */
     public String idStr;
-    /** 分组名称 **/
+    /**
+     * 分组名称 *
+     */
     public String name;
-    /** 类型（不公开分组等） **/
+    /**
+     * 类型（不公开分组等） *
+     */
     public String mode;
-    /** 是否公开 **/
+    /**
+     * 是否公开 *
+     */
     public int visible;
-    /** 喜欢数 **/
+    /**
+     * 喜欢数 *
+     */
     public int like_count;
-    /** 分组成员数 **/
+    /**
+     * 分组成员数 *
+     */
     public int member_count;
-    /** 分组描述 **/
+    /**
+     * 分组描述 *
+     */
     public String description;
-    /** 分组的Tag 信息 **/
+    /**
+     * 分组的Tag 信息 *
+     */
     public ArrayList<Tag> tags;
-    /** 头像信息 **/
+    /**
+     * 头像信息 *
+     */
     public String profile_image_url;
-    /** 分组所属用户信息 **/
+    /**
+     * 分组所属用户信息 *
+     */
     public User user;
-    /** 分组创建时间 **/
+    /**
+     * 分组创建时间 *
+     */
     public String createAtTime;
 
     public static Group parse(JSONObject jsonObject) {
@@ -62,16 +86,16 @@ public class Group {
 
         Group group = new Group();
         group.user = User.parse(jsonObject.optJSONObject("user"));
-        group.id                = jsonObject.optString("id");
-        group.idStr             = jsonObject.optString("idstr");
-        group.name              = jsonObject.optString("name");
-        group.mode              = jsonObject.optString("mode");
-        group.visible           = jsonObject.optInt("visible");
-        group.like_count        = jsonObject.optInt("like_count");
-        group.member_count      = jsonObject.optInt("member_count");
-        group.description       = jsonObject.optString("description");
+        group.id = jsonObject.optString("id");
+        group.idStr = jsonObject.optString("idstr");
+        group.name = jsonObject.optString("name");
+        group.mode = jsonObject.optString("mode");
+        group.visible = jsonObject.optInt("visible");
+        group.like_count = jsonObject.optInt("like_count");
+        group.member_count = jsonObject.optInt("member_count");
+        group.description = jsonObject.optString("description");
         group.profile_image_url = jsonObject.optString("profile_image_url");
-        group.createAtTime      = jsonObject.optString("create_time", "");
+        group.createAtTime = jsonObject.optString("create_time", "");
 
         JSONArray jsonArray = jsonObject.optJSONArray("tags");
         if (jsonArray != null && jsonObject.length() > 0) {

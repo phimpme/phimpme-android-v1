@@ -20,7 +20,12 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import static com.phimpme.phimpme.Configuration.*;
+import static com.phimpme.phimpme.Configuration.ENABLE_ANDROID_SHARING;
+import static com.phimpme.phimpme.Configuration.ENABLE_BLUETOOTH;
+import static com.phimpme.phimpme.Configuration.ENABLE_NFC;
+import static com.phimpme.phimpme.Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION;
+import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_WEIBO;
+import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_WORDPRESS;
 
 public class UploadActivity extends ActionBarActivity {
 
@@ -82,35 +87,25 @@ public class UploadActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        if(ENABLE_ANDROID_SHARING) {
+        if (ENABLE_ANDROID_SHARING) {
             enable_android_sharing();
         } else {
             otherButton.setVisibility(View.GONE);
         }
-        // Call share method of Android
-        otherButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
-                uploadPhotoIntent.setType("image/*");
-                uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
-                startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
-            }
-        });
 
-        if(ENABLE_BLUETOOTH) {
+        if (ENABLE_BLUETOOTH) {
             enable_bluetooth();
         } else {
             bluetoothButton.setVisibility(View.GONE);
         }
 
-        if(ENABLE_SHARING_TO_WEIBO) {
+        if (ENABLE_SHARING_TO_WEIBO) {
             enable_weibo();
         } else {
             sinaWeiboButton.setVisibility(View.GONE);
         }
 
-        if(ENABLE_SHARING_TO_WORDPRESS) {
+        if (ENABLE_SHARING_TO_WORDPRESS) {
             enable_wordpress();
         } else {
             wordPressButton.setVisibility(View.GONE);
@@ -147,13 +142,17 @@ public class UploadActivity extends ActionBarActivity {
         wordPressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(imageUri != null) {
-                    ShareToWordPress wordPress = new ShareToWordPress(UploadActivity.this);
-                    if(wordPress.uploadImage(imageUri)) {
-                        System.out.println("aaaaaaaaaaaaaaaaa");
-                    }else {
-                        System.out.println("bbbbbbbbbbbbbbbbb");
-                    }
+                if (imageUri != null) {
+                    AccountInfo wordPress = new AccountInfo("wordPress");
+                    wordPress.setUserName("yzq");
+                    wordPress.setPassWord("PASSWORD_HERE");
+                    wordPress.setUserUrl("http://www.yuzhiqiang.org/xmlrpc.php");
+                    wordPress.setImagePath(imageUri.getPath());
+                    Bundle data = new Bundle();
+                    data.putSerializable("account", wordPress);
+                    Intent intent = new Intent(UploadActivity.this, UploadProgress.class);
+                    intent.putExtras(data);
+                    startActivity(intent);
                 }
             }
         });

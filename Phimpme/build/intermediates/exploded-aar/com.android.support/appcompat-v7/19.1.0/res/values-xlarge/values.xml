@@ -2,11 +2,11 @@
 <resources>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-xlarge/bools.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <bool name="abc_action_bar_expanded_action_views_exclusive">false</bool>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-xlarge/dimens.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <dimen name="abc_action_bar_default_height">56dip</dimen>
     <dimen name="abc_action_bar_icon_vertical_padding">4dip</dimen>

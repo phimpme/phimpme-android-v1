@@ -14,10 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<view xmlns:android="http://schemas.android.com/apk/res/android"
+<view style="?attr/actionBarTabStyle"
       class="android.support.v7.internal.widget.ScrollingTabContainerView$TabView"
+      xmlns:android="http://schemas.android.com/apk/res/android"
       android:layout_width="0dp"
-      android:layout_weight="1"
       android:layout_height="wrap_content"
-      style="?attr/actionBarTabStyle"/>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_tab.xml -->
+      android:layout_weight="1"/>
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_tab.xml -->

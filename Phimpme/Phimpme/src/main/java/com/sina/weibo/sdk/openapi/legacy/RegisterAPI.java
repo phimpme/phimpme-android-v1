@@ -24,22 +24,22 @@ import com.sina.weibo.sdk.openapi.AbsOpenAPI;
 /**
  * 该类封装了微博的注册接口。
  * 详情请参考<a href="http://t.cn/8F1nSzB">注册接口</a>
- * 
+ *
  * @author SINA
  * @date 2014-03-03
  */
 public class RegisterAPI extends AbsOpenAPI {
+    private static final String SERVER_URL_PRIX = API_SERVER + "/register";
+
     public RegisterAPI(Oauth2AccessToken accessToken) {
         super(accessToken);
     }
 
-    private static final String SERVER_URL_PRIX = API_SERVER + "/register";
-
     /**
      * 验证昵称是否可用。
-     * 
-     * @param nickname  需要验证的昵称。4-20个字符，支持中英文、数字、"_"或减号
-     * @param listener  异步请求回调接口
+     *
+     * @param nickname 需要验证的昵称。4-20个字符，支持中英文、数字、"_"或减号
+     * @param listener 异步请求回调接口
      */
     public void suggestions(String nickname, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();

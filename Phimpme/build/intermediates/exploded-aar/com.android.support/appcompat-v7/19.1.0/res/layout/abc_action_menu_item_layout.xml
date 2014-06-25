@@ -15,17 +15,17 @@
 -->
 
 <android.support.v7.internal.view.menu.ActionMenuItemView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:focusable="true"
-        android:paddingTop="4dip"
-        android:paddingBottom="4dip"
-        android:paddingLeft="8dip"
-        android:paddingRight="8dip"
-        android:textAppearance="?attr/actionMenuTextAppearance"
-        android:textColor="?attr/actionMenuTextColor"
-        style="?attr/actionButtonStyle"/>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_menu_item_layout.xml -->
+    style="?attr/actionButtonStyle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:focusable="true"
+    android:gravity="center"
+    android:paddingBottom="4dip"
+    android:paddingLeft="8dip"
+    android:paddingRight="8dip"
+    android:paddingTop="4dip"
+    android:textAppearance="?attr/actionMenuTextAppearance"
+    android:textColor="?attr/actionMenuTextColor"/>
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_menu_item_layout.xml -->

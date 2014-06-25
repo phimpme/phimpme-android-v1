@@ -24,19 +24,25 @@ import java.util.ArrayList;
 
 /**
  * 我喜欢的微博信息结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-24
  */
 public class Favorite {
 
-    /** 我喜欢的微博信息 */
+    /**
+     * 我喜欢的微博信息
+     */
     public Status status;
-    /** 我喜欢的微博的 Tag 信息 */
+    /**
+     * 我喜欢的微博的 Tag 信息
+     */
     public ArrayList<Tag> tags;
-    /** 创建我喜欢的微博信息的时间 */
+    /**
+     * 创建我喜欢的微博信息的时间
+     */
     public String favorited_time;
-    
+
     public static Favorite parse(String jsonString) {
         try {
             JSONObject object = new JSONObject(jsonString);
@@ -44,20 +50,20 @@ public class Favorite {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
-    
+
     public static Favorite parse(JSONObject jsonObject) {
         if (null == jsonObject) {
             return null;
         }
 
         Favorite favorite = new Favorite();
-        favorite.status         = Status.parse(jsonObject.optJSONObject("status"));
+        favorite.status = Status.parse(jsonObject.optJSONObject("status"));
         favorite.favorited_time = jsonObject.optString("favorited_time");
-            
-        JSONArray jsonArray    = jsonObject.optJSONArray("tags");
+
+        JSONArray jsonArray = jsonObject.optJSONArray("tags");
         if (jsonArray != null && jsonArray.length() > 0) {
             int length = jsonArray.length();
             favorite.tags = new ArrayList<Tag>(length);

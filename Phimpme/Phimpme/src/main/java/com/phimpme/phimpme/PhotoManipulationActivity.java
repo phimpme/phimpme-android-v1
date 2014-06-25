@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
 public class PhotoManipulationActivity extends Activity {
 
@@ -15,7 +14,7 @@ public class PhotoManipulationActivity extends Activity {
         super.onCreate(savedInstanceState);
         // Call the built-in photo editor in Gallery
         final Uri imageUri = (Uri) getIntent().getExtras().get("imageUri");
-        assert(imageUri != null);
+        assert (imageUri != null);
         Intent intent = new Intent(Intent.ACTION_EDIT, imageUri);
         intent.setDataAndType(imageUri, "image/*");
         startActivityForResult(intent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -26,7 +25,7 @@ public class PhotoManipulationActivity extends Activity {
         if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE) {
             // Get the return image from Gallery photo editor
             final Uri imageUri = data.getData();
-            assert(imageUri != null);
+            assert (imageUri != null);
             Intent intent = new Intent();
             intent.putExtra("imageUri", imageUri);
             setResult(EDIT_IMAGE_ACTIVITY_REQUEST_CODE, intent);

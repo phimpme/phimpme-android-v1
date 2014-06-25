@@ -24,21 +24,21 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:focusable="true"
         android:addStatesFromChildren="true"
-        android:background="?attr/actionBarItemBackground">
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="56dip"
             android:layout_height="36dip"
             android:layout_gravity="center"
-            android:paddingTop="2dip"
+            android:adjustViewBounds="true"
             android:paddingBottom="2dip"
             android:paddingLeft="12dip"
             android:paddingRight="12dip"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
+            android:paddingTop="2dip"
+            android:scaleType="fitCenter"/>
 
     </FrameLayout>
 
@@ -47,21 +47,21 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:focusable="true"
         android:addStatesFromChildren="true"
-        android:background="?attr/actionBarItemBackground">
+        android:background="?attr/actionBarItemBackground"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="56dip"
             android:layout_height="36dip"
             android:layout_gravity="center"
-            android:paddingTop="2dip"
+            android:adjustViewBounds="true"
             android:paddingBottom="2dip"
             android:paddingLeft="12dip"
             android:paddingRight="12dip"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
+            android:paddingTop="2dip"
+            android:scaleType="fitCenter"/>
 
     </FrameLayout>
 

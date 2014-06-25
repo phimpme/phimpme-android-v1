@@ -15,9 +15,9 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false"
-        android:drawable="@drawable/abc_ic_clear_disabled" />
+    <item android:drawable="@drawable/abc_ic_clear_disabled"
+          android:state_enabled="false"/>
     <item
-         android:drawable="@drawable/abc_ic_clear_normal" />
+        android:drawable="@drawable/abc_ic_clear_normal"/>
 </selector>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/drawable/abc_ic_clear.xml -->
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/drawable/abc_ic_clear.xml -->

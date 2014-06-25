@@ -9,98 +9,98 @@ import android.text.style.ImageSpan;
 //import android.util.Log;
 
 public class WPImageSpan extends ImageSpan {
-	
-		private Uri imageSource = null;
 
-		private int width = 500;
-		private String title = "";
-		private String description = "";
-		private String caption = "";
-		private int horizontalAlignment = 0;
-		private boolean isVideo;
-		private boolean featured = false;
-		private boolean featuredInPost = false;
+    private Uri imageSource = null;
 
-		public String getTitle() {
-			return title;
-		}
+    private int width = 500;
+    private String title = "";
+    private String description = "";
+    private String caption = "";
+    private int horizontalAlignment = 0;
+    private boolean isVideo;
+    private boolean featured = false;
+    private boolean featuredInPost = false;
 
-		public void setTitle(String title) {
-			this.title = title;
-		}
+    public WPImageSpan(Context context, Bitmap b, Uri src) {
+        super(context, b);
+        this.imageSource = src;
+        // TODO Auto-generated constructor stub
+    }
 
-		public String getDescription() {
-			return description;
-		}
+    public String getTitle() {
+        return title;
+    }
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-		public int getHorizontalAlignment() {
-			return horizontalAlignment;
-		}
+    public String getDescription() {
+        return description;
+    }
 
-		public void setHorizontalAlignment(int horizontalAlignment) {
-			this.horizontalAlignment = horizontalAlignment;
-		}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-		public void setImageSource(Uri imageSource) {
-			this.imageSource = imageSource;
-		}
+    public int getHorizontalAlignment() {
+        return horizontalAlignment;
+    }
 
-		public WPImageSpan(Context context, Bitmap b, Uri src) {
-		super(context, b);
-		this.imageSource = src;
-		// TODO Auto-generated constructor stub
-	}
+    public void setHorizontalAlignment(int horizontalAlignment) {
+        this.horizontalAlignment = horizontalAlignment;
+    }
 
-        public Uri getImageSource() {
-                return imageSource;
-        }
+    public Uri getImageSource() {
+        return imageSource;
+    }
 
-        public void setSrc(Uri src) {
-                this.imageSource = src;
-        }
-        
-        public int getWidth() {
-			return width;
-		}
+    public void setImageSource(Uri imageSource) {
+        this.imageSource = imageSource;
+    }
 
-		public void setWidth(int width) {
-			this.width = width;
-		}
+    public void setSrc(Uri src) {
+        this.imageSource = src;
+    }
 
-		public String getCaption() {
-			return caption;
-		}
+    public int getWidth() {
+        return width;
+    }
 
-		public void setCaption(String caption) {
-			this.caption = caption;
-		}
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
-		public boolean isFeatured() {
-			return featured;
-		}
+    public String getCaption() {
+        return caption;
+    }
 
-		public void setFeatured(boolean featured) {
-			this.featured = featured;
-		}
-		
-		public boolean isFeaturedInPost() {
-			return featuredInPost;
-		}
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
 
-		public void setFeaturedInPost(boolean featuredInPost) {
-			this.featuredInPost = featuredInPost;
-		}
-		
-		public boolean isVideo() {
-			return isVideo;
-		}
+    public boolean isFeatured() {
+        return featured;
+    }
 
-		public void setVideo(boolean isVideo) {
-			this.isVideo = isVideo;
-		}
+    public void setFeatured(boolean featured) {
+        this.featured = featured;
+    }
+
+    public boolean isFeaturedInPost() {
+        return featuredInPost;
+    }
+
+    public void setFeaturedInPost(boolean featuredInPost) {
+        this.featuredInPost = featuredInPost;
+    }
+
+    public boolean isVideo() {
+        return isVideo;
+    }
+
+    public void setVideo(boolean isVideo) {
+        this.isVideo = isVideo;
+    }
 
 }

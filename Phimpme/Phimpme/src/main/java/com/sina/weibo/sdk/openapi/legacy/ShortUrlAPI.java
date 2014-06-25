@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package com.sina.weibo.sdk.openapi.legacy;
 
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -24,22 +24,22 @@ import com.sina.weibo.sdk.openapi.AbsOpenAPI;
 /**
  * 该类封装了微博的短链接接口。
  * 详情请参考<a href="http://t.cn/8F3g1mY">短链接接口</a>
- * 
+ *
  * @author SINA
  * @date 2014-03-03
  */
 public class ShortUrlAPI extends AbsOpenAPI {
+    private static final String SERVER_URL_PRIX = API_SERVER + "/short_url";
+
     public ShortUrlAPI(Oauth2AccessToken accessToken) {
         super(accessToken);
     }
 
-    private static final String SERVER_URL_PRIX = API_SERVER + "/short_url";
-
     /**
      * 将一个或多个长链接转换成短链接
-     * 
-     * @param url_long  需要转换的长链接，最多不超过20个
-     * @param listener  异步请求回调接口
+     *
+     * @param url_long 需要转换的长链接，最多不超过20个
+     * @param listener 异步请求回调接口
      */
     public void shorten(String[] url_long, RequestListener listener) {
         WeiboParameters params = buildURLRequest(url_long, "url_long");
@@ -48,8 +48,8 @@ public class ShortUrlAPI extends AbsOpenAPI {
 
     /**
      * 将一个或多个短链接还原成原始的长链接。
-     * 
-     * @param url_short 需要还原的短链接，最多不超过20个 
+     *
+     * @param url_short 需要还原的短链接，最多不超过20个
      * @param listener  异步请求回调接口
      */
     public void expand(String[] url_short, RequestListener listener) {
@@ -64,9 +64,9 @@ public class ShortUrlAPI extends AbsOpenAPI {
 
     /**
      * 获取短链接的总点击数。
-     * 
-     * @param url_short     需要取得点击数的短链接，最多不超过20个
-     * @param listener      异步请求回调接口
+     *
+     * @param url_short 需要取得点击数的短链接，最多不超过20个
+     * @param listener  异步请求回调接口
      */
     public void clicks(String[] url_short, RequestListener listener) {
         WeiboParameters params = buildURLRequest(url_short, "url_short");
@@ -75,9 +75,9 @@ public class ShortUrlAPI extends AbsOpenAPI {
 
     /**
      * 获取一个短链接点击的referer来源和数量。
-     * 
-     * @param url_short     需要取得点击来源的短链接
-     * @param listener      异步请求回调接口
+     *
+     * @param url_short 需要取得点击来源的短链接
+     * @param listener  异步请求回调接口
      */
     public void referers(String url_short, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -87,9 +87,9 @@ public class ShortUrlAPI extends AbsOpenAPI {
 
     /**
      * 获取一个短链接点击的地区来源和数量。
-     * 
-     * @param url_short     需要取得点击来源的短链接
-     * @param listener      异步请求回调接口
+     *
+     * @param url_short 需要取得点击来源的短链接
+     * @param listener  异步请求回调接口
      */
     public void locations(String url_short, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -99,9 +99,9 @@ public class ShortUrlAPI extends AbsOpenAPI {
 
     /**
      * 获取短链接在微博上的微博分享数。
-     * 
-     * @param url_short     需要取得分享数的短链接，最多不超过20个
-     * @param listener      异步请求回调接口
+     *
+     * @param url_short 需要取得分享数的短链接，最多不超过20个
+     * @param listener  异步请求回调接口
      */
     public void shareCounts(String[] url_short, RequestListener listener) {
         WeiboParameters params = buildURLRequest(url_short, "url_short");
@@ -110,7 +110,7 @@ public class ShortUrlAPI extends AbsOpenAPI {
 
     /**
      * 获取包含指定单个短链接的最新微博内容。
-     * 
+     *
      * @param url_short 需要取得关联微博内容的短链接
      * @param since_id  若指定此参数，则返回ID比since_id大的微博（即比since_id时间晚的微博），默认为0
      * @param max_id    若指定此参数，则返回ID小于或等于max_id的微博，默认为0
@@ -119,14 +119,14 @@ public class ShortUrlAPI extends AbsOpenAPI {
      * @param listener  异步请求回调接口
      */
     public void shareStatuses(String url_short, long since_id, long max_id, int count, int page,
-            RequestListener listener) {
+                              RequestListener listener) {
         WeiboParameters params = buildRequestParams(url_short, since_id, max_id, count, page);
         requestAsync(SERVER_URL_PRIX + "/share/statuses.json", params, HTTPMETHOD_GET, listener);
     }
 
     /**
      * 获取短链接在微博上的微博评论数
-     * 
+     *
      * @param url_short 需要取得分享数的短链接，最多不超过20个
      * @param listener  异步请求回调接口
      */
@@ -137,7 +137,7 @@ public class ShortUrlAPI extends AbsOpenAPI {
 
     /**
      * 获取包含指定单个短链接的最新微博评论。
-     * 
+     *
      * @param url_short 需要取得关联微博评论内容的短链接
      * @param since_id  若指定此参数，则返回ID比since_id大的评论（即比since_id时间晚的评论），默认为0
      * @param max_id    若指定此参数，则返回ID小于或等于max_id的评论，默认为0

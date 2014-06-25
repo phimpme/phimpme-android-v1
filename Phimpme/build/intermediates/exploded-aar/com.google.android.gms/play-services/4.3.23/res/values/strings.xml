@@ -73,35 +73,37 @@
     <string name="common_signin_button_text_long">Sign in with Google</string>
 
 
-  <!-- Auth client code resources (prefix with auth_client --><skip />
-  <!--  Title for notification shown when a bad version of GooglePlayServices
-        has been installed and needs correction for an application to work.
-        [CHAR LIMIT=70] -->
+    <!-- Auth client code resources (prefix with auth_client -->
+    <skip/>
+    <!--  Title for notification shown when a bad version of GooglePlayServices
+          has been installed and needs correction for an application to work.
+          [CHAR LIMIT=70] -->
   <string name="auth_client_using_bad_version_title">
       An application attempted to use a bad version of Google Play Services.
   </string>
-  <!--  Title for notification shown when GooglePlayServices needs to be
-        enabled for a application to work. [CHAR LIMIT=70] -->
+    <!--  Title for notification shown when GooglePlayServices needs to be
+          enabled for a application to work. [CHAR LIMIT=70] -->
   <string name="auth_client_needs_enabling_title">
       An application requires Google Play Services to be enabled.
   </string>
-  <!--  Title for notification shown when GooglePlayServices needs to be
-        installed for a application to work. [CHAR LIMIT=70] -->
+    <!--  Title for notification shown when GooglePlayServices needs to be
+          installed for a application to work. [CHAR LIMIT=70] -->
   <string name="auth_client_needs_installation_title">
       An application requires installation of Google Play Services.
   </string>
-  <!--  Title for notification shown when GooglePlayServices needs to be
-        udpated for a application to work. [CHAR LIMIT=70] -->
+    <!--  Title for notification shown when GooglePlayServices needs to be
+          udpated for a application to work. [CHAR LIMIT=70] -->
   <string name="auth_client_needs_update_title">
       An application requires an update for Google Play Services.
   </string>
 
-  <!--  Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] -->
-  <string name="auth_client_play_services_err_notification_msg">Google Play services error</string>
+    <!--  Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] -->
+    <string name="auth_client_play_services_err_notification_msg">Google Play services error</string>
 
-  <!--  Requested by string saying which app requested the notification. [CHAR LIMIT=42] -->
-  <string name="auth_client_requested_by_msg">Requested by <xliff:g id="app_name">%1$s</xliff:g></string>
-  <!-- End Auth client resources --><skip />
+    <!--  Requested by string saying which app requested the notification. [CHAR LIMIT=42] -->
+    <string name="auth_client_requested_by_msg">Requested by <xliff:g id="app_name">%1$s</xliff:g></string>
+    <!-- End Auth client resources -->
+    <skip/>
 
     <!-- Location client code resources (prefix with location_client) -->
 

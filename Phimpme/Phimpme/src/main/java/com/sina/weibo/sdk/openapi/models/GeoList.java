@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * 地理信息结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-24
  */

@@ -15,46 +15,58 @@
 -->
 
 <android.support.v7.internal.widget.ActionBarOverlayLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/action_bar_overlay_layout"
+    android:id="@+id/action_bar_overlay_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <FrameLayout
+        android:id="@id/action_bar_activity_content"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-    <FrameLayout android:id="@id/action_bar_activity_content"
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent"/>
-    <LinearLayout android:id="@+id/top_action_bar"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="top">
-        <android.support.v7.internal.widget.ActionBarContainer android:id="@+id/action_bar_container"
-                                                             android:layout_width="fill_parent"
-                                                             android:layout_height="wrap_content"
-                                                             android:layout_alignParentTop="true"
-                                                             style="?attr/actionBarStyle"
-                                                             android:gravity="top">
+        android:layout_height="fill_parent"/>
+
+    <LinearLayout
+        android:id="@+id/top_action_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+
+        <android.support.v7.internal.widget.ActionBarContainer
+            android:id="@+id/action_bar_container"
+            style="?attr/actionBarStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="top">
+
             <android.support.v7.internal.widget.ActionBarView
-                    android:id="@+id/action_bar"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    style="?attr/actionBarStyle"/>
+                android:id="@+id/action_bar"
+                style="?attr/actionBarStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
             <android.support.v7.internal.widget.ActionBarContextView
-                    android:id="@+id/action_context_bar"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    style="?attr/actionModeStyle"/>
+                android:id="@+id/action_context_bar"
+                style="?attr/actionModeStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
         </android.support.v7.internal.widget.ActionBarContainer>
-        <ImageView android:src="?android:attr/windowContentOverlay"
-                   android:scaleType="fitXY"
-                   android:layout_width="fill_parent"
-                   android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="?android:attr/windowContentOverlay"/>
     </LinearLayout>
-    <android.support.v7.internal.widget.ActionBarContainer android:id="@+id/split_action_bar"
-                                                         android:layout_width="fill_parent"
-                                                         android:layout_height="wrap_content"
-                                                         android:layout_gravity="bottom"
-                                                         style="?attr/actionBarSplitStyle"
-                                                         android:visibility="gone"
-                                                         android:gravity="center"/>
+
+    <android.support.v7.internal.widget.ActionBarContainer
+        android:id="@+id/split_action_bar"
+        style="?attr/actionBarSplitStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:visibility="gone"/>
 </android.support.v7.internal.widget.ActionBarOverlayLayout>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_decor_overlay.xml -->
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_decor_overlay.xml -->

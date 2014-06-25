@@ -16,6 +16,8 @@
 
 package org.wordpress.android.util;
 
+import org.xmlpull.v1.XmlSerializer;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -29,46 +31,41 @@ import java.nio.charset.CoderResult;
 import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
 
-import org.xmlpull.v1.XmlSerializer;
-
 /**
  * This is a quick and dirty implementation of XmlSerializer that isn't horribly
  * painfully slow like the normal one.  It only does what is needed for the
  * specific XML files being written with it.
  */
 public class FastXmlSerializer implements XmlSerializer {
-    private static final String ESCAPE_TABLE[] = new String[] {
-        null,     null,     null,     null,     null,     null,     null,     null,  // 0-7
-        null,     null,     null,     null,     null,     null,     null,     null,  // 8-15
-        null,     null,     null,     null,     null,     null,     null,     null,  // 16-23
-        null,     null,     null,     null,     null,     null,     null,     null,  // 24-31
-        null,     null,     "&quot;", null,     null,     null,     "&amp;",  null,  // 32-39
-        null,     null,     null,     null,     null,     null,     null,     null,  // 40-47
-        null,     null,     null,     null,     null,     null,     null,     null,  // 48-55
-        null,     null,     null,     null,     "&lt;",   null,     "&gt;",   null,  // 56-63
+    private static final String ESCAPE_TABLE[] = new String[]{
+            null, null, null, null, null, null, null, null,  // 0-7
+            null, null, null, null, null, null, null, null,  // 8-15
+            null, null, null, null, null, null, null, null,  // 16-23
+            null, null, null, null, null, null, null, null,  // 24-31
+            null, null, "&quot;", null, null, null, "&amp;", null,  // 32-39
+            null, null, null, null, null, null, null, null,  // 40-47
+            null, null, null, null, null, null, null, null,  // 48-55
+            null, null, null, null, "&lt;", null, "&gt;", null,  // 56-63
     };
 
     private static final int BUFFER_LEN = 8192;
 
     private final char[] mText = new char[BUFFER_LEN];
+    private ByteBuffer mBytes = ByteBuffer.allocate(BUFFER_LEN);
     private int mPos;
-
     private Writer mWriter;
-
     private OutputStream mOutputStream;
     private CharsetEncoder mCharset;
-    private ByteBuffer mBytes = ByteBuffer.allocate(BUFFER_LEN);
-
     private boolean mInTag;
 
     private void append(char c) throws IOException {
         int pos = mPos;
-        if (pos >= (BUFFER_LEN-1)) {
+        if (pos >= (BUFFER_LEN - 1)) {
             flush();
             pos = mPos;
         }
         mText[pos] = c;
-        mPos = pos+1;
+        mPos = pos + 1;
     }
 
     private void append(String str, int i, final int length) throws IOException {
@@ -76,17 +73,17 @@ public class FastXmlSerializer implements XmlSerializer {
             final int end = i + length;
             while (i < end) {
                 int next = i + BUFFER_LEN;
-                append(str, i, next<end ? BUFFER_LEN : (end-i));
+                append(str, i, next < end ? BUFFER_LEN : (end - i));
                 i = next;
             }
             return;
         }
         int pos = mPos;
-        if ((pos+length) > BUFFER_LEN) {
+        if ((pos + length) > BUFFER_LEN) {
             flush();
             pos = mPos;
         }
-        str.getChars(i, i+length, mText, pos);
+        str.getChars(i, i + length, mText, pos);
         mPos = pos + length;
     }
 
@@ -95,13 +92,13 @@ public class FastXmlSerializer implements XmlSerializer {
             final int end = i + length;
             while (i < end) {
                 int next = i + BUFFER_LEN;
-                append(buf, i, next<end ? BUFFER_LEN : (end-i));
+                append(buf, i, next < end ? BUFFER_LEN : (end - i));
                 i = next;
             }
             return;
         }
         int pos = mPos;
-        if ((pos+length) > BUFFER_LEN) {
+        if ((pos + length) > BUFFER_LEN) {
             flush();
             pos = mPos;
         }
@@ -115,38 +112,38 @@ public class FastXmlSerializer implements XmlSerializer {
 
     private void escapeAndAppendString(final String string) throws IOException {
         final int N = string.length();
-        final char NE = (char)ESCAPE_TABLE.length;
+        final char NE = (char) ESCAPE_TABLE.length;
         final String[] escapes = ESCAPE_TABLE;
         int lastPos = 0;
         int pos;
-        for (pos=0; pos<N; pos++) {
+        for (pos = 0; pos < N; pos++) {
             char c = string.charAt(pos);
             if (c >= NE) continue;
             String escape = escapes[c];
             if (escape == null) continue;
-            if (lastPos < pos) append(string, lastPos, pos-lastPos);
+            if (lastPos < pos) append(string, lastPos, pos - lastPos);
             lastPos = pos + 1;
             append(escape);
         }
-        if (lastPos < pos) append(string, lastPos, pos-lastPos);
+        if (lastPos < pos) append(string, lastPos, pos - lastPos);
     }
 
     private void escapeAndAppendString(char[] buf, int start, int len) throws IOException {
-        final char NE = (char)ESCAPE_TABLE.length;
+        final char NE = (char) ESCAPE_TABLE.length;
         final String[] escapes = ESCAPE_TABLE;
-        int end = start+len;
+        int end = start + len;
         int lastPos = start;
         int pos;
-        for (pos=start; pos<end; pos++) {
+        for (pos = start; pos < end; pos++) {
             char c = buf[pos];
             if (c >= NE) continue;
             String escape = escapes[c];
             if (escape == null) continue;
-            if (lastPos < pos) append(buf, lastPos, pos-lastPos);
+            if (lastPos < pos) append(buf, lastPos, pos - lastPos);
             lastPos = pos + 1;
             append(escape);
         }
-        if (lastPos < pos) append(buf, lastPos, pos-lastPos);
+        if (lastPos < pos) append(buf, lastPos, pos - lastPos);
     }
 
     public XmlSerializer attribute(String namespace, String name, String value) throws IOException,
@@ -284,7 +281,7 @@ public class FastXmlSerializer implements XmlSerializer {
     }
 
     @SuppressWarnings("unused")
-	public void setOutput(OutputStream os, String encoding) throws IOException,
+    public void setOutput(OutputStream os, String encoding) throws IOException,
             IllegalArgumentException, IllegalStateException {
         if (os == null)
             throw new IllegalArgumentException();
@@ -301,9 +298,10 @@ public class FastXmlSerializer implements XmlSerializer {
             mOutputStream = os;
         } else {
             setOutput(
-                encoding == null
-                    ? new OutputStreamWriter(os)
-                    : new OutputStreamWriter(os, encoding));
+                    encoding == null
+                            ? new OutputStreamWriter(os)
+                            : new OutputStreamWriter(os, encoding)
+            );
         }
     }
 

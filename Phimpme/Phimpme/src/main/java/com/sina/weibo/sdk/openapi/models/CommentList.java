@@ -26,31 +26,33 @@ import java.util.ArrayList;
 
 /**
  * 评论列表结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-24
  */
 public class CommentList {
 
-    /** 微博列表 */
+    /**
+     * 微博列表
+     */
     public ArrayList<Comment> commentList;
     public String previous_cursor;
     public String next_cursor;
     public int total_number;
-    
+
     public static CommentList parse(String jsonString) {
         if (TextUtils.isEmpty(jsonString)) {
             return null;
         }
-        
+
         CommentList comments = new CommentList();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             comments.previous_cursor = jsonObject.optString("previous_cursor", "0");
-            comments.next_cursor     = jsonObject.optString("next_cursor", "0");
-            comments.total_number    = jsonObject.optInt("total_number", 0);
-            
-            JSONArray jsonArray      = jsonObject.optJSONArray("comments");
+            comments.next_cursor = jsonObject.optString("next_cursor", "0");
+            comments.total_number = jsonObject.optInt("total_number", 0);
+
+            JSONArray jsonArray = jsonObject.optJSONArray("comments");
             if (jsonArray != null && jsonArray.length() > 0) {
                 int length = jsonArray.length();
                 comments.commentList = new ArrayList<Comment>(length);
@@ -61,7 +63,7 @@ public class CommentList {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         return comments;
     }
 }

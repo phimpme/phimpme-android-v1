@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/gridlayout/res/values/attrs.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <declare-styleable name="GridLayout">
 
@@ -25,21 +25,21 @@
         <attr name="orientation">
 
             <!-- Defines an horizontal widget. -->
-            <enum name="horizontal" value="0" />
+            <enum name="horizontal" value="0"/>
             <!-- Defines a vertical widget. -->
-            <enum name="vertical" value="1" />
+            <enum name="vertical" value="1"/>
         </attr>
         <!-- The maximum number of rows to create when automatically positioning children. -->
-        <attr name="rowCount" format="integer" />
+        <attr name="rowCount" format="integer"/>
         <!-- The maximum number of columns to create when automatically positioning children. -->
-        <attr name="columnCount" format="integer" />
+        <attr name="columnCount" format="integer"/>
         <!--
         When set to true, tells GridLayout to use default margins when none are specified
         in a view's layout parameters.
         The default value is false.
         See {@link android.widget.GridLayout#setUseDefaultMargins(boolean)}.
         -->
-        <attr name="useDefaultMargins" format="boolean" />
+        <attr name="useDefaultMargins" format="boolean"/>
         <!--
         When set to alignMargins, causes alignment to take place between the outer
         boundary of a view, as defined by its margins. When set to alignBounds,
@@ -53,12 +53,12 @@
             Align the bounds of the children.
             See {@link android.widget.GridLayout#ALIGN_BOUNDS}.
             -->
-            <enum name="alignBounds" value="0" />
+            <enum name="alignBounds" value="0"/>
             <!--
             Align the margins of the children.
             See {@link android.widget.GridLayout#ALIGN_MARGINS}.
             -->
-            <enum name="alignMargins" value="1" />
+            <enum name="alignMargins" value="1"/>
         </attr>
         <!--
         When set to true, forces row boundaries to appear in the same order
@@ -66,14 +66,14 @@
         The default is true.
         See {@link android.widget.GridLayout#setRowOrderPreserved(boolean)}.
         -->
-        <attr name="rowOrderPreserved" format="boolean" />
+        <attr name="rowOrderPreserved" format="boolean"/>
         <!--
         When set to true, forces column boundaries to appear in the same order
         as column indices.
         The default is true.
         See {@link android.widget.GridLayout#setColumnOrderPreserved(boolean)}.
         -->
-        <attr name="columnOrderPreserved" format="boolean" />
+        <attr name="columnOrderPreserved" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="GridLayout_Layout">
 
@@ -85,33 +85,33 @@
 
         <!-- START MarginLayout layoutparams -->
 
-        <attr name="android:layout_width" />
-        <attr name="android:layout_height" />
+        <attr name="android:layout_width"/>
+        <attr name="android:layout_height"/>
         <!--
               Specifies extra space on the left, top, right and bottom
               sides of this view. This space is outside this view's bounds.
         -->
-        <attr name="android:layout_margin" />
+        <attr name="android:layout_margin"/>
         <!--
               Specifies extra space on the left side of this view.
               This space is outside this view's bounds.
         -->
-        <attr name="android:layout_marginLeft" />
+        <attr name="android:layout_marginLeft"/>
         <!--
               Specifies extra space on the top side of this view.
               This space is outside this view's bounds.
         -->
-        <attr name="android:layout_marginTop" />
+        <attr name="android:layout_marginTop"/>
         <!--
               Specifies extra space on the right side of this view.
               This space is outside this view's bounds.
         -->
-        <attr name="android:layout_marginRight" />
+        <attr name="android:layout_marginRight"/>
         <!--
               Specifies extra space on the bottom side of this view.
               This space is outside this view's bounds.
         -->
-        <attr name="android:layout_marginBottom" />
+        <attr name="android:layout_marginBottom"/>
 
         <!-- END MarginLayout layoutparams -->
 
@@ -120,26 +120,26 @@
         The row boundary delimiting the top of the group of cells
         occupied by this view.
         -->
-        <attr name="layout_row" format="integer" />
+        <attr name="layout_row" format="integer"/>
         <!--
         The row span: the difference between the bottom and top
         boundaries delimiting the group of cells occupied by this view.
         The default is one.
         See {@link android.widget.GridLayout.Spec}.
         -->
-        <attr name="layout_rowSpan" format="integer" min="1" />
+        <attr name="layout_rowSpan" format="integer" min="1"/>
         <!--
         The column boundary delimiting the left of the group of cells
         occupied by this view.
         -->
-        <attr name="layout_column" format="integer" />
+        <attr name="layout_column" format="integer"/>
         <!--
         The column span: the difference between the right and left
         boundaries delimiting the group of cells occupied by this view.
         The default is one.
         See {@link android.widget.GridLayout.Spec}.
         -->
-        <attr name="layout_columnSpan" format="integer" min="1" />
+        <attr name="layout_columnSpan" format="integer" min="1"/>
         <!--
         Gravity specifies how a component should be placed in its group of cells.
         The default is LEFT | BASELINE.
@@ -148,47 +148,47 @@
         <attr name="layout_gravity">
 
             <!-- Push object to the top of its container, not changing its size. -->
-            <flag name="top" value="0x30" />
+            <flag name="top" value="0x30"/>
             <!-- Push object to the bottom of its container, not changing its size. -->
-            <flag name="bottom" value="0x50" />
+            <flag name="bottom" value="0x50"/>
             <!-- Push object to the left of its container, not changing its size. -->
-            <flag name="left" value="0x03" />
+            <flag name="left" value="0x03"/>
             <!-- Push object to the right of its container, not changing its size. -->
-            <flag name="right" value="0x05" />
+            <flag name="right" value="0x05"/>
             <!-- Place object in the vertical center of its container, not changing its size. -->
-            <flag name="center_vertical" value="0x10" />
+            <flag name="center_vertical" value="0x10"/>
             <!-- Grow the vertical size of the object if needed so it completely fills its container. -->
-            <flag name="fill_vertical" value="0x70" />
+            <flag name="fill_vertical" value="0x70"/>
             <!-- Place object in the horizontal center of its container, not changing its size. -->
-            <flag name="center_horizontal" value="0x01" />
+            <flag name="center_horizontal" value="0x01"/>
             <!-- Grow the horizontal size of the object if needed so it completely fills its container. -->
-            <flag name="fill_horizontal" value="0x07" />
+            <flag name="fill_horizontal" value="0x07"/>
             <!-- Place the object in the center of its container in both the vertical and horizontal axis, not changing its size. -->
-            <flag name="center" value="0x11" />
+            <flag name="center" value="0x11"/>
             <!-- Grow the horizontal and vertical size of the object if needed so it completely fills its container. -->
-            <flag name="fill" value="0x77" />
+            <flag name="fill" value="0x77"/>
             <!--
              Additional option that can be set to have the top and/or bottom edges of
              the child clipped to its container's bounds.
              The clip will be based on the vertical gravity: a top gravity will clip the bottom
              edge, a bottom gravity will clip the top edge, and neither will clip both edges.
             -->
-            <flag name="clip_vertical" value="0x80" />
+            <flag name="clip_vertical" value="0x80"/>
             <!--
              Additional option that can be set to have the left and/or right edges of
              the child clipped to its container's bounds.
              The clip will be based on the horizontal gravity: a left gravity will clip the right
              edge, a right gravity will clip the left edge, and neither will clip both edges.
             -->
-            <flag name="clip_horizontal" value="0x08" />
+            <flag name="clip_horizontal" value="0x08"/>
             <!-- Push object to the beginning of its container, not changing its size. -->
-            <flag name="start" value="0x00800003" />
+            <flag name="start" value="0x00800003"/>
             <!-- Push object to the end of its container, not changing its size. -->
-            <flag name="end" value="0x00800005" />
+            <flag name="end" value="0x00800005"/>
         </attr>
     </declare-styleable>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/gridlayout/res/values/dimens.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <dimen name="default_gap">16dip</dimen>
 

@@ -1,5 +1,6 @@
 <!-- From: file:/Users/daniloercoli/git/android-wordpress-com-rest/AndroidManifest.xml -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.wordpress.rest">
+<manifest package="com.wordpress.rest" xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="1" android:versionName="1.0">
     <uses-sdk android:minSdkVersion="3"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

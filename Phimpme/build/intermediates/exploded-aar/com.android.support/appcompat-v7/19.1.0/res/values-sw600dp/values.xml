@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-sw600dp/dimens.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <dimen name="abc_action_bar_default_height">56dip</dimen>
     <dimen name="abc_action_bar_icon_vertical_padding">4dip</dimen>
@@ -11,11 +11,11 @@
     <dimen name="abc_action_bar_subtitle_top_margin">-3dp</dimen>
     <dimen name="abc_action_bar_title_text_size">18dp</dimen>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-sw600dp/config.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <dimen name="abc_config_prefDialogWidth">580dp</dimen>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-sw600dp/dimens.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <integer name="abc_max_action_buttons">5</integer>
 

@@ -14,6 +14,7 @@
      limitations under the License.
 -->
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
+           android:duration="@android:integer/config_mediumAnimTime"
+           android:fromYDelta="0"
            android:interpolator="@android:anim/accelerate_interpolator"
-           android:fromYDelta="0" android:toYDelta="50%p"
-           android:duration="@android:integer/config_mediumAnimTime"/><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/anim/abc_slide_out_bottom.xml -->
+           android:toYDelta="50%p"/><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/anim/abc_slide_out_bottom.xml -->

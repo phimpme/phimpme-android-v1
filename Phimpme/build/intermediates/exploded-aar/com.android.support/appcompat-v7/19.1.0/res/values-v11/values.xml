@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-v11/themes_base.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="Theme.Base" parent="android:Theme.Holo">
         <item name="android:windowNoTitle">true</item>
@@ -64,7 +64,7 @@
         <item name="selectableItemBackground">?android:attr/selectableItemBackground</item>
     </style>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-v11/styles_base.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="Widget.AppCompat.Base.AutoCompleteTextView" parent="android:Widget.Holo.AutoCompleteTextView"></style>
 

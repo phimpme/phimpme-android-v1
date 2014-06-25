@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/Users/max/work/automattic/ActionBar-PullToRefresh/library/res/values-fr/pull_refresh_strings.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <string name="pull_to_refresh_pull_label">Tirez pour rafraîchir…</string>
     <string name="pull_to_refresh_refreshing_label">Chargement…</string>

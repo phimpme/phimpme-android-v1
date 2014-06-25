@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-v14/styles_base.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="TextAppearance.AppCompat.Base.SearchResult.Subtitle" parent="@android:TextAppearance.Holo.SearchResult.Subtitle"></style>
 
@@ -38,7 +38,7 @@
 
     <style name="TextAppearance.AppCompat.Widget.Base.ActionMode.Title.Inverse" parent="android:TextAppearance.Holo.Widget.ActionMode.Title.Inverse"></style>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-v14/themes_base.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="Theme.Base.AppCompat" parent="android:Theme.Holo">
 
@@ -58,14 +58,15 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
+        </item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="buttonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
-    <style name="Theme.Base.AppCompat.DialogWhenLarge" parent="Theme.Base.AppCompat.DialogWhenLarge.Base" />
+    <style name="Theme.Base.AppCompat.DialogWhenLarge" parent="Theme.Base.AppCompat.DialogWhenLarge.Base"/>
 
     <style name="Theme.Base.AppCompat.DialogWhenLarge.Base" parent="android:Theme.Holo.DialogWhenLarge">
 
@@ -85,7 +86,8 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
+        </item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
@@ -110,7 +112,8 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
+        </item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
@@ -135,14 +138,15 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
+        </item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="buttonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
-    <style name="Theme.Base.AppCompat.Light.DialogWhenLarge" parent="Theme.Base.AppCompat.Light.DialogWhenLarge.Base" />
+    <style name="Theme.Base.AppCompat.Light.DialogWhenLarge" parent="Theme.Base.AppCompat.Light.DialogWhenLarge.Base"/>
 
     <style name="Theme.Base.AppCompat.Light.DialogWhenLarge.Base" parent="android:Theme.Holo.Light.DialogWhenLarge">
 
@@ -162,14 +166,15 @@
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="listPreferredItemHeightLarge">?android:attr/listPreferredItemHeightLarge</item>
         <item name="listPreferredItemPaddingLeft">?android:attr/listPreferredItemPaddingLeft</item>
-        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight</item>
+        <item name="listPreferredItemPaddingRight">?android:attr/listPreferredItemPaddingRight
+        </item>
 
         <!-- Attributes populated from the framework to be read by apps -->
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="buttonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-v14/styles_base.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="Widget.AppCompat.Base.ActionBar" parent="android:Widget.Holo.ActionBar"></style>
 
@@ -195,17 +200,17 @@
         <item name="android:dividerPadding">6dip</item>
     </style>
 
-    <style name="Widget.AppCompat.Base.DropDownItem.Spinner" parent="android:Widget.Holo.DropDownItem.Spinner" />
+    <style name="Widget.AppCompat.Base.DropDownItem.Spinner" parent="android:Widget.Holo.DropDownItem.Spinner"/>
 
     <style name="Widget.AppCompat.Base.ListPopupWindow" parent="android:Widget.Holo.ListPopupWindow"></style>
 
-    <style name="Widget.AppCompat.Base.ListView.DropDown" parent="android:Widget.Holo.ListView.DropDown" />
+    <style name="Widget.AppCompat.Base.ListView.DropDown" parent="android:Widget.Holo.ListView.DropDown"/>
 
-    <style name="Widget.AppCompat.Base.ListView.Menu" parent="android:Widget.ListView.Menu" />
+    <style name="Widget.AppCompat.Base.ListView.Menu" parent="android:Widget.ListView.Menu"/>
 
     <style name="Widget.AppCompat.Base.PopupMenu" parent="android:Widget.Holo.PopupMenu"></style>
 
-    <style name="Widget.AppCompat.Base.Spinner" parent="android:Widget.Holo.Spinner" />
+    <style name="Widget.AppCompat.Base.Spinner" parent="android:Widget.Holo.Spinner"/>
 
     <style name="Widget.AppCompat.Light.Base.ActionBar" parent="android:Widget.Holo.Light.ActionBar"></style>
 
@@ -233,14 +238,14 @@
 
     <style name="Widget.AppCompat.Light.Base.ActionMode.Inverse" parent="android:Widget.Holo.Light.ActionMode.Inverse"></style>
 
-    <style name="Widget.AppCompat.Light.Base.DropDownItem.Spinner" parent="android:Widget.Holo.Light.DropDownItem.Spinner" />
+    <style name="Widget.AppCompat.Light.Base.DropDownItem.Spinner" parent="android:Widget.Holo.Light.DropDownItem.Spinner"/>
 
     <style name="Widget.AppCompat.Light.Base.ListPopupWindow" parent="android:Widget.Holo.Light.ListPopupWindow"></style>
 
-    <style name="Widget.AppCompat.Light.Base.ListView.DropDown" parent="android:Widget.Holo.ListView.DropDown" />
+    <style name="Widget.AppCompat.Light.Base.ListView.DropDown" parent="android:Widget.Holo.ListView.DropDown"/>
 
     <style name="Widget.AppCompat.Light.Base.PopupMenu" parent="android:Widget.Holo.Light.PopupMenu"></style>
 
-    <style name="Widget.AppCompat.Light.Base.Spinner" parent="android:Widget.Holo.Light.Spinner" />
+    <style name="Widget.AppCompat.Light.Base.Spinner" parent="android:Widget.Holo.Light.Spinner"/>
 
 </resources>

@@ -20,5 +20,6 @@ import org.json.JSONObject;
 
 public interface IParseable {
     public Object parse(String parseString);
+
     public Object parse(JSONObject jsonObject);
 }

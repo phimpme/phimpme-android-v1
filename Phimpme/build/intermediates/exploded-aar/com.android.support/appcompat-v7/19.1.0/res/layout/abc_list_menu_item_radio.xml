@@ -14,12 +14,12 @@
      limitations under the License.
 -->
 
-<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/radio"
+<RadioButton android:id="@+id/radio"
+             xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_gravity="center_vertical"
-             android:focusable="false"
              android:clickable="false"
-             android:duplicateParentState="true"/>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_list_menu_item_radio.xml -->
+             android:duplicateParentState="true"
+             android:focusable="false"/>
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_list_menu_item_radio.xml -->

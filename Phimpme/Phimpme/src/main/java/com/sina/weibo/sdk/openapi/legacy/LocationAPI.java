@@ -26,34 +26,37 @@ import com.sina.weibo.sdk.openapi.AbsOpenAPI;
 /**
  * 地理信息相关接口。
  * 详情请参考<a href="http://t.cn/8FdRdk0">评论接口</a>
- * 
+ *
  * @author SINA
  * @since 2013-12-4
  */
 public class LocationAPI extends AbsOpenAPI {
-    /** API URL */
+    /**
+     * API URL
+     */
     private static final String API_BASE_URL = API_SERVER + "/location";
-    
+
     /**
      * API 类型。
      * 命名规则：
-     *      <li>读取接口：READ_API_XXX
-     *      <li>写入接口：WRITE_API_XXX
+     * <li>读取接口：READ_API_XXX
+     * <li>写入接口：WRITE_API_XXX
      */
-    private static final int READ_API_GPS_TO_OFFSET      = 0;
+    private static final int READ_API_GPS_TO_OFFSET = 0;
     private static final int READ_API_SEARCH_POIS_BY_GEO = 1;
-    private static final int READ_API_GET_TO_ADDRESS     = 2;
+    private static final int READ_API_GET_TO_ADDRESS = 2;
 
     private static final SparseArray<String> sAPIList = new SparseArray<String>();
+
     static {
-        sAPIList.put(READ_API_GPS_TO_OFFSET,      API_BASE_URL + "/geo/gps_to_offset.json");
+        sAPIList.put(READ_API_GPS_TO_OFFSET, API_BASE_URL + "/geo/gps_to_offset.json");
         sAPIList.put(READ_API_SEARCH_POIS_BY_GEO, API_BASE_URL + "/pois/search/by_geo.json");
-        sAPIList.put(READ_API_GET_TO_ADDRESS,     API_BASE_URL + "/geo/geo_to_address.json");
+        sAPIList.put(READ_API_GET_TO_ADDRESS, API_BASE_URL + "/geo/geo_to_address.json");
     }
 
     /**
      * 构造函数，使用各个 API 接口提供的服务前必须先获取 Token。
-     * 
+     *
      * @param accesssToken 访问令牌
      */
     public LocationAPI(Oauth2AccessToken accessToken) {
@@ -62,7 +65,7 @@ public class LocationAPI extends AbsOpenAPI {
 
     /**
      * 根据GPS坐标获取偏移后的坐标
-     * 
+     *
      * @param longtitude 纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。
      * @param latitude   纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。
      * @param listener   异步请求回调接口
@@ -74,7 +77,7 @@ public class LocationAPI extends AbsOpenAPI {
 
     /**
      * 根据关键词按坐标点范围获取POI点的信息。
-     * 
+     *
      * @param latitude   纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。
      * @param longtitude 经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。
      * @param keyWord    查询的关键词，必须进行URLencode。
@@ -87,7 +90,7 @@ public class LocationAPI extends AbsOpenAPI {
 
     /**
      * 根据地理信息坐标返回实际地址。
-     * 
+     *
      * @param longtitude 经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。
      * @param latitude   纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。
      * @param listener   异步请求回调接口

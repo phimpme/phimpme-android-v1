@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 /**
  * 该类用于解析Object类型数据。
- * 
+ *
  * @author SINA
  * @date 2014-03-03
  */
@@ -34,14 +34,14 @@ public class AbsDataObject implements IParseable {
         if (TextUtils.isEmpty(parseString)) {
             return null;
         }
-        
+
         try {
             JSONObject object = new JSONObject(parseString);
             return parse(object);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
 
@@ -50,7 +50,7 @@ public class AbsDataObject implements IParseable {
         if (null == jsonObject) {
             return null;
         }
-        
+
         return null;
     }
 }

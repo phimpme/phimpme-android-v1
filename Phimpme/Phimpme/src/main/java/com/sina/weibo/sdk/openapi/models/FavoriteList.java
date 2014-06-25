@@ -26,27 +26,29 @@ import java.util.ArrayList;
 
 /**
  * 我喜欢的微博信息列表结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-24
  */
 public class FavoriteList {
 
-    /** 微博列表 */
+    /**
+     * 微博列表
+     */
     public ArrayList<Favorite> favoriteList;
     public int total_number;
-    
+
     public static FavoriteList parse(String jsonString) {
         if (TextUtils.isEmpty(jsonString)) {
             return null;
         }
-        
+
         FavoriteList favorites = new FavoriteList();
         try {
-            JSONObject jsonObject  = new JSONObject(jsonString);
+            JSONObject jsonObject = new JSONObject(jsonString);
             favorites.total_number = jsonObject.optInt("total_number", 0);
-            
-            JSONArray jsonArray    = jsonObject.optJSONArray("favorites");
+
+            JSONArray jsonArray = jsonObject.optJSONArray("favorites");
             if (jsonArray != null && jsonArray.length() > 0) {
                 int length = jsonArray.length();
                 favorites.favoriteList = new ArrayList<Favorite>(length);
@@ -57,7 +59,7 @@ public class FavoriteList {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         return favorites;
     }
 }

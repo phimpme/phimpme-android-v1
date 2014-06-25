@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/Users/castorflex/work/android/SmoothProgressBar/library/src/main/res/values-v14/styles.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="SmoothProgressBar" parent="android:Widget.Holo.ProgressBar.Horizontal">
         <item name="spb_color">@color/spb_default_color</item>

@@ -2,26 +2,56 @@
 <pre-dex-items>
 
     <item
-        dex="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/CWAC-Task-34da2db6c02ba334c0dc3c6ef1f6da2cf8d1e032.jar"
-        jar="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/libs/CWAC-Task.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="c872647ce884ffc749dc3b68e2ab5cf2d67def75"/>
-    <item
-        dex="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/tagsoup-1.2.1-baf936591aa8f25a8f11148d809effd1081214a3.jar"
-        jar="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/libs/tagsoup-1.2.1.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="5584627487e984c03456266d3f8802eb85a9ce97"/>
-    <item
-        dex="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/CWAC-AdapterWrapper-ae055c29ad2a262531b975cbca6b4f5c58b69a64.jar"
-        jar="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/libs/CWAC-AdapterWrapper.jar"
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/CWAC-AdapterWrapper-7550ac104f489d9f91fad5e81abbaff244c02dd0.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/libs/CWAC-AdapterWrapper.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="30e41d7c64a9177c70f29343f136d25a442201ac"/>
     <item
-        dex="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/CWAC-Bus-e836eaffe05d78cf6cbdc0848a1e781ce4d5c226.jar"
-        jar="/home/sensing/workspace/GSoC/android/Phimpme/Phimpme/libs/CWAC-Bus.jar"
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/classes-0d15be4da9283eea8b5d602e4e8960b7d4913b81.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="af4cc326e6cd92f88db12298767e521743aedd36"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/classes-ad0aa444e237e92e20eca1647427dbfccfbf81c3.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.3.23/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="7676c0cb230efa6ac41c47867d372ed5913029d4"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/weibosdkcore-4268ecc6e3446190ca76292bf63c1657151d2800.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/libs/weibosdkcore.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="1908a7cce9571ee314fdf434701ca1c85c59ed5d"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/CWAC-Task-665592a6a63b94ddee2ad8973468efbbe2b7fd33.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/libs/CWAC-Task.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="c872647ce884ffc749dc3b68e2ab5cf2d67def75"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/classes-ff18e7107c5019879fb53f8701d31fab160c4682.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/support-v4-19.1.0-fe930dc68beb1e566675ce71b270d4091c6c249b.jar"
+        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/tagsoup-1.2.1-cb59c24b6c21e1ca932d06a16c19a3519b7f336a.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/libs/tagsoup-1.2.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5584627487e984c03456266d3f8802eb85a9ce97"/>
+    <item
+        dex="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/build/intermediates/pre-dexed/debug/CWAC-Bus-00c04a7e7d0cccc7a6c127fb1838147c984ede45.jar"
+        jar="/Users/yzq/Documents/GitHub/phimpme-android/Phimpme/Phimpme/libs/CWAC-Bus.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="0ca9885017d57accad13768b8318543482013ade"/>

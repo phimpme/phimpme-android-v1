@@ -18,22 +18,22 @@
 
     <android.support.v7.internal.widget.ActionBarContainer
         android:id="@+id/action_bar_container"
+        style="?attr/actionBarStyle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        style="?attr/actionBarStyle">
+        android:layout_height="wrap_content">
 
         <android.support.v7.internal.widget.ActionBarView
             android:id="@+id/action_bar"
+            style="?attr/actionBarStyle"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            style="?attr/actionBarStyle" />
+            android:layout_height="wrap_content"/>
 
         <android.support.v7.internal.widget.ActionBarContextView
             android:id="@+id/action_context_bar"
+            style="?attr/actionModeStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            style="?attr/actionModeStyle" />
+            android:visibility="gone"/>
     </android.support.v7.internal.widget.ActionBarContainer>
 
     <FrameLayout
@@ -41,16 +41,16 @@
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:foregroundGravity="fill_horizontal|top"
-        android:foreground="?android:attr/windowContentOverlay" />
+        android:foreground="?android:attr/windowContentOverlay"
+        android:foregroundGravity="fill_horizontal|top"/>
 
     <android.support.v7.internal.widget.ActionBarContainer
         android:id="@+id/split_action_bar"
+        style="?attr/actionBarSplitStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        style="?attr/actionBarSplitStyle"
-        android:visibility="gone"
-        android:gravity="center" />
+        android:gravity="center"
+        android:visibility="gone"/>
 
 </merge>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_decor_include.xml -->
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_action_bar_decor_include.xml -->

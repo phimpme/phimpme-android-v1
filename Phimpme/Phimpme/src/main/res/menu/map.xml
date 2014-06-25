@@ -1,20 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.phimpme.phimpme.MapActivity" >
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.phimpme.phimpme.MapActivity">
 
-    <item android:id="@+id/action_normal"
+    <item
+        android:id="@+id/action_normal"
+        android:orderInCategory="100"
         android:title="Normal"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
-    <item android:id="@+id/action_hybird"
+    <item
+        android:id="@+id/action_hybird"
+        android:orderInCategory="100"
         android:title="Hybird"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
-    <item android:id="@+id/action_satellite"
-        android:title="Satellite"
+    <item
+        android:id="@+id/action_satellite"
         android:orderInCategory="100"
-        app:showAsAction="always" />
+        android:title="Satellite"
+        app:showAsAction="always"/>
 </menu>

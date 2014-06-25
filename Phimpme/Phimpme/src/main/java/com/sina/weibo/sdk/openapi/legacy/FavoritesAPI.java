@@ -24,7 +24,7 @@ import com.sina.weibo.sdk.openapi.AbsOpenAPI;
 /**
  * 此类封装了收藏的接口。
  * 详情见<a href="http://t.cn/8F3gFzG">公共接口</a>
- * 
+ *
  * @author SINA
  * @date 2014-03-03
  */
@@ -37,10 +37,10 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 获取当前登录用户的收藏列表。
-     * 
-     * @param count     单页返回的记录条数，默认为50
-     * @param page      返回结果的页码，默认为1
-     * @param listener  异步请求回调接口
+     *
+     * @param count    单页返回的记录条数，默认为50
+     * @param page     返回结果的页码，默认为1
+     * @param listener 异步请求回调接口
      */
     public void favorites(int count, int page, RequestListener listener) {
         WeiboParameters params = buildCountPage(count, page);
@@ -49,10 +49,10 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 获取当前用户的收藏列表的ID。
-     * 
-     * @param count     单页返回的记录条数，默认为50
-     * @param page      返回结果的页码，默认为1
-     * @param listener  异步请求回调接口
+     *
+     * @param count    单页返回的记录条数，默认为50
+     * @param page     返回结果的页码，默认为1
+     * @param listener 异步请求回调接口
      */
     public void ids(int count, int page, RequestListener listener) {
         WeiboParameters params = buildCountPage(count, page);
@@ -61,9 +61,9 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 根据收藏ID获取指定的收藏信息。
-     * 
-     * @param id        需要查询的收藏ID
-     * @param listener  异步请求回调接口
+     *
+     * @param id       需要查询的收藏ID
+     * @param listener 异步请求回调接口
      */
     public void show(long id, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -73,11 +73,11 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 根据标签获取当前登录用户该标签下的收藏列表。
-     * 
-     * @param tid       需要查询的标签ID
-     * @param count     单页返回的记录条数，默认为50
-     * @param page      返回结果的页码，默认为1
-     * @param listener  异步请求回调接口
+     *
+     * @param tid      需要查询的标签ID
+     * @param count    单页返回的记录条数，默认为50
+     * @param page     返回结果的页码，默认为1
+     * @param listener 异步请求回调接口
      */
     public void byTags(long tid, int count, int page, RequestListener listener) {
         WeiboParameters params = buildCountPage(count, page);
@@ -87,10 +87,10 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 获取当前登录用户的收藏标签列表。
-     * 
-     * @param count     单页返回的记录条数，默认为50
-     * @param page      返回结果的页码，默认为1
-     * @param listener  异步请求回调接口
+     *
+     * @param count    单页返回的记录条数，默认为50
+     * @param page     返回结果的页码，默认为1
+     * @param listener 异步请求回调接口
      */
     public void tags(int count, int page, RequestListener listener) {
         WeiboParameters params = buildCountPage(count, page);
@@ -99,11 +99,11 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 获取当前用户某个标签下的收藏列表的ID。
-     * 
-     * @param tid       需要查询的标签ID。
-     * @param count     单页返回的记录条数，默认为50
-     * @param page      返回结果的页码，默认为1
-     * @param listener  异步请求回调接口
+     *
+     * @param tid      需要查询的标签ID。
+     * @param count    单页返回的记录条数，默认为50
+     * @param page     返回结果的页码，默认为1
+     * @param listener 异步请求回调接口
      */
     public void byTagsIds(long tid, int count, int page, RequestListener listener) {
         WeiboParameters params = buildCountPage(count, page);
@@ -113,9 +113,9 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 添加一条微博到收藏里。
-     * 
-     * @param id        要收藏的微博ID
-     * @param listener  异步请求回调接口
+     *
+     * @param id       要收藏的微博ID
+     * @param listener 异步请求回调接口
      */
     public void create(long id, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -125,9 +125,9 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 取消收藏一条微博。
-     * 
-     * @param id        要取消收藏的微博ID。
-     * @param listener  异步请求回调接口
+     *
+     * @param id       要取消收藏的微博ID。
+     * @param listener 异步请求回调接口
      */
     public void destroy(long id, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -137,9 +137,9 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 根据收藏ID批量取消收藏。
-     * 
-     * @param ids       要取消收藏的收藏ID，最多不超过10个
-     * @param listener  异步请求回调接口
+     *
+     * @param ids      要取消收藏的收藏ID，最多不超过10个
+     * @param listener 异步请求回调接口
      */
     public void destroyBatch(long[] ids, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -154,10 +154,10 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 更新一条收藏的收藏标签。
-     * 
-     * @param id        需要更新的收藏ID
-     * @param tags      需要更新的标签内容，最多不超过2条
-     * @param listener  异步请求回调接口
+     *
+     * @param id       需要更新的收藏ID
+     * @param tags     需要更新的标签内容，最多不超过2条
+     * @param listener 异步请求回调接口
      */
     public void tagsUpdate(long id, String[] tags, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -173,10 +173,10 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 更新当前登录用户所有收藏下的指定标签。
-     * 
-     * @param id        需要更新的标签ID
-     * @param tag       需要更新的标签内容
-     * @param listener  异步请求回调接口
+     *
+     * @param id       需要更新的标签ID
+     * @param tag      需要更新的标签内容
+     * @param listener 异步请求回调接口
      */
     public void tagsUpdateBatch(long id, String tag, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();
@@ -187,9 +187,9 @@ public class FavoritesAPI extends AbsOpenAPI {
 
     /**
      * 删除当前登录用户所有收藏下的指定标签。
-     * 
-     * @param tid       需要删除的标签ID
-     * @param listener  异步请求回调接口
+     *
+     * @param tid      需要删除的标签ID
+     * @param listener 异步请求回调接口
      */
     public void tagsDestroyBatch(long tid, RequestListener listener) {
         WeiboParameters params = new WeiboParameters();

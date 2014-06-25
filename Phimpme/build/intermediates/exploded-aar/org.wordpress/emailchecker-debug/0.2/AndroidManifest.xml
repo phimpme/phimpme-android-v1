@@ -1,4 +1,6 @@
-<!-- From: file:/Users/max/work/automattic/email-checker/android/src/main/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="0.1" package="org.wordpress.emailchecker">
+<!-- From: file:/Users/max/work/automattic/email-checker/android/src/main/AndroidManifest.xml -->
+<manifest package="org.wordpress.emailchecker" xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="1" android:versionName="0.1">
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="19"/>
     <application android:allowBackup="false"/>
 </manifest>

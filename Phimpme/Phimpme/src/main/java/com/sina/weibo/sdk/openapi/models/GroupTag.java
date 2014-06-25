@@ -20,12 +20,14 @@ import org.json.JSONObject;
 
 /**
  * 分组标签结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-24
  */
 public class GroupTag {
-    /** 分组的组号 */
+    /**
+     * 分组的组号
+     */
     public String tag;
 
     public static GroupTag parse(JSONObject jsonObject) {

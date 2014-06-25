@@ -16,8 +16,8 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
     <FrameLayout
         android:id="@id/ptr_content"
@@ -29,8 +29,8 @@
             android:id="@id/ptr_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     </FrameLayout>
 
@@ -38,8 +38,8 @@
         android:id="@id/ptr_progress"
         style="@style/Widget.ProgressBar.PullToRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
 
-<!-- From: file:/Users/max/work/automattic/ActionBar-PullToRefresh/library/res/layout/default_header.xml -->
+    <!-- From: file:/Users/max/work/automattic/ActionBar-PullToRefresh/library/res/layout/default_header.xml -->

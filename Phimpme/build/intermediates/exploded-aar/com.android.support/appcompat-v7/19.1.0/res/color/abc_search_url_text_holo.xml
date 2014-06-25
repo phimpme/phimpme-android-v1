@@ -15,7 +15,8 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:color="@color/abc_search_url_text_pressed"/>
-    <item android:state_selected="true" android:color="@color/abc_search_url_text_selected"/>
-    <item android:color="@color/abc_search_url_text_normal"/> <!-- not selected -->
+    <item android:color="@color/abc_search_url_text_pressed" android:state_pressed="true"/>
+    <item android:color="@color/abc_search_url_text_selected" android:state_selected="true"/>
+    <item android:color="@color/abc_search_url_text_normal"/>
+    <!-- not selected -->
 </selector><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/color/abc_search_url_text_holo.xml -->

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * 地理位置纠正信息.
- * 
+ *
  * @author SINA
  * @since 2013-12-4
  */

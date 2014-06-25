@@ -26,14 +26,18 @@ import java.util.ArrayList;
 
 /**
  * 好友分组列表。
- * 
+ *
  * @author SINA
  * @since 2013-11-27
  */
 public class GroupList {
-    /** 分组列表 **/
+    /**
+     * 分组列表 *
+     */
     public ArrayList<Group> groupList;
-    /** 分组数目 **/
+    /**
+     * 分组数目 *
+     */
     public int total_number;
 
     public static GroupList parse(String jsonString) {
@@ -43,7 +47,7 @@ public class GroupList {
 
         GroupList groupList = new GroupList();
         try {
-            JSONObject jsonObject  = new JSONObject(jsonString);
+            JSONObject jsonObject = new JSONObject(jsonString);
             groupList.total_number = jsonObject.optInt("total_number");
 
             JSONArray jsonArray = jsonObject.optJSONArray("lists");

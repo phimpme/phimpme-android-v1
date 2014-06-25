@@ -2,19 +2,19 @@
 <resources>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-land/bools.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <bool name="abc_action_bar_embed_tabs_pre_jb">true</bool>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-land/config.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <bool name="abc_config_allowActionMenuItemTextWithIcon">true</bool>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-land/bools.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <bool name="abc_split_action_bar_is_narrow">false</bool>
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-land/dimens.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <dimen name="abc_action_bar_default_height">40dip</dimen>
     <dimen name="abc_action_bar_icon_vertical_padding">4dip</dimen>

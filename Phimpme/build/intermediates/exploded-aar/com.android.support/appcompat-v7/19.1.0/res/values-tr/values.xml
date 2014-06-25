@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/values-tr/strings.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <string name="abc_action_bar_home_description" msgid="4600421777120114993">"Ana ekrana git"</string>
     <string name="abc_action_bar_up_description" msgid="1594238315039666878">"Yukarı git"</string>

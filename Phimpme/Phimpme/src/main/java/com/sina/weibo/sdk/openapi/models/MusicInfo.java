@@ -20,33 +20,33 @@ import org.json.JSONObject;
 
 /**
  * 音乐结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-22
  */
 public class MusicInfo {
-    
+
     //public boolean result; 
     public String author;
     public String title;
     public String album;
     public String playUrl;
-    
+
     public static MusicInfo parser(String jsonString) {
         return null;
     }
-    
+
     public static MusicInfo parse(JSONObject jsonObject) {
         if (null == jsonObject) {
             return null;
         }
-        
+
         MusicInfo music = new MusicInfo();
-        music.author   = jsonObject.optString("author");
-        music.title    = jsonObject.optString("title");
-        music.album    = jsonObject.optString("album");
-        music.playUrl  = jsonObject.optString("playUrl");
-        
+        music.author = jsonObject.optString("author");
+        music.title = jsonObject.optString("title");
+        music.album = jsonObject.optString("album");
+        music.playUrl = jsonObject.optString("playUrl");
+
         return music;
     }
 }

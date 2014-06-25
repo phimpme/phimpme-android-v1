@@ -26,14 +26,16 @@ import java.util.ArrayList;
 
 /**
  * 微博列表结构。
- * @see <a href="http://t.cn/zjM1a2W">常见返回对象数据结构</a>
- * 
+ *
  * @author SINA
+ * @see <a href="http://t.cn/zjM1a2W">常见返回对象数据结构</a>
  * @since 2013-11-22
  */
 public class StatusList {
-    
-    /** 微博列表 */
+
+    /**
+     * 微博列表
+     */
     public ArrayList<Status> statusList;
     public Status statuses;
     public boolean hasvisible;
@@ -41,21 +43,21 @@ public class StatusList {
     public String next_cursor;
     public int total_number;
     public Object[] advertises;
-    
+
     public static StatusList parse(String jsonString) {
         if (TextUtils.isEmpty(jsonString)) {
             return null;
         }
-        
+
         StatusList statuses = new StatusList();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
-            statuses.hasvisible      = jsonObject.optBoolean("hasvisible", false);
+            statuses.hasvisible = jsonObject.optBoolean("hasvisible", false);
             statuses.previous_cursor = jsonObject.optString("previous_cursor", "0");
-            statuses.next_cursor     = jsonObject.optString("next_cursor", "0");
-            statuses.total_number    = jsonObject.optInt("total_number", 0);
-            
-            JSONArray jsonArray      = jsonObject.optJSONArray("statuses");
+            statuses.next_cursor = jsonObject.optString("next_cursor", "0");
+            statuses.total_number = jsonObject.optInt("total_number", 0);
+
+            JSONArray jsonArray = jsonObject.optJSONArray("statuses");
             if (jsonArray != null && jsonArray.length() > 0) {
                 int length = jsonArray.length();
                 statuses.statusList = new ArrayList<Status>(length);
@@ -66,7 +68,7 @@ public class StatusList {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         return statuses;
     }
 }

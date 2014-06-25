@@ -1,4 +1,6 @@
-<!-- From: file:/Users/simonvt/Dropbox/ws/android-menudrawer/menudrawer/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="6" android:versionName="3.0.2" package="net.simonvt.menudrawer">
+<!-- From: file:/Users/simonvt/Dropbox/ws/android-menudrawer/menudrawer/AndroidManifest.xml -->
+<manifest package="net.simonvt.menudrawer" xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="6" android:versionName="3.0.2">
 
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="19"/>
 </manifest>

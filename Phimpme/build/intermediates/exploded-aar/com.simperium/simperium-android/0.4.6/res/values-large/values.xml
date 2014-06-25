@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/Users/dan/git/simperium-android/Simperium/src/main/res/values-large/dimens.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <dimen name="login_width">480dp</dimen>
 

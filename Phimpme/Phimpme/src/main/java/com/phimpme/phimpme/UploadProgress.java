@@ -1,25 +1,28 @@
 package com.phimpme.phimpme;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.wordpress.android.models.MediaFile;
-import org.xmlrpc.android.XMLRPCClient;
-import org.xmlrpc.android.XMLRPCException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
+
+import org.wordpress.android.models.MediaFile;
+import org.xmlrpc.android.XMLRPCClient;
+import org.xmlrpc.android.XMLRPCException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UploadProgress extends Activity {
-    Context ctx;
     protected AccountInfo accountInfo;
+    Context ctx;
     private ConnectivityManager mSystemService;
+    private Handler handler;
 
     //private static int progressStatus = 0, progressStatus1 = 0;
     //static String MAINTAG = "MBM";
@@ -36,6 +39,7 @@ public class UploadProgress extends Activity {
         mSystemService = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         accountInfo = (AccountInfo) getIntent().getSerializableExtra("account");
         new UploadProgressAsyncTask().execute(0);
+        handler = new Handler();
     }
 
     private class UploadProgressAsyncTask extends AsyncTask<Integer, Integer, Boolean> {
@@ -261,7 +265,6 @@ public class UploadProgress extends Activity {
             }
         }*/
 
-        @SuppressWarnings("deprecation")
         @Override
         protected Boolean doInBackground(Integer... params) {
             Boolean result = false;
@@ -293,12 +296,21 @@ public class UploadProgress extends Activity {
                     imageProperties.put("overwrite", true);
 
                     Object[] imageUploadParams = {1, userName, passWord, imageProperties};
-                    HashMap<?, ?> imageUploadResult = new HashMap<Object, Object>();
+                    Map<?, ?> imageUploadResult;
                     try {
-                        imageUploadResult = (HashMap<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, ctx.getFileStreamPath(tempFileName));
-                    } catch (XMLRPCException e) {
+                        imageUploadResult = (Map<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, ctx.getFileStreamPath(tempFileName));
+                    } catch (final XMLRPCException e) {
                         e.printStackTrace();
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                        return false;
                     }
+                    assert (imageUploadResult.get("url") != null);
                     String imageuploadResultURL = imageUploadResult.get("url").toString();
                     int featuredImageID = -1;
                     try {

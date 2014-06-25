@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/Users/dan/git/simperium-android/Simperium/src/main/res/values-v11/themes_simperiumstyle.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <style name="simperiumstyle" parent="android:Theme.Holo.Light">
         <item name="android:editTextBackground">@drawable/edit_text_holo_light</item>

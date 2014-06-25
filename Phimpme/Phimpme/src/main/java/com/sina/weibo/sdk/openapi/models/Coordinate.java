@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 /**
  * 该类用于解析JSONObject类型数据。
- * 
+ *
  * @author SINA
  * @date 2014-03-03
  */
@@ -35,7 +35,7 @@ public class Coordinate {
 
         Coordinate coordinate = new Coordinate();
         coordinate.Longtitude = jsonObject.optDouble("longitude");
-        coordinate.Latitude   = jsonObject.optDouble("latitude");
+        coordinate.Latitude = jsonObject.optDouble("latitude");
 
         return coordinate;
     }

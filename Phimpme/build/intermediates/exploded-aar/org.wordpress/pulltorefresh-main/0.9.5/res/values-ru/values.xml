@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/Users/max/work/automattic/ActionBar-PullToRefresh/library/res/values-ru/pull_refresh_strings.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <string name="pull_to_refresh_pull_label">потяните</string>
     <string name="pull_to_refresh_refreshing_label">обновление</string>

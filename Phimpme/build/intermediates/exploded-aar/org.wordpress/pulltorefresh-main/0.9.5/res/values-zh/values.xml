@@ -2,7 +2,7 @@
 <resources>
 
     <!-- From: file:/Users/max/work/automattic/ActionBar-PullToRefresh/library/res/values-zh/pull_refresh_strings.xml -->
-    <eat-comment />
+    <eat-comment/>
 
     <string name="pull_to_refresh_pull_label">下拉刷新…</string>
     <string name="pull_to_refresh_refreshing_label">正在载入…</string>

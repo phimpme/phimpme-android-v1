@@ -16,20 +16,20 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Non focused states -->
-    <item android:state_focused="false" android:state_selected="false" android:state_pressed="false" android:drawable="@android:color/transparent" />
-    <item android:state_focused="false" android:state_selected="true"  android:state_pressed="false" android:drawable="@drawable/abc_tab_selected_holo" />
+    <item android:drawable="@android:color/transparent" android:state_focused="false" android:state_pressed="false" android:state_selected="false"/>
+    <item android:drawable="@drawable/abc_tab_selected_holo" android:state_focused="false" android:state_pressed="false" android:state_selected="true"/>
 
     <!-- Focused states -->
-    <item android:state_focused="true" android:state_selected="false" android:state_pressed="false" android:drawable="@drawable/abc_list_focused_holo" />
-    <item android:state_focused="true" android:state_selected="true"  android:state_pressed="false" android:drawable="@drawable/abc_tab_selected_focused_holo" />
+    <item android:drawable="@drawable/abc_list_focused_holo" android:state_focused="true" android:state_pressed="false" android:state_selected="false"/>
+    <item android:drawable="@drawable/abc_tab_selected_focused_holo" android:state_focused="true" android:state_pressed="false" android:state_selected="true"/>
 
     <!-- Pressed -->
     <!--    Non focused states -->
-    <item android:state_focused="false" android:state_selected="false" android:state_pressed="true" android:drawable="@drawable/abc_list_pressed_holo_dark" />
-    <item android:state_focused="false" android:state_selected="true"  android:state_pressed="true" android:drawable="@drawable/abc_tab_selected_pressed_holo" />
+    <item android:drawable="@drawable/abc_list_pressed_holo_dark" android:state_focused="false" android:state_pressed="true" android:state_selected="false"/>
+    <item android:drawable="@drawable/abc_tab_selected_pressed_holo" android:state_focused="false" android:state_pressed="true" android:state_selected="true"/>
 
     <!--    Focused states -->
-    <item android:state_focused="true" android:state_selected="false" android:state_pressed="true" android:drawable="@drawable/abc_tab_unselected_pressed_holo" />
-    <item android:state_focused="true" android:state_selected="true"  android:state_pressed="true" android:drawable="@drawable/abc_tab_selected_pressed_holo" />
+    <item android:drawable="@drawable/abc_tab_unselected_pressed_holo" android:state_focused="true" android:state_pressed="true" android:state_selected="false"/>
+    <item android:drawable="@drawable/abc_tab_selected_pressed_holo" android:state_focused="true" android:state_pressed="true" android:state_selected="true"/>
 </selector>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/drawable/abc_tab_indicator_ab_holo.xml -->
+    <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/drawable/abc_tab_indicator_ab_holo.xml -->
