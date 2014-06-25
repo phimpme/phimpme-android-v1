@@ -25,6 +25,7 @@ public class UploadActivity extends ActionBarActivity {
     private Button otherButton;
     private Button bluetoothButton;
     private Button sinaWeiboButton;
+    private Button wordPressButton;
     private ImageView preview;
     private TextView descriptionEditText;
     private TextView nfcTextView;
@@ -39,6 +40,7 @@ public class UploadActivity extends ActionBarActivity {
 
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         otherButton = (Button) findViewById(R.id.otherButton);
+        wordPressButton = (Button) findViewById(R.id.wordPressButton);
         sinaWeiboButton = (Button) findViewById(R.id.sinaWeiboButton);
         preview = (ImageView) findViewById(R.id.imageView);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
@@ -104,8 +106,7 @@ public class UploadActivity extends ActionBarActivity {
 
         sinaWeiboButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View view) {
-                Uri uri = (Uri) getIntent().getExtras().get("photoUri");
-                if (uri != null) {
+                if (imageUri != null) {
                     Toast.makeText(UploadActivity.this, "Uploading to ShareToSinaWeibo.", Toast.LENGTH_LONG).show();
                     try {
                         new ShareToSinaWeibo(
@@ -119,6 +120,24 @@ public class UploadActivity extends ActionBarActivity {
                     }
                 } else {
                     Toast.makeText(UploadActivity.this, "ImageUri is null.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        wordPressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(imageUri != null) {
+                    AccountInfo wordPress = new AccountInfo("wordPress");
+                    wordPress.setUserName();
+                    wordPress.setPassWord();
+                    wordPress.setUserUrl("http://www.yuzhiqiang.org/xmlrpc.php");
+                    wordPress.setImagePath(imageUri.getPath());
+                    Bundle data = new Bundle();
+                    data.putSerializable("account", wordPress);
+                    Intent intent = new Intent(UploadActivity.this, UploadProgress.class);
+                    intent.putExtras(data);
+                    startActivity(intent);
                 }
             }
         });

@@ -6,7 +6,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("/Users/yzq/android.keystore")
+            storeFile file("/home/sensing/android.keystore")
             storePassword "Lcaroline0120"
             keyAlias "android.keystore"
             keyPassword "Lcaroline0120"
@@ -34,6 +34,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/weibosdkcore.jar')
+    compile files('libs/CWAC-AdapterWrapper.jar')
+    compile files('libs/CWAC-Bus.jar')
+    compile files('libs/CWAC-Task.jar')
+    compile files('libs/tagsoup-1.2.1.jar')
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.android.support:gridlayout-v7:19.1.0'
     compile 'com.android.support:support-v4:19.1.0'

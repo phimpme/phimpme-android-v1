@@ -1,0 +1,12 @@
+<!-- From: file:/Users/dan/git/simperium-android/Simperium/AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.simperium">
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="19"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application android:allowBackup="false" android:icon="@drawable/ic_launcher">
+        <activity android:configChanges="orientation|keyboardHidden|screenSize" android:name="com.simperium.android.LoginActivity"/>
+    </application>
+
+</manifest>

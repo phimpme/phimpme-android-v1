@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/max/work/automattic/ActionBar-PullToRefresh/library/res/values-es/pull_refresh_strings.xml -->
+    <eat-comment />
+
+    <string name="pull_to_refresh_pull_label">Desliza el dedo hacia abajo para actualizar.</string>
+    <string name="pull_to_refresh_refreshing_label">Cargando…</string>
+    <string name="pull_to_refresh_release_label">Soltar para actualizar…</string>
+
+</resources>

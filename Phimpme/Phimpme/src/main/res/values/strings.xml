@@ -17,11 +17,12 @@
     <string name="weibosdk_demo_token_has_existed">Token 仍在有效期内，无需再次登录。</string>
     <string name="weibosdk_send_sucess">图片发送成功</string>
     <string name="weibosdk_send_failed">图片发送失败</string>
-
     <string name="title_activity_auth">Auth Manager</string>
     <string name="title_activity_map">Map of photos</string>
     <string name="title_activity_gpsmanager">Change Location</string>
     <string name="title_activity_capture">Capture a new photo</string>
     <string name="title_activity_manipulation">Photo Manipulation</string>
+    <string name="title_activity_upload_progress">UploadProgress</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
