@@ -76,6 +76,7 @@ public class PreviewActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE) {
+            // imageUri would be null if photo editing is cancelled
             imageUri = (Uri) data.getExtras().get("imageUri");
         }
     }
