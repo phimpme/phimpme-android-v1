@@ -24,5 +24,6 @@
     <string name="title_activity_manipulation">Photo Manipulation</string>
     <string name="title_activity_upload_progress">UploadProgress</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_account_editor">AccountEditor</string>
 
 </resources>

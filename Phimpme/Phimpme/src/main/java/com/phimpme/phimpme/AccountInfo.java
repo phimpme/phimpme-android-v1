@@ -1,5 +1,11 @@
 package com.phimpme.phimpme;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+import com.google.android.gms.plus.Account;
+
 import java.io.Serializable;
 
 /**
@@ -50,5 +56,22 @@ public class AccountInfo implements Serializable {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public static AccountInfo getSavedAccountInfo(Context context, String accountCategory) {
+        SharedPreferences accountInfo = context.getSharedPreferences(accountCategory, context.MODE_PRIVATE);
+        AccountInfo savedAccount = new AccountInfo(accountInfo.getString(accountCategory, null));
+        savedAccount.setUserName(accountInfo.getString("userName", null));
+        savedAccount.setPassWord(accountInfo.getString("passWord", null));
+        savedAccount.setUserUrl(accountInfo.getString("userUrl", null));
+        return savedAccount;
+    }
+
+    public static void saveAccountInfo(Context context, String accountCategory) {
+        // TODO Encryption
+        Intent toAccoutEditor = new Intent();
+        toAccoutEditor.putExtra("accountCategory", accountCategory);
+        toAccoutEditor.setClass(context, AccountEditor.class);
+        context.startActivity(toAccoutEditor);
     }
 }

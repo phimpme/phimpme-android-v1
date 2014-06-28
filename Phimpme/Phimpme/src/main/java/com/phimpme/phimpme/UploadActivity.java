@@ -143,16 +143,18 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    AccountInfo wordPress = new AccountInfo("wordPress");
-                    wordPress.setUserName("yzq");
-                    wordPress.setPassWord("PASSWORD_HERE");
-                    wordPress.setUserUrl("http://www.yuzhiqiang.org/xmlrpc.php");
-                    wordPress.setImagePath(imageUri.getPath());
-                    Bundle data = new Bundle();
-                    data.putSerializable("account", wordPress);
-                    Intent intent = new Intent(UploadActivity.this, UploadProgress.class);
-                    intent.putExtras(data);
-                    startActivity(intent);
+                    AccountInfo wordPress = AccountInfo.getSavedAccountInfo(UploadActivity.this, "wordPress");
+                    if (wordPress.getAccountCategory() == null) {
+                        AccountInfo.saveAccountInfo(UploadActivity.this, "wordPress");
+                    }else {
+                        Bundle data = new Bundle();
+                        wordPress.setImagePath(imageUri.getPath());
+                        data.putSerializable("account", wordPress);
+                        Intent intent = new Intent(UploadActivity.this, UploadProgress.class);
+                        intent.putExtras(data);
+                        startActivity(intent);
+                    }
+
                 }
             }
         });

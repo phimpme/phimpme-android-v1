@@ -1,6 +1,7 @@
 package com.phimpme.phimpme;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
@@ -20,61 +21,15 @@ import com.sina.weibo.sdk.exception.WeiboException;
 
 
 public class AuthActivity extends ActionBarActivity {
+    /**
+     * Sina Weibo related.
+     */
     // 微博 Web 授权类，提供登陆等功能
     private WeiboAuth mWeiboAuth;
     // 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能
     private Oauth2AccessToken mAccessToken;
     // 注意：SsoHandler 仅当 SDK 支持 SSO 时有效
     private SsoHandler mSsoHandler;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_auth);
-        Button sinaWeibo = (Button) findViewById(R.id.authActivitySinaWeiboButton);
-        sinaWeibo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 创建微博实例
-                mWeiboAuth = new WeiboAuth(AuthActivity.this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
-                // SSO 授权
-                mSsoHandler = new SsoHandler(AuthActivity.this, mWeiboAuth);
-                mSsoHandler.authorize(new AuthListener());
-            }
-        });
-    }
-
-    /**
-     * 当 SSO 授权 Activity 退出时，该函数被调用。
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // SSO 授权回调
-        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResult
-        if (mSsoHandler != null) {
-            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.auth, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     /**
      * 微博认证授权回调类。
@@ -116,4 +71,56 @@ public class AuthActivity extends ActionBarActivity {
             Toast.makeText(AuthActivity.this, "Auth exception : " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
+    /**
+     * 当 SSO 授权 Activity 退出时，该函数被调用。
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // SSO 授权回调
+        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResult
+        if (mSsoHandler != null) {
+            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_auth);
+        Button sinaWeibo = (Button) findViewById(R.id.authActivitySinaWeiboButton);
+
+
+        sinaWeibo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 创建微博实例
+                mWeiboAuth = new WeiboAuth(AuthActivity.this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
+                // SSO 授权
+                mSsoHandler = new SsoHandler(AuthActivity.this, mWeiboAuth);
+                mSsoHandler.authorize(new AuthListener());
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.auth, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

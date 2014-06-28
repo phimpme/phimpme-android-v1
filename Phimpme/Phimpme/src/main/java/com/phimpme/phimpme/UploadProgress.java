@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class UploadProgress extends Activity {
     protected AccountInfo accountInfo;
-    Context ctx;
+    Context context;
     private ConnectivityManager mSystemService;
     private Handler handler;
 
@@ -35,7 +35,7 @@ public class UploadProgress extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        ctx = this;
+        context = this;
         mSystemService = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         accountInfo = (AccountInfo) getIntent().getSerializableExtra("account");
         new UploadProgressAsyncTask().execute(0);
@@ -282,7 +282,7 @@ public class UploadProgress extends Activity {
                     //create temp file for media upload
                     String tempFileName = "wp-" + System.currentTimeMillis();
                     try {
-                        ctx.openFileOutput(tempFileName, Context.MODE_PRIVATE);
+                        context.openFileOutput(tempFileName, Context.MODE_PRIVATE);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -298,7 +298,7 @@ public class UploadProgress extends Activity {
                     Object[] imageUploadParams = {1, userName, passWord, imageProperties};
                     Map<?, ?> imageUploadResult;
                     try {
-                        imageUploadResult = (Map<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, ctx.getFileStreamPath(tempFileName));
+                        imageUploadResult = (Map<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, context.getFileStreamPath(tempFileName));
                     } catch (final XMLRPCException e) {
                         e.printStackTrace();
                         handler.post(new Runnable() {
