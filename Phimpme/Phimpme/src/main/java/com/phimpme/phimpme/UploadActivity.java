@@ -24,6 +24,7 @@ import static com.phimpme.phimpme.Configuration.ENABLE_ANDROID_SHARING;
 import static com.phimpme.phimpme.Configuration.ENABLE_BLUETOOTH;
 import static com.phimpme.phimpme.Configuration.ENABLE_NFC;
 import static com.phimpme.phimpme.Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION;
+import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_DRUPAL;
 import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_WEIBO;
 import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_WORDPRESS;
 
@@ -32,6 +33,7 @@ public class UploadActivity extends ActionBarActivity {
     private Button otherButton;
     private Button bluetoothButton;
     private Button sinaWeiboButton;
+    private Button durpalButton;
     private Button wordPressButton;
     private ImageView preview;
     private TextView descriptionEditText;
@@ -47,6 +49,7 @@ public class UploadActivity extends ActionBarActivity {
 
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         otherButton = (Button) findViewById(R.id.otherButton);
+        durpalButton = (Button) findViewById(R.id.drupalButton);
         wordPressButton = (Button) findViewById(R.id.wordPressButton);
         sinaWeiboButton = (Button) findViewById(R.id.sinaWeiboButton);
         preview = (ImageView) findViewById(R.id.imageView);
@@ -105,6 +108,12 @@ public class UploadActivity extends ActionBarActivity {
             sinaWeiboButton.setVisibility(View.GONE);
         }
 
+        if (ENABLE_SHARING_TO_DRUPAL) {
+            enable_drupal();
+        } else {
+            wordPressButton.setVisibility(View.GONE);
+        }
+
         if (ENABLE_SHARING_TO_WORDPRESS) {
             enable_wordpress();
         } else {
@@ -134,6 +143,28 @@ public class UploadActivity extends ActionBarActivity {
                 uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
                 uploadPhotoIntent.setPackage("com.android.bluetooth");
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
+            }
+        });
+    }
+
+    private void enable_drupal() {
+        durpalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageUri != null) {
+                    AccountInfo drupal = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
+                    if (drupal.getAccountCategory() == null) {
+                        AccountInfo.saveAccountInfo(UploadActivity.this, "durpal");
+                    }else {
+                        Bundle data = new Bundle();
+                        drupal.setImagePath(imageUri.getPath());
+                        data.putSerializable("account", drupal);
+                        Intent intent = new Intent(UploadActivity.this, UploadProgress.class);
+                        intent.putExtras(data);
+                        startActivity(intent);
+                    }
+
+                }
             }
         });
     }

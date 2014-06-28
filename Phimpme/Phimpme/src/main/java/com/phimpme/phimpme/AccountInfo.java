@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.google.android.gms.plus.Account;
-
 import java.io.Serializable;
 
 /**

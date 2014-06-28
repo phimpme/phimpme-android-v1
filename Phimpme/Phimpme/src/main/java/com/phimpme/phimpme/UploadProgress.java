@@ -7,26 +7,48 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.wordpress.android.models.MediaFile;
 import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UploadProgress extends Activity {
     protected AccountInfo accountInfo;
-    Context context;
     private ConnectivityManager mSystemService;
-    private Handler handler;
+    private Handler handler = new Handler();
 
     //private static int progressStatus = 0, progressStatus1 = 0;
-    //static String MAINTAG = "MBM";
-    //static String DRUPALTAG = "MBM.Drupal";
     //static ArrayList<Integer> checked_ids = new ArrayList<Integer>();
     //static ArrayList<ProgressBar> progressbar_array = new ArrayList<ProgressBar>();
     //static final String default_tag_separate = ",";
@@ -35,32 +57,28 @@ public class UploadProgress extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        context = this;
-        mSystemService = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        mSystemService =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         accountInfo = (AccountInfo) getIntent().getSerializableExtra("account");
         new UploadProgressAsyncTask().execute(0);
-        handler = new Handler();
     }
 
     private class UploadProgressAsyncTask extends AsyncTask<Integer, Integer, Boolean> {
         //private int pos;
-        //long totalSize;
-        //ResponseHandler<String> res = new BasicResponseHandler();
-        /*DrupalItem acc = null;
+        long totalSize;
+        ResponseHandler<String> res = new BasicResponseHandler();
         String session_id = "";
         String session_name = "";
-        String service_url = "";*/
-
         /* Login */
-        /*protected String login(String username, String password) {
+        protected String login(String username, String password, String userUrl) {
             try {
-                String url = service_url + "user/login";
+                String url = userUrl + "user/login";
                 HttpPost post = new HttpPost(url);
-                HttpClient client = new DefaultHttpClient();*/
+                HttpClient client = new DefaultHttpClient();
                 /* Why does each subroutines only works with its own HttpClient and not share HttpClient
                  * with each other? */
 
-                /*MultipartEntity multi = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                MultipartEntity multi = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
                 multi.addPart("username", new StringBody(username));
                 multi.addPart("password", new StringBody(password));
@@ -69,70 +87,69 @@ public class UploadProgress extends Activity {
 
                 String httpResponse = client.execute(post, res);
 
-                Log.d(DRUPALTAG, "Login step: ");
-                Log.v(DRUPALTAG, httpResponse);
+                Log.d("MBM.Drupal", "Login step: ");
+                Log.v("MBM.Drupal", httpResponse);
 
-                Log.d(DRUPALTAG, "Create JSONObject");
+                Log.d("MBM.Drupal", "Create JSONObject");
                 JSONObject json = new JSONObject(httpResponse);
 
                 session_id = json.getString("sessid");
                 session_name = json.getString("session_name");
                 String userId = json.getJSONObject("user").getString("uid");
-                Log.d(DRUPALTAG, "OK! Logged in");
+                Log.d("MBM.Drupal", "OK! Logged in");
                 return userId;
             } catch (Exception e) {
-                Log.e(DRUPALTAG, "login: " + e.toString());
+                Log.e("MBM.Drupal", "login: " + e.toString());
                 e.printStackTrace();
                 return "";
             }
-        }*/
+        }
 
         /* Retrieve the nodes owned by user */
-        /*protected String[] getOwnNodes(String uid) {
+        protected String[] getOwnNodes(String uid, String userUrl) {
             String[] list = null;
-            String url = "";
+            String url;
             if (uid != "") {
-                url = service_url + "own_nodes.json";
+                url = userUrl + "own_nodes.json";
             } else {
-                url = service_url + "own_nodes/" + uid + ".json";
+                url = userUrl + "own_nodes/" + uid + ".json";
             }
             try {
-                Log.d(DRUPALTAG, "url: " + url);
+                Log.d("MBM.Drupal", "url: " + url);
                 HttpGet get = new HttpGet(url);
                 HttpClient client = new DefaultHttpClient();
 
                 //Authorize
                 get.setHeader("Cookie", session_name + "=" + session_id);
-                Log.d(DRUPALTAG, "Cookie: " + session_name + "=" + session_id);
+                Log.d("MBM.Drupal", "Cookie: " + session_name + "=" + session_id);
 
                 String textresponse = client.execute(get, res);
-                Log.d(DRUPALTAG, "getOwnNodes: textresponse: " + textresponse);
+                Log.d("MBM.Drupal", "getOwnNodes: textresponse: " + textresponse);
                 JSONArray jsonResult = new JSONArray(textresponse);
                 int n = jsonResult.length();
                 if (n == 0) {
                     return null;
                 }
-                Log.d(DRUPALTAG, "n: " + Integer.toString(n));
+                Log.d("MBM.Drupal", "n: " + Integer.toString(n));
                 list = new String[n];
                 for (int i = 0; i < n; i++) {
                     list[i] = jsonResult.getJSONObject(i).getString("nid");
                 }
-                Log.d(DRUPALTAG, "getOwnNodes: List length: " + Integer.toString(list.length));
+                Log.d("MBM.Drupal", "getOwnNodes: List length: " + Integer.toString(list.length));
                 return list;
             } catch (Exception e) {
-                Log.e(DRUPALTAG, "getOwnNodes: " + e.toString());
+                Log.e("MBM.Drupal", "getOwnNodes: " + e.toString());
                 e.printStackTrace();
                 return list;
             }
-        }*/
+        }
 
         /* Count the photos in the node */
-        /*protected int countMedia(String nodeId) throws Exception {
-            String service_url = acc.getSerivceURL();
-            int total = 0;
+        protected int countMedia(String nodeId, String userUrl) throws Exception {
+            int total;
 
             try {
-                String url = service_url + "node/" + nodeId + ".json";
+                String url = userUrl + "node/" + nodeId + ".json";
                 HttpGet get = new HttpGet(url);
                 HttpClient client = new DefaultHttpClient();
 
@@ -144,19 +161,19 @@ public class UploadProgress extends Activity {
                 JSONArray medias = jsonResult.getJSONObject("media_gallery_media").getJSONArray("und");
                 total = medias.length();
             } catch (Exception e) {
-                Log.e(DRUPALTAG, "countMedia: Failed to count the photos.");
+                Log.e("MBM.Drupal", "countMedia: Failed to count the photos.");
                 e.printStackTrace();
                 throw e;
             }
             return total;
-        }*/
+        }
 
         /* Upload photo */
-        /*@SuppressWarnings("resource")
-        protected String uploadPhoto(String path) {
+        @SuppressWarnings("resource")
+        protected String uploadPhoto(String path, String userUrl) {
             String fileId = "";
             try {
-                String url = service_url + "file";
+                String url = userUrl + "file";
                 File f = new File(path.split(";")[0]);
                 HttpPost post = new HttpPost(url);
                 HttpClient client = new DefaultHttpClient();
@@ -181,7 +198,7 @@ public class UploadProgress extends Activity {
                 baos.close();
                 baos = null;
                 String img_data_b64 = Base64.encodeToString(b, Base64.DEFAULT);
-                CustomMultiPartEntity multi = new CustomMultiPartEntity(new ProgressListener() {
+                CustomMultiPartEntity multi = new CustomMultiPartEntity(new CustomMultiPartEntity.ProgressListener() {
                     @Override
                     public void transferred(long num) {
                         publishProgress((int) ((num / (float) totalSize) * 100));
@@ -199,23 +216,22 @@ public class UploadProgress extends Activity {
                 String httpResponse = client.execute(post, res);
                 Log.d("drupal", "Upload file step: ");
                 Log.d("drupal", "httpResponse : " + httpResponse);
-                img_data_b64 = "";
                 JSONObject json = new JSONObject(httpResponse);
                 Log.d("Hon", json.toString());
                 // The file ID, will be used for attaching the file to a node.
                 fileId = json.getString("fid");
                 return fileId;
             } catch (Exception e) {
-                Log.e(DRUPALTAG, "uploadPhoto");
+                Log.e("MBM.Drupal", "uploadPhoto");
                 e.printStackTrace();
                 return fileId;
             }
-        }*/
+        }
 
         /* Attached the just-uploaded photo to node */
-        /*protected Boolean attachPhoto(String fileId, String nodeId, int newIndex) {
+        protected Boolean attachPhoto(String fileId, String nodeId, String userUrl, int newIndex) {
             try {
-                String url = service_url + "node/" + nodeId + ".json";
+                String url = userUrl + "node/" + nodeId + ".json";
 
                 HttpPut put = new HttpPut(url);
                 HttpClient client = new DefaultHttpClient();
@@ -230,7 +246,7 @@ public class UploadProgress extends Activity {
                 nameValuePairs.add(new BasicNameValuePair("type", "media_gallery"));
                 put.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-                Log.d(MAINTAG, param + fileId);
+                Log.d("MBM", param + fileId);
 
                 String httpResponse = client.execute(put, res);
 
@@ -238,16 +254,16 @@ public class UploadProgress extends Activity {
                 Log.v("drupal", httpResponse);
                 return true;
             } catch (Exception e) {
-                Log.e(DRUPALTAG, "attachPhoto");
+                Log.e("MBM.Drupal", "attachPhoto");
                 e.printStackTrace();
                 return false;
             }
-        }*/
+        }
 
         /* Log out */
-        /*protected Boolean logout() {
+        protected Boolean logout(String userUrl) {
             try {
-                String url = service_url + "user/logout";
+                String url = userUrl + "user/logout";
                 HttpPost post = new HttpPost(url);
                 HttpClient client = new DefaultHttpClient();
 
@@ -259,17 +275,16 @@ public class UploadProgress extends Activity {
                 Log.v("drupal", httpResponse);
                 return true;
             } catch (Exception e) {
-                Log.e(DRUPALTAG, "logout");
+                Log.e("MBM.Drupal", "logout");
                 e.printStackTrace();
                 return false;
             }
-        }*/
+        }
 
         @Override
         protected Boolean doInBackground(Integer... params) {
-            Boolean result = false;
-            String _s = accountInfo.getAccountCategory();
-            if ("wordPress".equals(_s)) {
+            String accountCategory = accountInfo.getAccountCategory();
+            if ("wordPress".equals(accountCategory)) {
                 if (mSystemService.getActiveNetworkInfo() == null) {
                     return false;
                 } else {
@@ -282,9 +297,10 @@ public class UploadProgress extends Activity {
                     //create temp file for media upload
                     String tempFileName = "wp-" + System.currentTimeMillis();
                     try {
-                        context.openFileOutput(tempFileName, Context.MODE_PRIVATE);
+                        UploadProgress.this.openFileOutput(tempFileName, Context.MODE_PRIVATE);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
+                        return false;
                     }
 
                     MediaFile mediaFile = new MediaFile();
@@ -298,7 +314,7 @@ public class UploadProgress extends Activity {
                     Object[] imageUploadParams = {1, userName, passWord, imageProperties};
                     Map<?, ?> imageUploadResult;
                     try {
-                        imageUploadResult = (Map<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, context.getFileStreamPath(tempFileName));
+                        imageUploadResult = (Map<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, UploadProgress.this.getFileStreamPath(tempFileName));
                     } catch (final XMLRPCException e) {
                         e.printStackTrace();
                         handler.post(new Runnable() {
@@ -319,6 +335,7 @@ public class UploadProgress extends Activity {
                         }
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
+                        return false;
                     }
                     String articleUploadAlignmentCSS = "class=\"" + "alignnone" + "\" ";
                     String content = "";
@@ -349,60 +366,109 @@ public class UploadProgress extends Activity {
                     Object[] articleUploadParams = new Object[]{1, userName, passWord, contentStruct, false};
                     try {
                         client.call("metaWeblog.newPost", articleUploadParams);
-                        result = true;
                     } catch (final XMLRPCException e) {
                         e.printStackTrace();
+                        return false;
                     }
                 }
+            } else if ("drupal".equals(accountCategory)) {
+                String userName = accountInfo.getUserName();
+                String passWord = accountInfo.getPassWord();
+                String userUrl = accountInfo.getUserUrl();
+                String imagePath = accountInfo.getImagePath();
+
+                // Login
+                String userId = login(userName, passWord, userUrl);
+                if (userId.equals("")) return false;
+                // Get list of nodes
+                String[] list = getOwnNodes(userId, userUrl);
+                if (list == null) return false;
+                // Choose the first list
+                String nodeId = list[0];
+                if (nodeId.equals("")) return false;
+                // The index for the new photo is determined by the amount of existing photos
+                int newIndex;
+                try {
+                    newIndex = countMedia(nodeId, userUrl);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                String fileId = uploadPhoto(imagePath, userUrl);
+                if (fileId.equals("")) return false;
+                Boolean attached = attachPhoto(fileId, nodeId, userUrl, newIndex);
+                if (!attached) return false;
+                logout(userUrl);
             }
-            /*if (DrupalServices.title.toLowerCase().equals(_s)) {
-                acc = DrupalItem.getItem(ctx, account_id[pos]);
-                String username = acc.getUsername();
-                String password = acc.getPassword();
-                service_url = acc.getSerivceURL();
-				
-				// Login
-                for (int i = 0; i < (path.length); i++) {
-                    String userId = login(username, password);
-                    if (userId == "") {
-                        return false;
-                    }
-				
-				// Get list of nodes
-                    String[] list = getOwnNodes(userId);
-                    if (list == null) {
-                        return false;
-                    }
-				// Choose the first list
-                    String nodeId = list[0];
-                    if (nodeId == "") {
-                        return false;
-                    }
-                    // The index for the new photo is determined by the amount of existing photos
-                    int newIndex;
-                    try {
-
-                        newIndex = countMedia(nodeId);
+            return true;
+        }
+    }
 
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return false;
-                    }
-                    String fileId = uploadPhoto(path[i]);
-                    if (fileId == "") {
-                        return false;
-                    }
+    private static class CustomMultiPartEntity extends MultipartEntity
+    {
 
-                    Boolean attached = attachPhoto(fileId, nodeId, newIndex);
-                    if (!attached) {
-                        return false;
-                    }
-                    logout();
-                }
+        private final ProgressListener listener;
 
-                result = true;
-            }else if ("wordpressdotcom".equals(_s)) {
+        public CustomMultiPartEntity(final ProgressListener listener)
+        {
+            super();
+            this.listener = listener;
+        }
+
+        public CustomMultiPartEntity(final HttpMultipartMode mode, final ProgressListener listener)
+        {
+            super(mode);
+            this.listener = listener;
+        }
+
+        public CustomMultiPartEntity(HttpMultipartMode mode, final String boundary, final Charset charset, final ProgressListener listener)
+        {
+            super(mode, boundary, charset);
+            this.listener = listener;
+        }
+
+        @Override
+        public void writeTo(final OutputStream outstream) throws IOException
+        {
+            super.writeTo(new CountingOutputStream(outstream, this.listener));
+        }
+
+        public static interface ProgressListener
+        {
+            void transferred(long num);
+        }
+
+        public class CountingOutputStream extends FilterOutputStream
+        {
+
+            private final ProgressListener listener;
+            private long transferred;
+
+            public CountingOutputStream(final OutputStream out, final ProgressListener listener)
+            {
+                super(out);
+                this.listener = listener;
+                this.transferred = 0;
+            }
+
+            public void write(byte[] b, int off, int len) throws IOException
+            {
+                out.write(b, off, len);
+                this.transferred += len;
+                this.listener.transferred(this.transferred);
+            }
+
+            public void write(int b) throws IOException
+            {
+                out.write(b);
+                this.transferred++;
+                this.listener.transferred(this.transferred);
+            }
+        }
+    }
+
+            /*else if ("wordpressdotcom".equals(_s)) {
                 if (mSystemService.getActiveNetworkInfo() == null) {
                     return false;
                 } else {
@@ -579,8 +645,6 @@ public class UploadProgress extends Activity {
                     }
                 }
             }*/
-            return result;
-        }
 
         /*@Override
         protected void onProgressUpdate(Integer... progress) {
@@ -631,6 +695,4 @@ public class UploadProgress extends Activity {
 
             }
         };*/
-
-    }
 }
