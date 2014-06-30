@@ -30,7 +30,11 @@ public class AccountEditor extends ActionBarActivity {
                 accountInfo.putString(accountCategory, accountCategory);
                 accountInfo.putString("userName", userName.getText().toString());
                 accountInfo.putString("passWord", passWord.getText().toString());
-                accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/xmlrpc.php");
+                if(accountCategory.equals("wordPress")) {
+                    accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/xmlrpc.php");
+                }else if (accountCategory.equals("drupal")) {
+                    accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/drupal/drupapp");
+                }
                 accountInfo.commit();
                 finish();
             }
