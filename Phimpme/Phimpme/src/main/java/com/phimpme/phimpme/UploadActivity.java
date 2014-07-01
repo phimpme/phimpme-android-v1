@@ -166,8 +166,13 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    new drupappLoginTask().execute();
-                    new drupappUploadTask().execute();
+                    AccountInfo drupal = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
+                    if (drupal.getAccountCategory() == null) {
+                        AccountInfo.saveAccountInfo(UploadActivity.this, "drupal");
+                    }else {
+                        drupal.setImagePath(imageUri.getPath());
+                        new ShareToDrupal(UploadActivity.this, drupal).uploadPhoto();
+                    }
                 }
             }
         });
@@ -182,12 +187,8 @@ public class UploadActivity extends ActionBarActivity {
                     if (wordPress.getAccountCategory() == null) {
                         AccountInfo.saveAccountInfo(UploadActivity.this, "wordPress");
                     }else {
-                        Bundle data = new Bundle();
                         wordPress.setImagePath(imageUri.getPath());
-                        data.putSerializable("account", wordPress);
-                        Intent intent = new Intent(UploadActivity.this, UploadProgress.class);
-                        intent.putExtras(data);
-                        startActivity(intent);
+                        new ShareToWordPress(UploadActivity.this, wordPress).uploadPhoto();
                     }
 
                 }
@@ -256,99 +257,5 @@ public class UploadActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-
-
-
-
-
-
-    /**
-     * Upload task.
-     */
-    class drupappUploadTask extends AsyncTask<Void, Void, String> {
-
-        protected String doInBackground(Void... unused) {
-            System.out.println("doInBackGround.");
-            String sResponse = "";
-
-            // Parameters to send through.
-            HashMap<String, String> Params = new HashMap<String, String>();
-            Params.put("title", "jieshuhahahahahahaha");
-            Params.put("request_type", "image_upload");
-
-            // Perform request.
-            try {
-                System.out.println("Upload prepare " + ddduserUrl);
-                sResponse = HttpMultipartRequest.execute(UploadActivity.this, ddduserUrl, Params, Common.SEND_COOKIE, imageUri.getPath(), "image");
-                System.out.println("1   " + sResponse);
-            }
-            catch (IOException e) {
-                System.out.println("IOException");
-            }
-            System.out.println(sResponse);
-            return sResponse;
-        }
-
-        protected void onPostExecute(String sResponse) {
-            drupappParseResponse(sResponse);
-            int result = 0;
-            if (result == Common.SUCCESS) {
-                System.out.println("upload success");
-            }
-            else if (result < Common.JSON_PARSE_ERROR) {
-                System.out.println("upload error");
-            }
-        }
-    }
-
-    /**
-     * Login task.
-     */
-    class drupappLoginTask extends AsyncTask<Void, Void, String> {
-
-        protected String doInBackground(Void... unused) {
-            String sResponse = "";
-
-            HashMap<String, String> Params = new HashMap<String, String>();
-            Params.put("request_type", "authenticate");
-            Params.put("drupapp_username", ddduserName);
-            Params.put("drupapp_password", dddpassWord);
-            try {
-                sResponse = HttpMultipartRequest.execute(UploadActivity.this, ddduserUrl, Params, Common.SAVE_COOKIE, "", "");
-            }
-            catch (IOException e) {
-            }
-            System.out.println("Login return " + sResponse);
-            return sResponse;
-        }
-
-        protected void onPostExecute(String sResponse) {
-            drupappParseResponse(sResponse);
-            int result = 0;
-            if (result == Common.SUCCESS) {
-                System.out.println("login success");
-            }
-            else if (result < Common.JSON_PARSE_ERROR) {
-                System.out.println("login error");
-            }
-        }
-    }
-
-    public void drupappParseResponse(String sResponse){
-        System.out.println("onPostExecute.");
-        // Parse response.
-        try {
-            JSONObject jObject = new JSONObject(sResponse);
-        }
-        catch (JSONException e1) {
-            System.out.println("eeeeeeeeeeeeeeee JSONException");
-        }
-        catch (ParseException e1) {
-            System.out.println("eeeeeeeeeeeeeeee ParseException");
-        }
     }
 }
