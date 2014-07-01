@@ -14,11 +14,12 @@
      limitations under the License.
 -->
 
-<view class="android.support.v7.internal.widget.ActionBarView$HomeView"
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_width="wrap_content"
-      android:layout_height="fill_parent"
-      android:background="?attr/actionBarItemBackground">
+<view
+    class="android.support.v7.internal.widget.ActionBarView$HomeView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:background="?attr/actionBarItemBackground">
 
     <ImageView
         android:id="@+id/up"

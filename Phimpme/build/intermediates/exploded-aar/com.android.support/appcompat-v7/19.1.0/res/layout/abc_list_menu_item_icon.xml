@@ -14,16 +14,17 @@
      limitations under the License.
 -->
 
-<ImageView android:id="@+id/icon"
-           xmlns:android="http://schemas.android.com/apk/res/android"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center_vertical"
-           android:layout_marginBottom="8dip"
-           android:layout_marginLeft="8dip"
-           android:layout_marginRight="-8dip"
-           android:layout_marginTop="8dip"
-           android:duplicateParentState="true"
-           android:scaleType="centerInside"/>
+<ImageView
+    android:id="@+id/icon"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginBottom="8dip"
+    android:layout_marginLeft="8dip"
+    android:layout_marginRight="-8dip"
+    android:layout_marginTop="8dip"
+    android:duplicateParentState="true"
+    android:scaleType="centerInside"/>
 
     <!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_list_menu_item_icon.xml -->

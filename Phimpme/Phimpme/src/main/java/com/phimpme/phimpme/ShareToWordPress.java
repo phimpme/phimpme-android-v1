@@ -12,17 +12,18 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by sensing on 14-7-1.
- */
 public class ShareToWordPress {
-
-    protected AccountInfo accountInfo;
     protected Context context;
+    protected AccountInfo accountInfo;
+    protected String imagePath;
 
-    public ShareToWordPress(Context context, AccountInfo accountInfo) {
-        this.accountInfo = accountInfo;
+    public ShareToWordPress(Context context, AccountInfo accountInfo, String imagePath) {
+        assert (context != null);
+        assert (accountInfo != null);
+        assert (imagePath != null && !imagePath.isEmpty());
         this.context = context;
+        this.accountInfo = accountInfo;
+        this.imagePath = imagePath;
     }
 
     public void uploadPhoto() {
@@ -32,10 +33,15 @@ public class ShareToWordPress {
     private class WordPressUploadProgress extends AsyncTask<Integer, Integer, Boolean> {
         @Override
         protected Boolean doInBackground(Integer... params) {
-            String userName = ShareToWordPress.this.accountInfo.getUserName();
-            String passWord = ShareToWordPress.this.accountInfo.getPassWord();
-            String userUrl = ShareToWordPress.this.accountInfo.getUserUrl();
-            String imagePath = ShareToWordPress.this.accountInfo.getImagePath();
+            String userName = accountInfo.getUserName();
+            String passWord = accountInfo.getPassWord();
+            String userUrl = Configuration.WORDPRESS_ROOT_URL;
+
+            assert (userName != null && !userName.isEmpty());
+            assert (passWord != null && !passWord.isEmpty());
+            assert (userUrl != null && !userUrl.isEmpty());
+            assert (imagePath != null && !imagePath.isEmpty());
+
             XMLRPCClient client = new XMLRPCClient(userUrl, "", "");
 
             //create temp file for media upload

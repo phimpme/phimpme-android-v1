@@ -212,7 +212,7 @@ public class ImageHelper {
                     System.err.println("unexpected " + ie);
                     orientation = "0";
                 }
-				/* success, this is a newer device */
+                /* success, this is a newer device */
             } catch (NoSuchMethodException nsme) {
                 orientation = "0";
             } catch (IllegalArgumentException e) {

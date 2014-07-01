@@ -6,7 +6,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("/home/sensing/android.keystore")
+            storeFile file("android.keystore")
             storePassword "Lcaroline0120"
             keyAlias "android.keystore"
             keyPassword "Lcaroline0120"

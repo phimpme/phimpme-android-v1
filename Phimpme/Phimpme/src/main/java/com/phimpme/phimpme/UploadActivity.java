@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -17,36 +16,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.drupal.Common;
-import com.drupal.HttpMultipartRequest;
-
-import org.apache.http.ParseException;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.HashMap;
-
-import static com.phimpme.phimpme.Configuration.ENABLE_ANDROID_SHARING;
-import static com.phimpme.phimpme.Configuration.ENABLE_BLUETOOTH;
-import static com.phimpme.phimpme.Configuration.ENABLE_NFC;
-import static com.phimpme.phimpme.Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION;
-import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_DRUPAL;
-import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_WEIBO;
-import static com.phimpme.phimpme.Configuration.ENABLE_SHARING_TO_WORDPRESS;
 
 public class UploadActivity extends ActionBarActivity {
-
-    private String ddduserName = "test";
-    private String dddpassWord = "test";
-    private String ddduserUrl = "http://www.yuzhiqiang.org/drupal/drupapp";
-
-
     private Button otherButton;
     private Button bluetoothButton;
-    private Button sinaWeiboButton;
     private Button durpalButton;
     private Button wordPressButton;
     private ImageView preview;
@@ -65,14 +39,13 @@ public class UploadActivity extends ActionBarActivity {
         otherButton = (Button) findViewById(R.id.otherButton);
         durpalButton = (Button) findViewById(R.id.drupalButton);
         wordPressButton = (Button) findViewById(R.id.wordPressButton);
-        sinaWeiboButton = (Button) findViewById(R.id.sinaWeiboButton);
         preview = (ImageView) findViewById(R.id.imageView);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         nfcTextView = (TextView) findViewById(R.id.nfcTextView);
         imageUri = (Uri) getIntent().getExtras().get("imageUri");
 
         // NFC
-        if (ENABLE_NFC) {
+        if (Configuration.ENABLE_NFC) {
             nfcTextView.setVisibility(View.VISIBLE);
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             if (nfcAdapter != null) {
@@ -91,7 +64,7 @@ public class UploadActivity extends ActionBarActivity {
             nfcTextView.setVisibility(View.GONE);
         }
 
-        if (ENABLE_PHOTO_LOCATION_MODIFICATION) {
+        if (Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION) {
             init_location_modification();
         }
 
@@ -104,31 +77,25 @@ public class UploadActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
-        if (ENABLE_ANDROID_SHARING) {
+        if (Configuration.ENABLE_ANDROID_SHARING) {
             enable_android_sharing();
         } else {
             otherButton.setVisibility(View.GONE);
         }
 
-        if (ENABLE_BLUETOOTH) {
+        if (Configuration.ENABLE_BLUETOOTH) {
             enable_bluetooth();
         } else {
             bluetoothButton.setVisibility(View.GONE);
         }
 
-        if (ENABLE_SHARING_TO_WEIBO) {
-            enable_weibo();
-        } else {
-            sinaWeiboButton.setVisibility(View.GONE);
-        }
-
-        if (ENABLE_SHARING_TO_DRUPAL) {
+        if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
             enable_drupal();
         } else {
             wordPressButton.setVisibility(View.GONE);
         }
 
-        if (ENABLE_SHARING_TO_WORDPRESS) {
+        if (Configuration.ENABLE_SHARING_TO_WORDPRESS) {
             enable_wordpress();
         } else {
             wordPressButton.setVisibility(View.GONE);
@@ -166,12 +133,11 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    AccountInfo drupal = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
-                    if (drupal.getAccountCategory() == null) {
+                    AccountInfo drupalAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
+                    if (drupalAccount.getAccountCategory() == null) {
                         AccountInfo.saveAccountInfo(UploadActivity.this, "drupal");
-                    }else {
-                        drupal.setImagePath(imageUri.getPath());
-                        new ShareToDrupal(UploadActivity.this, drupal).uploadPhoto();
+                    } else {
+                        new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath()).uploadPhoto();
                     }
                 }
             }
@@ -183,36 +149,13 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    AccountInfo wordPress = AccountInfo.getSavedAccountInfo(UploadActivity.this, "wordPress");
-                    if (wordPress.getAccountCategory() == null) {
+                    AccountInfo wordpressAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "wordPress");
+                    if (wordpressAccount.getAccountCategory() == null) {
                         AccountInfo.saveAccountInfo(UploadActivity.this, "wordPress");
-                    }else {
-                        wordPress.setImagePath(imageUri.getPath());
-                        new ShareToWordPress(UploadActivity.this, wordPress).uploadPhoto();
+                    } else {
+                        new ShareToWordPress(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
                     }
 
-                }
-            }
-        });
-    }
-
-    private void enable_weibo() {
-        sinaWeiboButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View view) {
-                if (imageUri != null) {
-                    Toast.makeText(UploadActivity.this, "Uploading to ShareToSinaWeibo.", Toast.LENGTH_LONG).show();
-                    try {
-                        new ShareToSinaWeibo(
-                                MediaStore.Images.Media.getBitmap(
-                                        UploadActivity.this.getContentResolver(), imageUri),
-                                descriptionEditText.getText().toString(),
-                                getApplicationContext()
-                        ).uploadImageToSinaWeibo();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Toast.makeText(UploadActivity.this, "ImageUri is null.", Toast.LENGTH_LONG).show();
                 }
             }
         });

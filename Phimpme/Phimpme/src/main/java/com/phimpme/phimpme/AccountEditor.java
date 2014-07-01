@@ -1,8 +1,8 @@
 package com.phimpme.phimpme;
 
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,9 +30,9 @@ public class AccountEditor extends ActionBarActivity {
                 accountInfo.putString(accountCategory, accountCategory);
                 accountInfo.putString("userName", userName.getText().toString());
                 accountInfo.putString("passWord", passWord.getText().toString());
-                if(accountCategory.equals("wordPress")) {
+                if (accountCategory.equals("wordPress")) {
                     accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/xmlrpc.php");
-                }else if (accountCategory.equals("drupal")) {
+                } else if (accountCategory.equals("drupal")) {
                     accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/drupal/drupapp");
                 }
                 accountInfo.commit();

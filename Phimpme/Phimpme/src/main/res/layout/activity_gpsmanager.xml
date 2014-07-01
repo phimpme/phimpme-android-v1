@@ -4,16 +4,17 @@
                 android:layout_height="match_parent"
                 tools:context="com.phimpme.phimpme.GPSManagerActivity">
 
-    <fragment android:id="@+id/GPSManagerActivityMap"
-              android:name="com.google.android.gms.maps.MapFragment"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="250dip"
-              android:layout_alignParentBottom="true"
-              android:layout_alignParentEnd="true"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentRight="true"
-              android:layout_alignParentTop="true"/>
+    <fragment
+        android:id="@+id/GPSManagerActivityMap"
+        android:name="com.google.android.gms.maps.MapFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="250dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
 
     <ImageView
         android:id="@+id/imageView"

@@ -55,32 +55,16 @@ public class LocationHelper {
             lm.removeUpdates(locationListenerGps);
             lm.removeUpdates(locationListenerNetwork);
         }
+    }
+
+    public static abstract class LocationResult {
+        public abstract void gotLocation(Location location);
     }    LocationListener locationListenerGps = new LocationListener() {
         public void onLocationChanged(Location location) {
             timer1.cancel();
             locationResult.gotLocation(location);
             lm.removeUpdates(this);
             lm.removeUpdates(locationListenerNetwork);
-        }
-
-        public void onProviderDisabled(String provider) {
-        }
-
-        public void onProviderEnabled(String provider) {
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
-    };
-
-    public static abstract class LocationResult {
-        public abstract void gotLocation(Location location);
-    }    LocationListener locationListenerNetwork = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            timer1.cancel();
-            locationResult.gotLocation(location);
-            lm.removeUpdates(this);
-            lm.removeUpdates(locationListenerGps);
         }
 
         public void onProviderDisabled(String provider) {
@@ -126,6 +110,24 @@ public class LocationHelper {
             locationResult.gotLocation(null);
         }
     }
+
+    LocationListener locationListenerNetwork = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            timer1.cancel();
+            locationResult.gotLocation(location);
+            lm.removeUpdates(this);
+            lm.removeUpdates(locationListenerGps);
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+    };
 
 
 

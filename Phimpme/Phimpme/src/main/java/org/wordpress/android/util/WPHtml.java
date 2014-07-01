@@ -131,7 +131,7 @@ public class WPHtml {
         for (int i = 0; i < text.length(); i = next) {
             next = text.nextSpanTransition(i, len, ParagraphStyle.class);
             /*ParagraphStyle[] style = text.getSpans(i, next,
-					ParagraphStyle.class);
+                    ParagraphStyle.class);
 			String elements = " ";
 			boolean needDiv = false;
 

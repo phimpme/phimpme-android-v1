@@ -11,13 +11,6 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_auth"
-        android:icon="@android:drawable/ic_menu_edit"
-        android:orderInCategory="100"
-        android:title="AuthManager"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/action_settings"
         android:icon="@android:drawable/ic_menu_manage"
         android:orderInCategory="100"

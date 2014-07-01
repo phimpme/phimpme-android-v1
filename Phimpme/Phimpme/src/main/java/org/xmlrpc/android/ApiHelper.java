@@ -244,7 +244,7 @@ public class ApiHelper {
 
     public static String convertStreamToString(InputStream is) throws IOException {
         /*
-		 * To convert the InputStream to String we use the Reader.read(char[]
+         * To convert the InputStream to String we use the Reader.read(char[]
 		 * buffer) method. We iterate until the Reader return -1 which means
 		 * there's no more data to read. We use the StringWriter class to
 		 * produce the string.

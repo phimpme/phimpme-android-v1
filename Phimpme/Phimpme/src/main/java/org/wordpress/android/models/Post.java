@@ -508,7 +508,7 @@ public class Post {
             String postOrPage = (String) (post.isPage() ? "page_id" : "post_id");
             String message = "uploading"
                     + " " + postOrPage;
-			/*n = new Notification(R.drawable.notification_icon, message,
+            /*n = new Notification(R.drawable.notification_icon, message,
 					System.currentTimeMillis());
 
 			Intent notificationIntent = new Intent(context, Posts.class);

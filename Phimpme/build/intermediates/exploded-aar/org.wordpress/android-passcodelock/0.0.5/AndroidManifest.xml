@@ -1,5 +1,6 @@
 <!-- From: file:/Users/daniloercoli/git/Android-PasscodeLock/library/AndroidManifest.xml -->
-<manifest package="org.wordpress.passcodelock" xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest package="org.wordpress.passcodelock"
+          xmlns:android="http://schemas.android.com/apk/res/android"
           android:versionCode="1" android:versionName="0.0.5">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17"/>

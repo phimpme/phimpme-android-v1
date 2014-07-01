@@ -1,6 +1,5 @@
 package com.phimpme.phimpme;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
@@ -31,12 +30,6 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_upload) {
             DialogFragment newFragment = new SelectDialogFragment();
             newFragment.show(getSupportFragmentManager(), "SelectDialogFragment");
-            return true;
-        }
-        if (id == R.id.action_auth) {
-            Intent toAuthActivity = new Intent();
-            toAuthActivity.setClass(MainActivity.this, AuthActivity.class);
-            startActivity(toAuthActivity);
             return true;
         }
         if (id == R.id.action_settings) {
