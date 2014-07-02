@@ -2,13 +2,10 @@ package com.phimpme.phimpme;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import com.drupal.Common;
 import com.drupal.HttpMultipartRequest;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -16,16 +13,19 @@ public class ShareToDrupal {
 	private Context context;
 	private AccountInfo accountInfo;
 	private String imagePath;
+	private String imageTitle;
 	private String drupalURL;
 
-	public ShareToDrupal(Context context, AccountInfo accountInfo, String imagePath) {
+	public ShareToDrupal(Context context, AccountInfo accountInfo, String imagePath, String imageTitle) {
 		assert (context != null);
 		assert (accountInfo != null);
+		assert (imageTitle != null);
 		assert (imagePath != null && !imagePath.isEmpty());
 
 		this.context = context;
 		this.accountInfo = accountInfo;
 		this.imagePath = imagePath;
+		this.imageTitle = imageTitle;
 		drupalURL = Configuration.DRUPAL_ROOT_URL;
 	}
 
@@ -41,7 +41,7 @@ public class ShareToDrupal {
 
 			// Parameters to send through.
 			HashMap<String, String> Params = new HashMap<String, String>();
-			Params.put("title", "jieshuyidanghahahahaha");
+			Params.put("title", imageTitle);
 			Params.put("request_type", "image_upload");
 
 			// Perform request.

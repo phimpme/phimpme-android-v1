@@ -28,6 +28,9 @@ public class UploadActivity extends ActionBarActivity {
 	private TextView descriptionEditText;
 	private TextView nfcTextView;
 	private Uri imageUri;
+	private String imageDescription;
+	private Switch locationSwitch;
+	private Button locationButton;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,12 @@ public class UploadActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_upload);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+		find_views();
+		imageDescription = descriptionEditText.getText().toString();
+		enable_functions_or_hide_views();
+	}
 
+	private void find_views() {
 		bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
 		otherButton = (Button) findViewById(R.id.otherButton);
 		durpalButton = (Button) findViewById(R.id.drupalButton);
@@ -44,32 +52,24 @@ public class UploadActivity extends ActionBarActivity {
 		descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
 		nfcTextView = (TextView) findViewById(R.id.nfcTextView);
 		imageUri = (Uri) getIntent().getExtras().get("imageUri");
+		locationSwitch = (Switch) findViewById(R.id.locationSwitch);
+		locationButton = (Button) findViewById(R.id.locationButton);
+	}
 
-		// NFC
+	private void enable_functions_or_hide_views() {
 		if (Configuration.ENABLE_NFC) {
-			nfcTextView.setVisibility(View.VISIBLE);
-			NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-			if (nfcAdapter != null) {
-				// NFC is available on this device
-				nfcAdapter.setBeamPushUris(null, this);
-				nfcAdapter.setBeamPushUrisCallback(new NfcAdapter.CreateBeamUrisCallback() {
-					@Override
-					public Uri[] createBeamUris(NfcEvent event) {
-						Uri[] nfcPushUris = new Uri[1];
-						nfcPushUris[0] = imageUri;
-						return nfcPushUris;
-					}
-				}, this);
-			}
+			enable_nfc();
 		} else {
 			nfcTextView.setVisibility(View.GONE);
 		}
 
 		if (Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION) {
-			init_location_modification();
+			enable_location_modification();
+		} else {
+			locationSwitch.setVisibility(View.GONE);
+			locationButton.setVisibility(View.GONE);
 		}
 
-		// Initialize
 		// TODO: Init locationSwitch (visible if GPS data is available)
 
 		try {
@@ -100,6 +100,23 @@ public class UploadActivity extends ActionBarActivity {
 			enable_wordpress();
 		} else {
 			wordPressButton.setVisibility(View.GONE);
+		}
+	}
+
+	private void enable_nfc() {
+		nfcTextView.setVisibility(View.VISIBLE);
+		NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+		if (nfcAdapter != null) {
+			// NFC is available on this device
+			nfcAdapter.setBeamPushUris(null, this);
+			nfcAdapter.setBeamPushUrisCallback(new NfcAdapter.CreateBeamUrisCallback() {
+				@Override
+				public Uri[] createBeamUris(NfcEvent event) {
+					Uri[] nfcPushUris = new Uri[1];
+					nfcPushUris[0] = imageUri;
+					return nfcPushUris;
+				}
+			}, this);
 		}
 	}
 
@@ -136,9 +153,9 @@ public class UploadActivity extends ActionBarActivity {
 				if (imageUri != null) {
 					AccountInfo drupalAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
 					if (drupalAccount.getAccountCategory() == null) {
-						AccountInfo.saveAccountInfo(UploadActivity.this, "drupal");
+						AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "drupal");
 					} else {
-						new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath()).uploadPhoto();
+						new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath(), imageDescription).uploadPhoto();
 					}
 				}
 			}
@@ -152,20 +169,16 @@ public class UploadActivity extends ActionBarActivity {
 				if (imageUri != null) {
 					AccountInfo wordpressAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "wordPress");
 					if (wordpressAccount.getAccountCategory() == null) {
-						AccountInfo.saveAccountInfo(UploadActivity.this, "wordPress");
+						AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "wordPress");
 					} else {
 						new ShareToWordPress(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
 					}
-
 				}
 			}
 		});
 	}
 
-	private void init_location_modification() {
-		final Switch locationSwitch = (Switch) findViewById(R.id.locationSwitch);
-		final Button locationButton = (Button) findViewById(R.id.locationButton);
-
+	private void enable_location_modification() {
 		locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

@@ -3,7 +3,6 @@ package com.phimpme.phimpme;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
 import java.io.Serializable;
 
 public class AccountInfo implements Serializable {
@@ -23,7 +22,7 @@ public class AccountInfo implements Serializable {
 		return savedAccount;
 	}
 
-	public static void saveAccountInfo(Context context, String accountCategory) {
+	public static void createAndSaveAccountInfo(Context context, String accountCategory) {
 		// TODO: Encryption
 		// TODO: Do not put this here, move to UploadActivity
 		Intent toAccoutEditor = new Intent();
