@@ -3,9 +3,9 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.phimpme.phimpme.UploadActivity">
 
-    <item
-        android:id="@+id/action_send"
-        android:orderInCategory="100"
-        android:title="GPSManager"
-        app:showAsAction="never"/>
+	<item
+		android:id="@+id/action_send"
+		android:orderInCategory="100"
+		android:title="GPSManager"
+		app:showAsAction="never"/>
 </menu>

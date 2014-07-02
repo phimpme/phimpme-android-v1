@@ -1,45 +1,45 @@
 apply plugin: 'android'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1"
+	compileSdkVersion 19
+	buildToolsVersion "19.1"
 
-    signingConfigs {
-        debug {
-            storeFile file("android.keystore")
-            storePassword "Lcaroline0120"
-            keyAlias "android.keystore"
-            keyPassword "Lcaroline0120"
-            // This password is not uploaded by mistake
-            // It's only a temporary one for debugging
-        }
-    }
+	signingConfigs {
+		debug {
+			storeFile file("android.keystore")
+			storePassword "Lcaroline0120"
+			keyAlias "android.keystore"
+			keyPassword "Lcaroline0120"
+			// This password is not uploaded by mistake
+			// It's only a temporary one for debugging
+		}
+	}
 
 
-    defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 19
-        versionCode 1
-        versionName "1.0"
-    }
+	defaultConfig {
+		minSdkVersion 10
+		targetSdkVersion 19
+		versionCode 1
+		versionName "1.0"
+	}
 
-    buildTypes {
-        release {
-            runProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt', 'proguard-project.txt'
-        }
-    }
+	buildTypes {
+		release {
+			runProguard true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt', 'proguard-project.txt'
+		}
+	}
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile files('libs/CWAC-AdapterWrapper.jar')
-    compile files('libs/CWAC-Bus.jar')
-    compile files('libs/CWAC-Task.jar')
-    compile files('libs/tagsoup-1.2.1.jar')
-    compile files('libs/httpmime-4.1.1.jar')
-    compile 'com.android.support:appcompat-v7:19.1.0'
-    compile 'com.android.support:gridlayout-v7:19.1.0'
-    compile 'com.android.support:support-v4:19.1.0'
-    compile 'com.google.android.gms:play-services:4.3.23'
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile files('libs/CWAC-AdapterWrapper.jar')
+	compile files('libs/CWAC-Bus.jar')
+	compile files('libs/CWAC-Task.jar')
+	compile files('libs/tagsoup-1.2.1.jar')
+	compile files('libs/httpmime-4.1.1.jar')
+	compile 'com.android.support:appcompat-v7:19.1.0'
+	compile 'com.android.support:gridlayout-v7:19.1.0'
+	compile 'com.android.support:support-v4:19.1.0'
+	compile 'com.google.android.gms:play-services:4.3.23'
 }

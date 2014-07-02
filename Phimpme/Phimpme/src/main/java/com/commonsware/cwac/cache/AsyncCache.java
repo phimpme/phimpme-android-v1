@@ -19,34 +19,34 @@ import com.commonsware.cwac.bus.AbstractBus;
 import java.io.File;
 
 abstract public class AsyncCache<K, V, B extends AbstractBus<?, ?, ?>, M>
-        extends CacheBase<K, V> {
-    private B bus = null;
+		extends CacheBase<K, V> {
+	private B bus = null;
 
-    public AsyncCache(File cacheRoot, B bus, DiskCachePolicy policy,
-                      int maxSize) {
-        super(cacheRoot, policy, maxSize);
-        this.bus = bus;
-    }
+	public AsyncCache(File cacheRoot, B bus, DiskCachePolicy policy,
+	                  int maxSize) {
+		super(cacheRoot, policy, maxSize);
+		this.bus = bus;
+	}
 
-    protected abstract V create(K key, M message, int forceStyle);
+	protected abstract V create(K key, M message, int forceStyle);
 
-    public V get(K key, M message) {
-        V result = super.get(key);
+	public V get(K key, M message) {
+		V result = super.get(key);
 
-        if (result == null) {
-            result = create(key, message, FORCE_NONE);
-            super.put(key, result);
-        }
+		if (result == null) {
+			result = create(key, message, FORCE_NONE);
+			super.put(key, result);
+		}
 
-        return (result);
-    }
+		return (result);
+	}
 
-    public void forceLoad(K key, M message, int forceStyle) {
-        super.remove(key);
-        super.put(key, create(key, message, forceStyle));
-    }
+	public void forceLoad(K key, M message, int forceStyle) {
+		super.remove(key);
+		super.put(key, create(key, message, forceStyle));
+	}
 
-    protected B getBus() {
-        return (bus);
-    }
+	protected B getBus() {
+		return (bus);
+	}
 }

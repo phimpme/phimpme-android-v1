@@ -3,21 +3,21 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.phimpme.phimpme.MapActivity">
 
-    <item
-        android:id="@+id/action_normal"
-        android:orderInCategory="100"
-        android:title="Normal"
-        app:showAsAction="always"/>
+	<item
+		android:id="@+id/action_normal"
+		android:orderInCategory="100"
+		android:title="Normal"
+		app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/action_hybird"
-        android:orderInCategory="100"
-        android:title="Hybird"
-        app:showAsAction="always"/>
+	<item
+		android:id="@+id/action_hybird"
+		android:orderInCategory="100"
+		android:title="Hybird"
+		app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/action_satellite"
-        android:orderInCategory="100"
-        android:title="Satellite"
-        app:showAsAction="always"/>
+	<item
+		android:id="@+id/action_satellite"
+		android:orderInCategory="100"
+		android:title="Satellite"
+		app:showAsAction="always"/>
 </menu>

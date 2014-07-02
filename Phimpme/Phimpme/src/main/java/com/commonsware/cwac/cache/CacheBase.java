@@ -24,87 +24,87 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 abstract public class CacheBase<K, V> {
-    public static final int CACHE_MEMORY = 1;
-    public static final int CACHE_DISK = 2;
-    public static final int CACHE_NONE = 3;
-    public static final int FORCE_NONE = 1;
-    public static final int FORCE_SOFT = 2;
-    public static final int FORCE_HARD = 3;
-    private static String TAG = "CacheBase";
-    private File cacheRoot = null;
-    private int maxSize = 0;
-    private Map<K, V> cache = Collections.synchronizedMap(new LinkedHashMap<K, V>(101, .75F, true) {
-        /**
-         *
-         */
-        private static final long serialVersionUID = 1L;
+	public static final int CACHE_MEMORY = 1;
+	public static final int CACHE_DISK = 2;
+	public static final int CACHE_NONE = 3;
+	public static final int FORCE_NONE = 1;
+	public static final int FORCE_SOFT = 2;
+	public static final int FORCE_HARD = 3;
+	private static String TAG = "CacheBase";
+	private File cacheRoot = null;
+	private int maxSize = 0;
+	private Map<K, V> cache = Collections.synchronizedMap(new LinkedHashMap<K, V>(101, .75F, true) {
+		/**
+		 *
+		 */
+		private static final long serialVersionUID = 1L;
 
-        @SuppressWarnings("rawtypes")
-        protected boolean removeEldestEntry(Map.Entry eldest) {
-            return (size() > maxSize);
-        }
-    });
+		@SuppressWarnings("rawtypes")
+		protected boolean removeEldestEntry(Map.Entry eldest) {
+			return (size() > maxSize);
+		}
+	});
 
-    public CacheBase(File cacheRoot, DiskCachePolicy policy,
-                     int maxSize) {
-        this.cacheRoot = cacheRoot;
-        this.maxSize = maxSize;
+	public CacheBase(File cacheRoot, DiskCachePolicy policy,
+	                 int maxSize) {
+		this.cacheRoot = cacheRoot;
+		this.maxSize = maxSize;
 
-        if (cacheRoot != null) {
-            new CacheCleanTask().execute(policy);
-        }
-    }
+		if (cacheRoot != null) {
+			new CacheCleanTask().execute(policy);
+		}
+	}
 
-    public V get(K key) {
-        return (cache.get(key));
-    }
+	public V get(K key) {
+		return (cache.get(key));
+	}
 
-    public int getStatus(K key) {
-        if (cache.containsKey(key)) {
-            return (CACHE_MEMORY);
-        }
+	public int getStatus(K key) {
+		if (cache.containsKey(key)) {
+			return (CACHE_MEMORY);
+		}
 
-        return (CACHE_NONE);
-    }
+		return (CACHE_NONE);
+	}
 
-    protected void put(K key, V value) {
-        cache.put(key, value);
-    }
+	protected void put(K key, V value) {
+		cache.put(key, value);
+	}
 
-    public void remove(K key) {
-        cache.remove(key);
-    }
+	public void remove(K key) {
+		cache.remove(key);
+	}
 
-    protected File getCacheRoot() {
-        return (cacheRoot);
-    }
+	protected File getCacheRoot() {
+		return (cacheRoot);
+	}
 
-    public interface DiskCachePolicy {
-        boolean eject(File cachedFile);
-    }
+	public interface DiskCachePolicy {
+		boolean eject(File cachedFile);
+	}
 
-    class CacheCleanTask extends AsyncTaskEx<DiskCachePolicy, Void, Void> {
-        @Override
-        protected Void doInBackground(DiskCachePolicy... policies) {
-            try {
-                walkDir(cacheRoot, policies[0]);
-            } catch (Throwable t) {
-                Log.e(TAG, "Exception cleaning cache", t);
-            }
+	class CacheCleanTask extends AsyncTaskEx<DiskCachePolicy, Void, Void> {
+		@Override
+		protected Void doInBackground(DiskCachePolicy... policies) {
+			try {
+				walkDir(cacheRoot, policies[0]);
+			} catch (Throwable t) {
+				Log.e(TAG, "Exception cleaning cache", t);
+			}
 
-            return (null);
-        }
+			return (null);
+		}
 
-        void walkDir(File dir, DiskCachePolicy policy) {
-            if (dir.isDirectory()) {
-                String[] children = dir.list();
+		void walkDir(File dir, DiskCachePolicy policy) {
+			if (dir.isDirectory()) {
+				String[] children = dir.list();
 
-                for (int i = 0; i < children.length; i++) {
-                    walkDir(new File(dir, children[i]), policy);
-                }
-            } else if (policy.eject(dir)) {
-                dir.delete();
-            }
-        }
-    }
+				for (int i = 0; i < children.length; i++) {
+					walkDir(new File(dir, children[i]), policy);
+				}
+			} else if (policy.eject(dir)) {
+				dir.delete();
+			}
+		}
+	}
 }

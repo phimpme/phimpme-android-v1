@@ -21,17 +21,17 @@ import android.widget.ListAdapter;
 import com.commonsware.cwac.cache.SimpleWebImageCache;
 
 abstract public class ThumbnailActivity extends ListActivity {
-    private ThumbnailBus bus = new ThumbnailBus();
-    private SimpleWebImageCache<ThumbnailBus, ThumbnailMessage> cache =
-            new SimpleWebImageCache<ThumbnailBus, ThumbnailMessage>(null, null, 101, bus);
+	private ThumbnailBus bus = new ThumbnailBus();
+	private SimpleWebImageCache<ThumbnailBus, ThumbnailMessage> cache =
+			new SimpleWebImageCache<ThumbnailBus, ThumbnailMessage>(null, null, 101, bus);
 
-    abstract protected int[] getImageIdArray();
+	abstract protected int[] getImageIdArray();
 
-    @Override
-    public void setListAdapter(ListAdapter adapter) {
-        super.setListAdapter(new ThumbnailAdapter(this,
-                adapter,
-                cache,
-                getImageIdArray()));
-    }
+	@Override
+	public void setListAdapter(ListAdapter adapter) {
+		super.setListAdapter(new ThumbnailAdapter(this,
+				adapter,
+				cache,
+				getImageIdArray()));
+	}
 }

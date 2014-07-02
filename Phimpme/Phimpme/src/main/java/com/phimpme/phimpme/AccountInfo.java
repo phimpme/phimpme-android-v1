@@ -7,48 +7,48 @@ import android.content.SharedPreferences;
 import java.io.Serializable;
 
 public class AccountInfo implements Serializable {
-    private String accountCategory;
-    private String userName;
-    private String passWord;
+	private String accountCategory;
+	private String userName;
+	private String passWord;
 
-    public AccountInfo(String accountCategory) {
-        this.accountCategory = accountCategory;
-    }
+	public AccountInfo(String accountCategory) {
+		this.accountCategory = accountCategory;
+	}
 
-    public static AccountInfo getSavedAccountInfo(Context context, String accountCategory) {
-        SharedPreferences accountInfo = context.getSharedPreferences(accountCategory, context.MODE_PRIVATE);
-        AccountInfo savedAccount = new AccountInfo(accountInfo.getString(accountCategory, null));
-        savedAccount.setUserName(accountInfo.getString("userName", null));
-        savedAccount.setPassWord(accountInfo.getString("passWord", null));
-        return savedAccount;
-    }
+	public static AccountInfo getSavedAccountInfo(Context context, String accountCategory) {
+		SharedPreferences accountInfo = context.getSharedPreferences(accountCategory, context.MODE_PRIVATE);
+		AccountInfo savedAccount = new AccountInfo(accountInfo.getString(accountCategory, null));
+		savedAccount.setUserName(accountInfo.getString("userName", null));
+		savedAccount.setPassWord(accountInfo.getString("passWord", null));
+		return savedAccount;
+	}
 
-    public static void saveAccountInfo(Context context, String accountCategory) {
-        // TODO: Encryption
-        // TODO: Do not put this here, move to UploadActivity
-        Intent toAccoutEditor = new Intent();
-        toAccoutEditor.putExtra("accountCategory", accountCategory);
-        toAccoutEditor.setClass(context, AccountEditor.class);
-        context.startActivity(toAccoutEditor);
-    }
+	public static void saveAccountInfo(Context context, String accountCategory) {
+		// TODO: Encryption
+		// TODO: Do not put this here, move to UploadActivity
+		Intent toAccoutEditor = new Intent();
+		toAccoutEditor.putExtra("accountCategory", accountCategory);
+		toAccoutEditor.setClass(context, AccountEditor.class);
+		context.startActivity(toAccoutEditor);
+	}
 
-    public String getAccountCategory() {
-        return this.accountCategory;
-    }
+	public String getAccountCategory() {
+		return this.accountCategory;
+	}
 
-    public String getUserName() {
-        return this.userName;
-    }
+	public String getUserName() {
+		return this.userName;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public String getPassWord() {
-        return this.passWord;
-    }
+	public String getPassWord() {
+		return this.passWord;
+	}
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
 }

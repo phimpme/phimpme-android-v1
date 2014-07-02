@@ -3,18 +3,18 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.phimpme.phimpme.MainActivity">
 
-    <item
-        android:id="@+id/action_upload"
-        android:icon="@android:drawable/ic_menu_camera"
-        android:orderInCategory="100"
-        android:title="Upload"
-        app:showAsAction="always"/>
+	<item
+		android:id="@+id/action_upload"
+		android:icon="@android:drawable/ic_menu_camera"
+		android:orderInCategory="100"
+		android:title="Upload"
+		app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/action_settings"
-        android:icon="@android:drawable/ic_menu_manage"
-        android:orderInCategory="100"
-        android:title="Settings"
-        app:showAsAction="never"/>
+	<item
+		android:id="@+id/action_settings"
+		android:icon="@android:drawable/ic_menu_manage"
+		android:orderInCategory="100"
+		android:title="Settings"
+		app:showAsAction="never"/>
 
 </menu>

@@ -23,26 +23,26 @@ import android.text.style.CharacterStyle;
 import android.text.style.UpdateAppearance;
 
 public class WPUnderlineSpan extends CharacterStyle
-        implements UpdateAppearance, ParcelableSpan {
-    public WPUnderlineSpan() {
-    }
+		implements UpdateAppearance, ParcelableSpan {
+	public WPUnderlineSpan() {
+	}
 
-    public WPUnderlineSpan(Parcel src) {
-    }
+	public WPUnderlineSpan(Parcel src) {
+	}
 
-    public int getSpanTypeId() {
-        return 6;
-    }
+	public int getSpanTypeId() {
+		return 6;
+	}
 
-    public int describeContents() {
-        return 0;
-    }
+	public int describeContents() {
+		return 0;
+	}
 
-    public void writeToParcel(Parcel dest, int flags) {
-    }
+	public void writeToParcel(Parcel dest, int flags) {
+	}
 
-    @Override
-    public void updateDrawState(TextPaint ds) {
-        ds.setUnderlineText(true);
-    }
+	@Override
+	public void updateDrawState(TextPaint ds) {
+		ds.setUnderlineText(true);
+	}
 }

@@ -16,189 +16,190 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+
 import java.io.IOException;
 
 public class UploadActivity extends ActionBarActivity {
-    private Button otherButton;
-    private Button bluetoothButton;
-    private Button durpalButton;
-    private Button wordPressButton;
-    private ImageView preview;
-    private TextView descriptionEditText;
-    private TextView nfcTextView;
-    private Uri imageUri;
+	private Button otherButton;
+	private Button bluetoothButton;
+	private Button durpalButton;
+	private Button wordPressButton;
+	private ImageView preview;
+	private TextView descriptionEditText;
+	private TextView nfcTextView;
+	private Uri imageUri;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upload);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_upload);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
-        otherButton = (Button) findViewById(R.id.otherButton);
-        durpalButton = (Button) findViewById(R.id.drupalButton);
-        wordPressButton = (Button) findViewById(R.id.wordPressButton);
-        preview = (ImageView) findViewById(R.id.imageView);
-        descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
-        nfcTextView = (TextView) findViewById(R.id.nfcTextView);
-        imageUri = (Uri) getIntent().getExtras().get("imageUri");
+		bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
+		otherButton = (Button) findViewById(R.id.otherButton);
+		durpalButton = (Button) findViewById(R.id.drupalButton);
+		wordPressButton = (Button) findViewById(R.id.wordPressButton);
+		preview = (ImageView) findViewById(R.id.imageView);
+		descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
+		nfcTextView = (TextView) findViewById(R.id.nfcTextView);
+		imageUri = (Uri) getIntent().getExtras().get("imageUri");
 
-        // NFC
-        if (Configuration.ENABLE_NFC) {
-            nfcTextView.setVisibility(View.VISIBLE);
-            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (nfcAdapter != null) {
-                // NFC is available on this device
-                nfcAdapter.setBeamPushUris(null, this);
-                nfcAdapter.setBeamPushUrisCallback(new NfcAdapter.CreateBeamUrisCallback() {
-                    @Override
-                    public Uri[] createBeamUris(NfcEvent event) {
-                        Uri[] nfcPushUris = new Uri[1];
-                        nfcPushUris[0] = imageUri;
-                        return nfcPushUris;
-                    }
-                }, this);
-            }
-        } else {
-            nfcTextView.setVisibility(View.GONE);
-        }
+		// NFC
+		if (Configuration.ENABLE_NFC) {
+			nfcTextView.setVisibility(View.VISIBLE);
+			NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+			if (nfcAdapter != null) {
+				// NFC is available on this device
+				nfcAdapter.setBeamPushUris(null, this);
+				nfcAdapter.setBeamPushUrisCallback(new NfcAdapter.CreateBeamUrisCallback() {
+					@Override
+					public Uri[] createBeamUris(NfcEvent event) {
+						Uri[] nfcPushUris = new Uri[1];
+						nfcPushUris[0] = imageUri;
+						return nfcPushUris;
+					}
+				}, this);
+			}
+		} else {
+			nfcTextView.setVisibility(View.GONE);
+		}
 
-        if (Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION) {
-            init_location_modification();
-        }
+		if (Configuration.ENABLE_PHOTO_LOCATION_MODIFICATION) {
+			init_location_modification();
+		}
 
-        // Initialize
-        // TODO: Init locationSwitch (visible if GPS data is available)
+		// Initialize
+		// TODO: Init locationSwitch (visible if GPS data is available)
 
-        try {
-            preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		try {
+			preview.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        if (Configuration.ENABLE_ANDROID_SHARING) {
-            enable_android_sharing();
-        } else {
-            otherButton.setVisibility(View.GONE);
-        }
+		if (Configuration.ENABLE_ANDROID_SHARING) {
+			enable_android_sharing();
+		} else {
+			otherButton.setVisibility(View.GONE);
+		}
 
-        if (Configuration.ENABLE_BLUETOOTH) {
-            enable_bluetooth();
-        } else {
-            bluetoothButton.setVisibility(View.GONE);
-        }
+		if (Configuration.ENABLE_BLUETOOTH) {
+			enable_bluetooth();
+		} else {
+			bluetoothButton.setVisibility(View.GONE);
+		}
 
-        if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
-            enable_drupal();
-        } else {
-            wordPressButton.setVisibility(View.GONE);
-        }
+		if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
+			enable_drupal();
+		} else {
+			wordPressButton.setVisibility(View.GONE);
+		}
 
-        if (Configuration.ENABLE_SHARING_TO_WORDPRESS) {
-            enable_wordpress();
-        } else {
-            wordPressButton.setVisibility(View.GONE);
-        }
-    }
+		if (Configuration.ENABLE_SHARING_TO_WORDPRESS) {
+			enable_wordpress();
+		} else {
+			wordPressButton.setVisibility(View.GONE);
+		}
+	}
 
-    private void enable_android_sharing() {
-        otherButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
-                uploadPhotoIntent.setType("image/*");
-                uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
-                startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
-            }
-        });
-    }
+	private void enable_android_sharing() {
+		otherButton.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
+				uploadPhotoIntent.setType("image/*");
+				uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+				uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
+				startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
+			}
+		});
+	}
 
-    private void enable_bluetooth() {
-        bluetoothButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
-                uploadPhotoIntent.setType("image/*");
-                uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
-                uploadPhotoIntent.setPackage("com.android.bluetooth");
-                startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
-            }
-        });
-    }
+	private void enable_bluetooth() {
+		bluetoothButton.setOnClickListener(new Button.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
+				uploadPhotoIntent.setType("image/*");
+				uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+				uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
+				uploadPhotoIntent.setPackage("com.android.bluetooth");
+				startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
+			}
+		});
+	}
 
-    private void enable_drupal() {
-        durpalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageUri != null) {
-                    AccountInfo drupalAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
-                    if (drupalAccount.getAccountCategory() == null) {
-                        AccountInfo.saveAccountInfo(UploadActivity.this, "drupal");
-                    } else {
-                        new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath()).uploadPhoto();
-                    }
-                }
-            }
-        });
-    }
+	private void enable_drupal() {
+		durpalButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (imageUri != null) {
+					AccountInfo drupalAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
+					if (drupalAccount.getAccountCategory() == null) {
+						AccountInfo.saveAccountInfo(UploadActivity.this, "drupal");
+					} else {
+						new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath()).uploadPhoto();
+					}
+				}
+			}
+		});
+	}
 
-    private void enable_wordpress() {
-        wordPressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageUri != null) {
-                    AccountInfo wordpressAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "wordPress");
-                    if (wordpressAccount.getAccountCategory() == null) {
-                        AccountInfo.saveAccountInfo(UploadActivity.this, "wordPress");
-                    } else {
-                        new ShareToWordPress(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
-                    }
+	private void enable_wordpress() {
+		wordPressButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (imageUri != null) {
+					AccountInfo wordpressAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "wordPress");
+					if (wordpressAccount.getAccountCategory() == null) {
+						AccountInfo.saveAccountInfo(UploadActivity.this, "wordPress");
+					} else {
+						new ShareToWordPress(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
+					}
 
-                }
-            }
-        });
-    }
+				}
+			}
+		});
+	}
 
-    private void init_location_modification() {
-        final Switch locationSwitch = (Switch) findViewById(R.id.locationSwitch);
-        final Button locationButton = (Button) findViewById(R.id.locationButton);
+	private void init_location_modification() {
+		final Switch locationSwitch = (Switch) findViewById(R.id.locationSwitch);
+		final Button locationButton = (Button) findViewById(R.id.locationButton);
 
-        locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                locationButton.setVisibility(b ? View.VISIBLE : View.GONE);
-            }
-        });
+		locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+				locationButton.setVisibility(b ? View.VISIBLE : View.GONE);
+			}
+		});
 
-        locationButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(UploadActivity.this, GPSManagerActivity.class);
-                intent.putExtra("imageUri", imageUri);
-                startActivity(intent);
-            }
-        });
-    }
+		locationButton.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View view) {
+				Intent intent = new Intent(UploadActivity.this, GPSManagerActivity.class);
+				intent.putExtra("imageUri", imageUri);
+				startActivity(intent);
+			}
+		});
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.upload, menu);
-        return true;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.upload, menu);
+		return true;
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_send) {
-            // TODO: Add sending function
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_send) {
+			// TODO: Add sending function
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }
