@@ -1,1 +1,0 @@
-int drawable above_shadow 0x7f020000
