@@ -11,7 +11,7 @@ We provide Phimpme-debug-unaligned.apk for quick install. It's the debug version
 Development Environment
 -------
 
-This project is created by Android Studio 0.5.8. You can download the newest version from Android Developers site.
+This project is created by Android Studio 0.8.1. You can download the newest version from Android Developers site.
 
 https://developer.android.com/sdk/installing/studio.html
 
