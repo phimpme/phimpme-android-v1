@@ -7,53 +7,53 @@ import android.widget.EditText;
 
 public class WPEditText extends EditText {
 
-    private EditTextImeBackListener mOnImeBack;
-    private OnSelectionChangedListener onSelectionChangedListener;
+	private EditTextImeBackListener mOnImeBack;
+	private OnSelectionChangedListener onSelectionChangedListener;
 
-    public WPEditText(Context context) {
-        super(context);
-    }
+	public WPEditText(Context context) {
+		super(context);
+	}
 
-    public WPEditText(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public WPEditText(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    public WPEditText(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+	public WPEditText(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+	}
 
-    @Override
-    protected void onSelectionChanged(int selStart, int selEnd) {
-        if (onSelectionChangedListener != null)
-            onSelectionChangedListener.onSelectionChanged();
-    }
+	@Override
+	protected void onSelectionChanged(int selStart, int selEnd) {
+		if (onSelectionChangedListener != null)
+			onSelectionChangedListener.onSelectionChanged();
+	}
 
-    @Override
-    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_UP) {
-            clearFocus();
-            if (mOnImeBack != null)
-                mOnImeBack.onImeBack(this, this.getText().toString());
-        }
+	@Override
+	public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_UP) {
+			clearFocus();
+			if (mOnImeBack != null)
+				mOnImeBack.onImeBack(this, this.getText().toString());
+		}
 
-        return super.onKeyPreIme(keyCode, event);
-    }
+		return super.onKeyPreIme(keyCode, event);
+	}
 
-    public void setOnEditTextImeBackListener(EditTextImeBackListener listener) {
-        mOnImeBack = listener;
-    }
+	public void setOnEditTextImeBackListener(EditTextImeBackListener listener) {
+		mOnImeBack = listener;
+	}
 
-    public void setOnSelectionChangedListener(OnSelectionChangedListener listener) {
-        onSelectionChangedListener = listener;
-    }
+	public void setOnSelectionChangedListener(OnSelectionChangedListener listener) {
+		onSelectionChangedListener = listener;
+	}
 
-    public interface EditTextImeBackListener {
+	public interface EditTextImeBackListener {
 
-        public abstract void onImeBack(WPEditText ctrl, String text);
-    }
+		public abstract void onImeBack(WPEditText ctrl, String text);
+	}
 
-    public interface OnSelectionChangedListener {
-        public abstract void onSelectionChanged();
-    }
+	public interface OnSelectionChangedListener {
+		public abstract void onSelectionChanged();
+	}
 }

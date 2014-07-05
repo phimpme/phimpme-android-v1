@@ -35,165 +35,165 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 
 public class WebImageCache
-        extends AsyncCache<String, Drawable, SimpleBus, Bundle> {
-    private static String TAG = "WebImageCache";
-    private Drawable placeholder = null;
+		extends AsyncCache<String, Drawable, SimpleBus, Bundle> {
+	private static String TAG = "WebImageCache";
+	private Drawable placeholder = null;
 
-    public WebImageCache(File cacheRoot, SimpleBus bus,
-                         AsyncCache.DiskCachePolicy policy,
-                         int maxSize,
-                         Drawable placeholder) {
-        super(cacheRoot, bus, policy, maxSize);
+	public WebImageCache(File cacheRoot, SimpleBus bus,
+	                     AsyncCache.DiskCachePolicy policy,
+	                     int maxSize,
+	                     Drawable placeholder) {
+		super(cacheRoot, bus, policy, maxSize);
 
-        this.placeholder = placeholder;
-    }
+		this.placeholder = placeholder;
+	}
 
-    static public File buildCachedImagePath(File cacheRoot, String url)
-            throws Exception {
-        return (new File(cacheRoot, md5(url)));
-    }
+	static public File buildCachedImagePath(File cacheRoot, String url)
+			throws Exception {
+		return (new File(cacheRoot, md5(url)));
+	}
 
-    static protected String md5(String s) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+	static protected String md5(String s) throws Exception {
+		MessageDigest md = MessageDigest.getInstance("MD5");
 
-        md.update(s.getBytes());
+		md.update(s.getBytes());
 
-        byte digest[] = md.digest();
-        StringBuffer result = new StringBuffer();
+		byte digest[] = md.digest();
+		StringBuffer result = new StringBuffer();
 
-        for (int i = 0; i < digest.length; i++) {
-            result.append(Integer.toHexString(0xFF & digest[i]));
-        }
+		for (int i = 0; i < digest.length; i++) {
+			result.append(Integer.toHexString(0xFF & digest[i]));
+		}
 
-        return (result.toString());
-    }
+		return (result.toString());
+	}
 
-    @SuppressWarnings("rawtypes")
-    public void handleImageView(final ImageView image,
-                                final String url,
-                                String tag) throws Exception {
-        Bundle message = ((SimpleBus) getBus()).createMessage(url);
+	@SuppressWarnings("rawtypes")
+	public void handleImageView(final ImageView image,
+	                            final String url,
+	                            String tag) throws Exception {
+		Bundle message = ((SimpleBus) getBus()).createMessage(url);
 
-        Drawable d = get(url, message);
+		Drawable d = get(url, message);
 
-        image.setImageDrawable(d);
+		image.setImageDrawable(d);
 
-        if (d == placeholder) {
-            SimpleBus.Receiver r = (SimpleBus.Receiver) image.getTag();
+		if (d == placeholder) {
+			SimpleBus.Receiver r = (SimpleBus.Receiver) image.getTag();
 
-            if (r != null) {
-                getBus().unregister(r);
-            }
+			if (r != null) {
+				getBus().unregister(r);
+			}
 
-            r = new SimpleBus.Receiver<Bundle>() {
-                public void onReceive(final Bundle message) {
-                    ((Activity) image.getContext()).runOnUiThread(new Runnable() {
-                        public void run() {
-                            if (url.equals(message.getString(SimpleBus.KEY))) {
-                                image.setImageDrawable(get(url, null));
-                            } else {
-                            }
-                        }
-                    });
-                }
-            };
+			r = new SimpleBus.Receiver<Bundle>() {
+				public void onReceive(final Bundle message) {
+					((Activity) image.getContext()).runOnUiThread(new Runnable() {
+						public void run() {
+							if (url.equals(message.getString(SimpleBus.KEY))) {
+								image.setImageDrawable(get(url, null));
+							} else {
+							}
+						}
+					});
+				}
+			};
 
-            image.setTag(r);
-            getBus().register(url, r, tag);
-        }
-    }
+			image.setTag(r);
+			getBus().register(url, r, tag);
+		}
+	}
 
-    @Override
-    public int getStatus(String key) {
-        int result = super.getStatus(key);
+	@Override
+	public int getStatus(String key) {
+		int result = super.getStatus(key);
 
-        if (result == CACHE_NONE && getCacheRoot() != null) {
-            try {
-                File cache = buildCachedImagePath(key);
+		if (result == CACHE_NONE && getCacheRoot() != null) {
+			try {
+				File cache = buildCachedImagePath(key);
 
-                if (cache.exists()) {
-                    result = CACHE_DISK;
-                }
-            } catch (Throwable t) {
-                Log.e(TAG, "Exception getting cache status", t);
-            }
-        }
+				if (cache.exists()) {
+					result = CACHE_DISK;
+				}
+			} catch (Throwable t) {
+				Log.e(TAG, "Exception getting cache status", t);
+			}
+		}
 
-        return (result);
-    }
+		return (result);
+	}
 
-    @SuppressWarnings("deprecation")
-    protected Drawable create(String key, Bundle message,
-                              int forceStyle) {
-        if (getCacheRoot() != null) {
-            try {
-                File cache = buildCachedImagePath(key);
+	@SuppressWarnings("deprecation")
+	protected Drawable create(String key, Bundle message,
+	                          int forceStyle) {
+		if (getCacheRoot() != null) {
+			try {
+				File cache = buildCachedImagePath(key);
 
-                if (cache.exists() && forceStyle == FORCE_NONE) {
-                    return (new BitmapDrawable(cache.getAbsolutePath()));
-                } else {
-                    new FetchImageTask().execute(message, key, cache);
-                }
-            } catch (Throwable t) {
-                Log.e(TAG, "Exception loading image", t);
-            }
-        } else {
-            new FetchImageTask().execute(message, key, null);
-        }
+				if (cache.exists() && forceStyle == FORCE_NONE) {
+					return (new BitmapDrawable(cache.getAbsolutePath()));
+				} else {
+					new FetchImageTask().execute(message, key, cache);
+				}
+			} catch (Throwable t) {
+				Log.e(TAG, "Exception loading image", t);
+			}
+		} else {
+			new FetchImageTask().execute(message, key, null);
+		}
 
-        return (placeholder);
-    }
+		return (placeholder);
+	}
 
-    public File buildCachedImagePath(String url)
-            throws Exception {
-        return (buildCachedImagePath(getCacheRoot(), url));
-    }
+	public File buildCachedImagePath(String url)
+			throws Exception {
+		return (buildCachedImagePath(getCacheRoot(), url));
+	}
 
-    class FetchImageTask
-            extends AsyncTaskEx<Object, Void, Void> {
-        @SuppressWarnings("deprecation")
-        @Override
-        protected Void doInBackground(Object... params) {
-            String url = params[1].toString();
-            File cache = (File) params[2];
+	class FetchImageTask
+			extends AsyncTaskEx<Object, Void, Void> {
+		@SuppressWarnings("deprecation")
+		@Override
+		protected Void doInBackground(Object... params) {
+			String url = params[1].toString();
+			File cache = (File) params[2];
 
-            try {
-                URLConnection connection = new URL(url).openConnection();
-                InputStream stream = connection.getInputStream();
-                BufferedInputStream in = new BufferedInputStream(stream);
-                ByteArrayOutputStream out = new ByteArrayOutputStream(10240);
-                int read;
-                byte[] b = new byte[4096];
+			try {
+				URLConnection connection = new URL(url).openConnection();
+				InputStream stream = connection.getInputStream();
+				BufferedInputStream in = new BufferedInputStream(stream);
+				ByteArrayOutputStream out = new ByteArrayOutputStream(10240);
+				int read;
+				byte[] b = new byte[4096];
 
-                while ((read = in.read(b)) != -1) {
-                    out.write(b, 0, read);
-                }
+				while ((read = in.read(b)) != -1) {
+					out.write(b, 0, read);
+				}
 
-                out.flush();
-                out.close();
+				out.flush();
+				out.close();
 
-                byte[] raw = out.toByteArray();
+				byte[] raw = out.toByteArray();
 
-                WebImageCache.this.put(url, new BitmapDrawable(new ByteArrayInputStream(raw)));
+				WebImageCache.this.put(url, new BitmapDrawable(new ByteArrayInputStream(raw)));
 
-                Bundle message = (Bundle) params[0];
+				Bundle message = (Bundle) params[0];
 
-                if (message != null) {
-                    getBus().send(message);
-                }
+				if (message != null) {
+					getBus().send(message);
+				}
 
-                if (cache != null) {
-                    FileOutputStream file = new FileOutputStream(cache);
+				if (cache != null) {
+					FileOutputStream file = new FileOutputStream(cache);
 
-                    file.write(raw);
-                    file.flush();
-                    file.close();
-                }
-            } catch (Throwable t) {
-                Log.e(TAG, "Exception downloading image", t);
-            }
+					file.write(raw);
+					file.flush();
+					file.close();
+				}
+			} catch (Throwable t) {
+				Log.e(TAG, "Exception downloading image", t);
+			}
 
-            return (null);
-        }
-    }
+			return (null);
+		}
+	}
 }

@@ -68,7 +68,6 @@
     <orderEntry type="library" exported="" name="CWAC-AdapterWrapper" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-4.3.23" level="project" />
-    <orderEntry type="library" exported="" name="weibosdkcore" level="project" />
     <orderEntry type="library" exported="" name="CWAC-Bus" level="project" />
     <orderEntry type="library" exported="" name="httpmime-4.1.1" level="project" />
   </component>

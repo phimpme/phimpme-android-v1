@@ -17,31 +17,31 @@ package com.commonsware.cwac.thumbnail;
 import android.widget.ImageView;
 
 public class ThumbnailMessage {
-    private String key;
-    private ImageView image;
-    private String url;
+	private String key;
+	private ImageView image;
+	private String url;
 
-    public ThumbnailMessage(String key) {
-        this.key = key;
-    }
+	public ThumbnailMessage(String key) {
+		this.key = key;
+	}
 
-    public String getKey() {
-        return (key);
-    }
+	public String getKey() {
+		return (key);
+	}
 
-    public ImageView getImageView() {
-        return (image);
-    }
+	public ImageView getImageView() {
+		return (image);
+	}
 
-    public void setImageView(ImageView image) {
-        this.image = image;
-    }
+	public void setImageView(ImageView image) {
+		this.image = image;
+	}
 
-    public String getUrl() {
-        return (url);
-    }
+	public String getUrl() {
+		return (url);
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

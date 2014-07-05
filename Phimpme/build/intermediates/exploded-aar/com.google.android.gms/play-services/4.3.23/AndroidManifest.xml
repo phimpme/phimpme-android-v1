@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.google.android.gms"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="4323030"
-          android:versionName="4.3.23 (1069729-030)">
-
-    <uses-sdk android:minSdkVersion="9"/>
-
-</manifest>

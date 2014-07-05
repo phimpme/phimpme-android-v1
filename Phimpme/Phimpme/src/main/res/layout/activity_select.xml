@@ -8,26 +8,26 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context="com.phimpme.phimpme.ChooseFromLibraryActivity">
 
-    <Button
-        android:id="@+id/selectActivityChoosePhotoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/selectActivityCapturePhotoButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/selectActivityCapturePhotoButton"
-        android:layout_below="@+id/selectActivityCapturePhotoButton"
-        android:text="Choose Photos"/>
+	<Button
+		android:id="@+id/selectActivityChoosePhotoButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignEnd="@+id/selectActivityCapturePhotoButton"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignRight="@+id/selectActivityCapturePhotoButton"
+		android:layout_below="@+id/selectActivityCapturePhotoButton"
+		android:text="Choose Photos"/>
 
-    <Button
-        android:id="@+id/selectActivityCapturePhotoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="Capture Photos"/>
+	<Button
+		android:id="@+id/selectActivityCapturePhotoButton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentTop="true"
+		android:text="Capture Photos"/>
 
 </RelativeLayout>

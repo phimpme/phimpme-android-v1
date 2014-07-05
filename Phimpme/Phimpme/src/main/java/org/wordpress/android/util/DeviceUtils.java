@@ -36,32 +36,32 @@ package org.wordpress.android.util;
 
 public class DeviceUtils {
 
-    private static DeviceUtils instance;
+	private static DeviceUtils instance;
 
-    private boolean isBlackBerry = false;
-    private boolean isKindleFire = false;
+	private boolean isBlackBerry = false;
+	private boolean isKindleFire = false;
 
-    private DeviceUtils() {
-        /*isPlayBook =  android.os.Build.MANUFACTURER.equalsIgnoreCase( "Research in Motion" ) &&
-				android.os.Build.MODEL.startsWith( "BlackBerry Runtime for Android" ); */
-        isBlackBerry = System.getProperty("os.name").equalsIgnoreCase("qnx") ? true : false;
-        isKindleFire = android.os.Build.MODEL.equalsIgnoreCase("kindle fire") ? true : false;
-    }
+	private DeviceUtils() {
+	    /*isPlayBook =  android.os.Build.MANUFACTURER.equalsIgnoreCase( "Research in Motion" ) &&
+	            android.os.Build.MODEL.startsWith( "BlackBerry Runtime for Android" ); */
+		isBlackBerry = System.getProperty("os.name").equalsIgnoreCase("qnx") ? true : false;
+		isKindleFire = android.os.Build.MODEL.equalsIgnoreCase("kindle fire") ? true : false;
+	}
 
-    public static DeviceUtils getInstance() {
-        if (instance == null) {
-            instance = new DeviceUtils();
-        }
-        return instance;
-    }
+	public static DeviceUtils getInstance() {
+		if (instance == null) {
+			instance = new DeviceUtils();
+		}
+		return instance;
+	}
 
-    public boolean isBlackBerry() {
-        return isBlackBerry;
-    }
+	public boolean isBlackBerry() {
+		return isBlackBerry;
+	}
 
-    public boolean isKindleFire() {
-        return isKindleFire;
-    }
+	public boolean isKindleFire() {
+		return isKindleFire;
+	}
 
-    ;
+	;
 }

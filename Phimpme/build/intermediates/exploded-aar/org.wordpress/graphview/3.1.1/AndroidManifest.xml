@@ -1,4 +1,0 @@
-<manifest package="com.jjoe64.graphview" xmlns:android="http://schemas.android.com/apk/res/android"
-          android:versionCode="2" android:versionName="3.1.1">
-    <uses-sdk android:targetSdkVersion="18"/>
-</manifest>

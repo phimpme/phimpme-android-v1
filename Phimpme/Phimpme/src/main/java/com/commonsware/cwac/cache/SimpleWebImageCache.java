@@ -32,155 +32,155 @@ import java.security.MessageDigest;
 
 @SuppressWarnings("rawtypes")
 public class SimpleWebImageCache<B extends AbstractBus, M>
-        extends CacheBase<String, Drawable> {
-    //private static final String TAG="SimpleWebImageCache";
-    private B bus = null;
+		extends CacheBase<String, Drawable> {
+	//private static final String TAG="SimpleWebImageCache";
+	private B bus = null;
 
-    public SimpleWebImageCache(File cacheRoot,
-                               AsyncCache.DiskCachePolicy policy,
-                               int maxSize,
-                               B bus) {
-        super(cacheRoot, policy, maxSize);
+	public SimpleWebImageCache(File cacheRoot,
+	                           AsyncCache.DiskCachePolicy policy,
+	                           int maxSize,
+	                           B bus) {
+		super(cacheRoot, policy, maxSize);
 
-        this.bus = bus;
-    }
+		this.bus = bus;
+	}
 
-    static public File buildCachedImagePath(File cacheRoot, String url)
-            throws Exception {
-        return (new File(cacheRoot, md5(url)));
-    }
+	static public File buildCachedImagePath(File cacheRoot, String url)
+			throws Exception {
+		return (new File(cacheRoot, md5(url)));
+	}
 
-    static protected String md5(String s) throws Exception {
-        MessageDigest md = MessageDigest.getInstance("MD5");
+	static protected String md5(String s) throws Exception {
+		MessageDigest md = MessageDigest.getInstance("MD5");
 
-        md.update(s.getBytes());
+		md.update(s.getBytes());
 
-        byte digest[] = md.digest();
-        StringBuffer result = new StringBuffer();
+		byte digest[] = md.digest();
+		StringBuffer result = new StringBuffer();
 
-        for (int i = 0; i < digest.length; i++) {
-            result.append(Integer.toHexString(0xFF & digest[i]));
-        }
+		for (int i = 0; i < digest.length; i++) {
+			result.append(Integer.toHexString(0xFF & digest[i]));
+		}
 
-        return (result.toString());
-    }
+		return (result.toString());
+	}
 
-    @Override
-    public int getStatus(String key) {
-        int result = super.getStatus(key);
+	@Override
+	public int getStatus(String key) {
+		int result = super.getStatus(key);
 
-        if (result == CACHE_NONE && getCacheRoot() != null) {
-            try {
-                File cache = buildCachedImagePath(key);
+		if (result == CACHE_NONE && getCacheRoot() != null) {
+			try {
+				File cache = buildCachedImagePath(key);
 
-                if (cache.exists()) {
-                    result = CACHE_DISK;
-                }
-            } catch (Throwable t) {
-                //Log.e(TAG, "Exception getting cache status", t);
-            }
-        }
+				if (cache.exists()) {
+					result = CACHE_DISK;
+				}
+			} catch (Throwable t) {
+				//Log.e(TAG, "Exception getting cache status", t);
+			}
+		}
 
-        return (result);
-    }
+		return (result);
+	}
 
-    public File buildCachedImagePath(String url)
-            throws Exception {
-        if (getCacheRoot() == null) {
-            return (null);
-        }
+	public File buildCachedImagePath(String url)
+			throws Exception {
+		if (getCacheRoot() == null) {
+			return (null);
+		}
 
-        return (buildCachedImagePath(getCacheRoot(), url));
-    }
+		return (buildCachedImagePath(getCacheRoot(), url));
+	}
 
-    @SuppressWarnings("unchecked")
-    public void notify(String key, M message)
-            throws Exception {
-        int status = getStatus(key);
+	@SuppressWarnings("unchecked")
+	public void notify(String key, M message)
+			throws Exception {
+		int status = getStatus(key);
 
-        if (status == CACHE_NONE) {
-            new FetchImageTask().execute(message, key,
-                    buildCachedImagePath(key));
-        } else if (status == CACHE_DISK) {
-            new LoadImageTask().execute(message, key,
-                    buildCachedImagePath(key));
-        } else {
-            bus.send(message);
-        }
-    }
+		if (status == CACHE_NONE) {
+			new FetchImageTask().execute(message, key,
+					buildCachedImagePath(key));
+		} else if (status == CACHE_DISK) {
+			new LoadImageTask().execute(message, key,
+					buildCachedImagePath(key));
+		} else {
+			bus.send(message);
+		}
+	}
 
-    public B getBus() {
-        return (bus);
-    }
+	public B getBus() {
+		return (bus);
+	}
 
-    class FetchImageTask
-            extends AsyncTaskEx<Object, Void, Void> {
-        @SuppressWarnings({"unchecked", "deprecation"})
-        @Override
-        protected Void doInBackground(Object... params) {
-            String url = params[1].toString();
-            File cache = (File) params[2];
+	class FetchImageTask
+			extends AsyncTaskEx<Object, Void, Void> {
+		@SuppressWarnings({"unchecked", "deprecation"})
+		@Override
+		protected Void doInBackground(Object... params) {
+			String url = params[1].toString();
+			File cache = (File) params[2];
 
-            try {
-                URLConnection connection = new URL(url).openConnection();
-                InputStream stream = connection.getInputStream();
-                BufferedInputStream in = new BufferedInputStream(stream);
-                ByteArrayOutputStream out = new ByteArrayOutputStream(10240);
-                int read;
-                byte[] b = new byte[4096];
+			try {
+				URLConnection connection = new URL(url).openConnection();
+				InputStream stream = connection.getInputStream();
+				BufferedInputStream in = new BufferedInputStream(stream);
+				ByteArrayOutputStream out = new ByteArrayOutputStream(10240);
+				int read;
+				byte[] b = new byte[4096];
 
-                while ((read = in.read(b)) != -1) {
-                    out.write(b, 0, read);
-                }
+				while ((read = in.read(b)) != -1) {
+					out.write(b, 0, read);
+				}
 
-                out.flush();
-                out.close();
+				out.flush();
+				out.close();
 
-                byte[] raw = out.toByteArray();
+				byte[] raw = out.toByteArray();
 
-                put(url, new BitmapDrawable(new ByteArrayInputStream(raw)));
+				put(url, new BitmapDrawable(new ByteArrayInputStream(raw)));
 
-                M message = (M) params[0];
+				M message = (M) params[0];
 
-                if (message != null) {
-                    bus.send(message);
-                }
+				if (message != null) {
+					bus.send(message);
+				}
 
-                if (cache != null) {
-                    FileOutputStream file = new FileOutputStream(cache);
+				if (cache != null) {
+					FileOutputStream file = new FileOutputStream(cache);
 
-                    file.write(raw);
-                    file.flush();
-                    file.close();
-                }
-            } catch (Throwable t) {
-                //Log.e(TAG, "Exception downloading image", t);
-            }
+					file.write(raw);
+					file.flush();
+					file.close();
+				}
+			} catch (Throwable t) {
+				//Log.e(TAG, "Exception downloading image", t);
+			}
 
-            return (null);
-        }
-    }
+			return (null);
+		}
+	}
 
-    class LoadImageTask extends AsyncTaskEx<Object, Void, Void> {
-        @SuppressWarnings({"unchecked", "deprecation"})
-        @Override
-        protected Void doInBackground(Object... params) {
-            String url = params[1].toString();
-            File cache = (File) params[2];
+	class LoadImageTask extends AsyncTaskEx<Object, Void, Void> {
+		@SuppressWarnings({"unchecked", "deprecation"})
+		@Override
+		protected Void doInBackground(Object... params) {
+			String url = params[1].toString();
+			File cache = (File) params[2];
 
-            try {
-                put(url, new BitmapDrawable(cache.getAbsolutePath()));
+			try {
+				put(url, new BitmapDrawable(cache.getAbsolutePath()));
 
 //				M message=(M)params[0];
 
-                if (params[0] != null) {
-                    bus.send(params[0]);
-                }
-            } catch (Throwable t) {
-                //Log.e(TAG, "Exception downloading image", t);
-            }
+				if (params[0] != null) {
+					bus.send(params[0]);
+				}
+			} catch (Throwable t) {
+				//Log.e(TAG, "Exception downloading image", t);
+			}
 
-            return (null);
-        }
-    }
+			return (null);
+		}
+	}
 }

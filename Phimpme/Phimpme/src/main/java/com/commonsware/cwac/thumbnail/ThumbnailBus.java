@@ -17,23 +17,23 @@ package com.commonsware.cwac.thumbnail;
 import com.commonsware.cwac.bus.AbstractBus;
 
 public class ThumbnailBus
-        extends AbstractBus<ThumbnailMessage, String, ThumbnailBus.MatchStrategy> {
+		extends AbstractBus<ThumbnailMessage, String, ThumbnailBus.MatchStrategy> {
 
-    public ThumbnailBus() {
-        super();
+	public ThumbnailBus() {
+		super();
 
-        setStrategy(new MatchStrategy());
-    }
+		setStrategy(new MatchStrategy());
+	}
 
-    public ThumbnailMessage createMessage(String key) {
-        return (new ThumbnailMessage(key));
-    }
+	public ThumbnailMessage createMessage(String key) {
+		return (new ThumbnailMessage(key));
+	}
 
-    class MatchStrategy
-            implements AbstractBus.Strategy<ThumbnailMessage, String> {
-        public boolean isMatch(ThumbnailMessage message, String filter) {
-            return (filter != null && message != null &&
-                    filter.equals(message.getKey()));
-        }
-    }
+	class MatchStrategy
+			implements AbstractBus.Strategy<ThumbnailMessage, String> {
+		public boolean isMatch(ThumbnailMessage message, String filter) {
+			return (filter != null && message != null &&
+					filter.equals(message.getKey()));
+		}
+	}
 }
