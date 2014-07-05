@@ -2,6 +2,7 @@ package com.phimpme.phimpme;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 
 import org.wordpress.android.models.MediaFile;
 import org.xmlrpc.android.XMLRPCClient;

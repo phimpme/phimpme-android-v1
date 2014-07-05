@@ -2,6 +2,7 @@ package com.phimpme.phimpme;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +16,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class GPSManagerActivity extends ActionBarActivity {
@@ -33,12 +37,21 @@ public class GPSManagerActivity extends ActionBarActivity {
 					.getMap();
 		} else if (mMap != null) {
 			imageUri = (Uri) getIntent().getExtras().get("imageUri");
-			String _ID = imageUri.toString().substring(38);
+            System.out.println(imageUri);
+            try {
+                ExifInterface exifInterface = new ExifInterface(imageUri.getPath());
+                System.out.println(GPSManagerActivity.this.getLatitude(exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE), exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF)) + " " +
+                        exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String imageTitle = imageUri.toString().substring(48);
+            System.out.println(imageTitle);
 			Cursor cursor = GPSManagerActivity.this.getContentResolver().query(
 					MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
 					new String[]{MediaStore.Images.Media.LATITUDE,
 							MediaStore.Images.Media.LONGITUDE},
-					MediaStore.Images.Media._ID + "=" + _ID, null, null
+                    MediaStore.Images.Media.TITLE + "=" + imageTitle, null, null
 			);
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
@@ -52,6 +65,17 @@ public class GPSManagerActivity extends ActionBarActivity {
 		}
 	}
 
+    public double getLatitude(String latitude, String latitudeRef) {
+        double ret = 0, divition = 1;
+        String[] source = latitude.split(",");
+        for(String item : source) {
+            String[] numbers = item.split("/");
+            ret += Integer.parseInt(numbers[0]) / Integer.parseInt(numbers[1]) / divition;
+            divition *= 60;
+        }
+        if(latitudeRef.equals("S")) ret *= -1;
+        return ret;
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
