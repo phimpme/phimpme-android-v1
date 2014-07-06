@@ -37,9 +37,20 @@ public class GPSManagerActivity extends ActionBarActivity {
 					.getMap();
 		} else if (mMap != null) {
 			imageUri = (Uri) getIntent().getExtras().get("imageUri");
-            System.out.println(imageUri);
             try {
-                ExifInterface exifInterface = new ExifInterface(imageUri.getPath());
+                String degreeGPS = new ConvertLatlng().convertToDegreeForm(imageUri);
+                String[] position = degreeGPS.split(";");
+                CameraPosition cameraPosition = new CameraPosition.Builder().
+                        target(new LatLng(Double.parseDouble(position[0]), Double.parseDouble(position[1])))
+                        .zoom(13)
+                        .build();
+                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            /*System.out.println(imageUri);
+            try {
+
                 System.out.println(GPSManagerActivity.this.getLatitude(exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE), exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF)) + " " +
                         exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF));
             } catch (IOException e) {
@@ -61,21 +72,9 @@ public class GPSManagerActivity extends ActionBarActivity {
 						.build();
 				mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 				cursor.moveToNext();
-			}
+			}*/
 		}
 	}
-
-    public double getLatitude(String latitude, String latitudeRef) {
-        double ret = 0, divition = 1;
-        String[] source = latitude.split(",");
-        for(String item : source) {
-            String[] numbers = item.split("/");
-            ret += Integer.parseInt(numbers[0]) / Integer.parseInt(numbers[1]) / divition;
-            divition *= 60;
-        }
-        if(latitudeRef.equals("S")) ret *= -1;
-        return ret;
-    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,7 +94,12 @@ public class GPSManagerActivity extends ActionBarActivity {
 			Intent toUploadActivity = new Intent();
 			toUploadActivity.putExtra("latitude", position.target.latitude);
 			toUploadActivity.putExtra("longitude", position.target.longitude);
-			Toast.makeText(GPSManagerActivity.this, position.target.latitude + " " + position.target.longitude, Toast.LENGTH_LONG).show();
+            try {
+                new ConvertLatlng().saveSexagesimalBack(imageUri, position.target.latitude, position.target.longitude);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(GPSManagerActivity.this, position.target.latitude + " " + position.target.longitude, Toast.LENGTH_LONG).show();
 			toUploadActivity.putExtra("imageUri", imageUri);
 			toUploadActivity.setClass(GPSManagerActivity.this, UploadActivity.class);
 			startActivity(toUploadActivity);
