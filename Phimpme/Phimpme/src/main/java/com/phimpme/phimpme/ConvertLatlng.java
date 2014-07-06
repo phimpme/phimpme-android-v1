@@ -10,7 +10,6 @@ import java.math.BigDecimal;
  * Created by sensing on 14-7-6.
  */
 public class ConvertLatlng {
-
     public String convertToDegreeForm(Uri imageUri) throws IOException {
         ExifInterface exifInterface = new ExifInterface(imageUri.getPath());
         return getDegree(exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE),
@@ -50,6 +49,7 @@ public class ConvertLatlng {
             exifInterface.setAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF, "E");
         }
         exifInterface.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, convertToSexagesimal(longitude));
+        exifInterface.saveAttributes();
     }
 
     private String convertToSexagesimal(double GPSInfo) {

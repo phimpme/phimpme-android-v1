@@ -48,31 +48,6 @@ public class GPSManagerActivity extends ActionBarActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            /*System.out.println(imageUri);
-            try {
-
-                System.out.println(GPSManagerActivity.this.getLatitude(exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE), exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF)) + " " +
-                        exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String imageTitle = imageUri.toString().substring(48);
-            System.out.println(imageTitle);
-			Cursor cursor = GPSManagerActivity.this.getContentResolver().query(
-					MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-					new String[]{MediaStore.Images.Media.LATITUDE,
-							MediaStore.Images.Media.LONGITUDE},
-                    MediaStore.Images.Media.TITLE + "=" + imageTitle, null, null
-			);
-			cursor.moveToFirst();
-			while (!cursor.isAfterLast()) {
-				CameraPosition cameraPosition = new CameraPosition.Builder().
-						target(new LatLng(cursor.getDouble(0), cursor.getDouble(1)))
-						.zoom(13)
-						.build();
-				mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-				cursor.moveToNext();
-			}*/
 		}
 	}
 
