@@ -13,10 +13,10 @@ public class ConvertLatlng {
     public String convertToDegreeForm(Uri imageUri) throws IOException {
         ExifInterface exifInterface = new ExifInterface(imageUri.getPath());
         return getDegree(exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE),
-                ExifInterface.TAG_GPS_LATITUDE_REF)
+                exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF))
                 + ";"
                 + getDegree(exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE),
-                ExifInterface.TAG_GPS_LONGITUDE_REF);
+                exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF));
     }
 
     private static String getDegree(String GPSInfo, String GPSRef) {

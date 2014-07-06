@@ -1,11 +1,8 @@
 package com.phimpme.phimpme;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +15,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 
 public class GPSManagerActivity extends ActionBarActivity {
 	GoogleMap mMap;
