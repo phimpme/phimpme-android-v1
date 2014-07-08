@@ -11,9 +11,18 @@ We provide Phimpme-debug-unaligned.apk for quick install. It's the debug version
 Development Environment
 -------
 
-This project is created by Android Studio 0.8.1. You can download the newest version from Android Developers site.
+This project is created by Android Studio 0.8.1. You can download the newest version from [Android Developers site](https://developer.android.com/sdk/installing/studio.html).
 
-https://developer.android.com/sdk/installing/studio.html
+The following in Android SDK is required:
+* Tools/Android SDK Tools
+* Tools/Android SDK Platform-tools
+* Tools/Android SDK Build-tools (20)
+* Android 4.4.2 (API 19)/SDK Platform
+* Android 4.4.2 (API 19)/Sources for Android SDK
+* Extras/Android Support Repository
+* Extras/Android Support Library
+* Extras/Google Play services
+* Extras/Google Repository
 
 To import this project, download and install Android Studio, launch it and hit "Import Project..." from the Quick Start. Then select the "Phimpme" folder of this repo.
 

@@ -2,12 +2,9 @@ package com.phimpme.phimpme;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Environment;
-
 import org.wordpress.android.models.MediaFile;
 import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;

@@ -61,15 +61,15 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="CWAC-Task" level="project" />
+    <orderEntry type="library" exported="" name="gridlayout-v7-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="tagsoup-1.2.1" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
+    <orderEntry type="library" exported="" name="CWAC-AdapterWrapper" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-4.3.23" level="project" />
     <orderEntry type="library" exported="" name="CWAC-Bus" level="project" />
-    <orderEntry type="library" exported="" name="CWAC-Task" level="project" />
     <orderEntry type="library" exported="" name="httpmime-4.1.1" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
-    <orderEntry type="library" exported="" name="CWAC-AdapterWrapper" level="project" />
-    <orderEntry type="library" exported="" name="tagsoup-1.2.1" level="project" />
-    <orderEntry type="library" exported="" name="gridlayout-v7-19.1.0" level="project" />
   </component>
 </module>
 
