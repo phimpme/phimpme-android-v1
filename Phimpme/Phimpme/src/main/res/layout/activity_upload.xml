@@ -83,7 +83,7 @@
 		android:layout_below="@+id/otherButton"
 		android:columnCount="4"
 		android:columnOrderPreserved="true"
-		android:rowCount="3"
+		android:rowCount="5"
 		android:rowOrderPreserved="true"
 		android:useDefaultMargins="false">
 
@@ -112,7 +112,15 @@
 			android:layout_column="2"
 			android:layout_row="0"
 			android:text="Drupal"/>
-	</GridLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Joomla"
+            android:id="@+id/joomlaButton"
+            android:layout_row="4"
+            android:layout_column="0" />
+    </GridLayout>
 
 	<TextView
 		android:id="@+id/nfcTextView"

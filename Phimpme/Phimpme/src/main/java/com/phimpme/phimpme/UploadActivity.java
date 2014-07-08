@@ -24,6 +24,7 @@ public class UploadActivity extends ActionBarActivity {
 	private Button bluetoothButton;
 	private Button durpalButton;
 	private Button wordPressButton;
+    private Button joomlaButton;
 	private ImageView preview;
 	private TextView descriptionEditText;
 	private TextView nfcTextView;
@@ -48,6 +49,7 @@ public class UploadActivity extends ActionBarActivity {
 		otherButton = (Button) findViewById(R.id.otherButton);
 		durpalButton = (Button) findViewById(R.id.drupalButton);
 		wordPressButton = (Button) findViewById(R.id.wordPressButton);
+        joomlaButton = (Button) findViewById(R.id.joomlaButton);
 		preview = (ImageView) findViewById(R.id.imageView);
 		descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
 		nfcTextView = (TextView) findViewById(R.id.nfcTextView);
@@ -93,8 +95,14 @@ public class UploadActivity extends ActionBarActivity {
 		if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
 			enable_drupal();
 		} else {
-			wordPressButton.setVisibility(View.GONE);
+			durpalButton.setVisibility(View.GONE);
 		}
+
+        if (Configuration.ENABLE_SHARING_TO_JOOMLA) {
+            enable_joomla();
+        } else {
+            joomlaButton.setVisibility(View.GONE);
+        }
 
 		if (Configuration.ENABLE_SHARING_TO_WORDPRESS) {
 			enable_wordpress();
@@ -161,6 +169,22 @@ public class UploadActivity extends ActionBarActivity {
 			}
 		});
 	}
+
+    private void enable_joomla() {
+        joomlaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (imageUri != null) {
+                    AccountInfo joomlaAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "joomla");
+                    if (joomlaAccount.getAccountCategory() == null) {
+                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "joomla");
+                    } else {
+                        new ShareToJoomla().uploadPhoto(imageUri.getPath());
+                    }
+                }
+            }
+        });
+    }
 
 	private void enable_wordpress() {
 		wordPressButton.setOnClickListener(new View.OnClickListener() {
