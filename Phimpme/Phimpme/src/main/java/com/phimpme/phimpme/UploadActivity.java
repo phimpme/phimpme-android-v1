@@ -69,7 +69,7 @@ public class UploadActivity extends ActionBarActivity {
 		if (Configuration.ENABLE_NFC) {
 			if(!enable_nfc()) {
 				nfcTextView.setText("NFC not supported");
-			};
+			}
 		} else {
 			nfcTextView.setVisibility(View.GONE);
 		}

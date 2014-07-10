@@ -15,8 +15,8 @@ import java.io.IOException;
 public class PreviewActivity extends ActionBarActivity {
 
 	private static final int EDIT_IMAGE_ACTIVITY_REQUEST_CODE = 400;
-	ImageView preview;
-	Uri imageUri;
+	private ImageView preview;
+	private Uri imageUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +63,8 @@ public class PreviewActivity extends ActionBarActivity {
 			startActivity(intent);
 			return true;
 		} else if (id == R.id.action_manipulation) {
-			Intent intent = new Intent(this, PhotoManipulationActivity.class);
-			intent.putExtra("imageUri", imageUri);
-			intent.setType("image/*");
+			Intent intent = new Intent(Intent.ACTION_EDIT, imageUri);
+			intent.setDataAndType(imageUri, "image/*");
 			startActivityForResult(intent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
 			return true;
 		}
@@ -76,8 +75,10 @@ public class PreviewActivity extends ActionBarActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == EDIT_IMAGE_ACTIVITY_REQUEST_CODE) {
-			// imageUri would be null if photo editing is cancelled
-			imageUri = (Uri) data.getExtras().get("imageUri");
+			// Get the return image from Gallery photo editor
+			if (data != null && data.getData() != null) {
+				imageUri = data.getData();
+			}
 		}
 	}
 }

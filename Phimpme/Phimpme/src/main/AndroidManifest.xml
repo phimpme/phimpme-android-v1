@@ -80,13 +80,6 @@
 				android:value="com.phimpme.phimpme.MainActivity"/>
 		</activity>
 		<activity
-			android:name=".PhotoManipulationActivity"
-			android:label="@string/title_activity_manipulation">
-			<meta-data
-				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.phimpme.phimpme.PreviewActivity"/>
-		</activity>
-		<activity
 			android:name=".AccountEditor"
 			android:label="@string/title_activity_account_editor">
 		</activity>
