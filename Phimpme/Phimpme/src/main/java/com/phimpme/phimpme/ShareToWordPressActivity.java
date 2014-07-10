@@ -10,12 +10,12 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ShareToWordPress {
+public class ShareToWordPressActivity {
     private Context context;
     private AccountInfo accountInfo;
     private String imagePath;
 
-	public ShareToWordPress(Context context, AccountInfo accountInfo, String imagePath) {
+	public ShareToWordPressActivity(Context context, AccountInfo accountInfo, String imagePath) {
 		assert (context != null);
 		assert (accountInfo != null);
 		assert (imagePath != null && !imagePath.isEmpty());
@@ -45,7 +45,7 @@ public class ShareToWordPress {
 			//create temp file for media upload
 			String tempFileName = "wp-" + System.currentTimeMillis();
 			try {
-				ShareToWordPress.this.context.openFileOutput(tempFileName, Context.MODE_PRIVATE);
+				ShareToWordPressActivity.this.context.openFileOutput(tempFileName, Context.MODE_PRIVATE);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				return false;
@@ -62,7 +62,7 @@ public class ShareToWordPress {
 			Object[] imageUploadParams = {1, userName, passWord, imageProperties};
 			Map<?, ?> imageUploadResult;
 			try {
-				imageUploadResult = (Map<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, ShareToWordPress.this.context.getFileStreamPath(tempFileName));
+				imageUploadResult = (Map<?, ?>) client.callUploadFile("wp.uploadFile", imageUploadParams, ShareToWordPressActivity.this.context.getFileStreamPath(tempFileName));
 			} catch (final XMLRPCException e) {
 				e.printStackTrace();
 				return false;

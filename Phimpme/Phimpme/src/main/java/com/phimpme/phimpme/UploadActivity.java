@@ -163,7 +163,7 @@ public class UploadActivity extends ActionBarActivity {
 					if (drupalAccount.getAccountCategory() == null) {
 						AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "drupal");
 					} else {
-						new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath(), imageDescription).uploadPhoto();
+						new ShareToDrupalActivity(UploadActivity.this, drupalAccount, imageUri.getPath(), imageDescription).uploadPhoto();
 					}
 				}
 			}
@@ -179,7 +179,7 @@ public class UploadActivity extends ActionBarActivity {
                     if (joomlaAccount.getAccountCategory() == null) {
                         AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "joomla");
                     } else {
-                        new ShareToJoomla(joomlaAccount, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
+                        new ShareToJoomlaActivity(joomlaAccount, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
                     }
                 }
             }
@@ -195,7 +195,7 @@ public class UploadActivity extends ActionBarActivity {
 					if (wordpressAccount.getAccountCategory() == null) {
 						AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "wordPress");
 					} else {
-						new ShareToWordPress(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
+						new ShareToWordPressActivity(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
 					}
 				}
 			}

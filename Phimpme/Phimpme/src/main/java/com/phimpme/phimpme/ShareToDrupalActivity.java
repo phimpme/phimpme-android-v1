@@ -9,14 +9,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class ShareToDrupal {
+public class ShareToDrupalActivity {
 	private Context context;
 	private AccountInfo accountInfo;
 	private String imagePath;
 	private String imageTitle;
 	private String drupalURL;
 
-	public ShareToDrupal(Context context, AccountInfo accountInfo, String imagePath, String imageTitle) {
+	public ShareToDrupalActivity(Context context, AccountInfo accountInfo, String imagePath, String imageTitle) {
 		assert (context != null);
 		assert (accountInfo != null);
 		assert (imageTitle != null);
@@ -47,7 +47,7 @@ public class ShareToDrupal {
 			// Perform request.
 			try {
 				System.out.println("Upload prepare " + drupalURL);
-				sResponse = HttpMultipartRequest.execute(ShareToDrupal.this.context, drupalURL, Params, Common.SEND_COOKIE, imagePath, "image");
+				sResponse = HttpMultipartRequest.execute(ShareToDrupalActivity.this.context, drupalURL, Params, Common.SEND_COOKIE, imagePath, "image");
 			} catch (IOException e) {
 				System.out.println("Incorrect response from drupapp:\n" + sResponse);
 			}
