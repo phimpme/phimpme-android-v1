@@ -28,12 +28,16 @@ public class ShareToJoomlaActivity {
 	private class JoomlaUploadProgress extends AsyncTask<String, Integer, Void> {
 		@Override
 		protected Void doInBackground(String... params) {
-			JoooidRpc joooidRpc = new JoooidRpc(joomlaURL, accountInfo.getUserName(), accountInfo.getPassWord()).getInstance(null, User.JOOMLA_16);
+            String userName = accountInfo.getUserName(), passWord = accountInfo.getPassWord();
+
+			JoooidRpc joooidRpc = new JoooidRpc(joomlaURL, userName, passWord).
+                    getInstance(joomlaURL, null, accountInfo.getUserName(), accountInfo.getPassWord(), User.JOOMLA_16);
 			try {
 				final File imageFile = new File(imagePath);
-				joooidRpc.uploadFile(imageFile, "phimpme");
+				joooidRpc.uploadFile(userName, passWord, imageFile, "phimpme");
 				final String currentDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-				joooidRpc.newPost("2", imageFile.getName(), "alias", params, "fulltext", 1, 1, true, currentDate);
+                // TODO fulltext -> image
+				joooidRpc.newPost(userName, passWord, "2", imageFile.getName(), imageFile.getName(), params, "fulltext", 1, 1, true, currentDate);
 			} catch (XMLRPCException e) {
 				e.printStackTrace();
 			}
