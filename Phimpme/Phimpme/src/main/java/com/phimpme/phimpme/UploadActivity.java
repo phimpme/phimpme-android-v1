@@ -16,13 +16,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-
 import java.io.IOException;
 
 public class UploadActivity extends ActionBarActivity {
-	private Button otherButton;
+	private Button AndroidSharingListButton;
 	private Button bluetoothButton;
-	private Button durpalButton;
+	private Button drupalButton;
 	private Button wordPressButton;
     private Button joomlaButton;
 	private ImageView preview;
@@ -40,14 +39,22 @@ public class UploadActivity extends ActionBarActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		find_views();
-		imageDescription = descriptionEditText.getText().toString();
+
+		// Automatically update imageDescription with descriptionEditText
+		descriptionEditText.setOnFocusChangeListener(new EditText.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				imageDescription = descriptionEditText.getText().toString();
+			}
+		});
+
 		enable_functions_or_hide_views();
 	}
 
 	private void find_views() {
 		bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
-		otherButton = (Button) findViewById(R.id.otherButton);
-		durpalButton = (Button) findViewById(R.id.drupalButton);
+		AndroidSharingListButton = (Button) findViewById(R.id.otherButton);
+		drupalButton = (Button) findViewById(R.id.drupalButton);
 		wordPressButton = (Button) findViewById(R.id.wordPressButton);
         joomlaButton = (Button) findViewById(R.id.joomlaButton);
 		preview = (ImageView) findViewById(R.id.imageView);
@@ -60,7 +67,9 @@ public class UploadActivity extends ActionBarActivity {
 
 	private void enable_functions_or_hide_views() {
 		if (Configuration.ENABLE_NFC) {
-			enable_nfc();
+			if(!enable_nfc()) {
+				nfcTextView.setText("NFC not supported");
+			};
 		} else {
 			nfcTextView.setVisibility(View.GONE);
 		}
@@ -83,7 +92,7 @@ public class UploadActivity extends ActionBarActivity {
 		if (Configuration.ENABLE_ANDROID_SHARING) {
 			enable_android_sharing();
 		} else {
-			otherButton.setVisibility(View.GONE);
+			AndroidSharingListButton.setVisibility(View.GONE);
 		}
 
 		if (Configuration.ENABLE_BLUETOOTH) {
@@ -95,7 +104,7 @@ public class UploadActivity extends ActionBarActivity {
 		if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
 			enable_drupal();
 		} else {
-			durpalButton.setVisibility(View.GONE);
+			drupalButton.setVisibility(View.GONE);
 		}
 
         if (Configuration.ENABLE_SHARING_TO_JOOMLA) {
@@ -111,7 +120,7 @@ public class UploadActivity extends ActionBarActivity {
 		}
 	}
 
-	private void enable_nfc() {
+	private boolean enable_nfc() {
 		nfcTextView.setVisibility(View.VISIBLE);
 		NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 		if (nfcAdapter != null) {
@@ -125,11 +134,14 @@ public class UploadActivity extends ActionBarActivity {
 					return nfcPushUris;
 				}
 			}, this);
+			return true;
+		} else {
+			return false;
 		}
 	}
 
 	private void enable_android_sharing() {
-		otherButton.setOnClickListener(new Button.OnClickListener() {
+		AndroidSharingListButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
 				uploadPhotoIntent.setType("image/*");
@@ -155,7 +167,7 @@ public class UploadActivity extends ActionBarActivity {
 	}
 
 	private void enable_drupal() {
-		durpalButton.setOnClickListener(new View.OnClickListener() {
+		drupalButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (imageUri != null) {
