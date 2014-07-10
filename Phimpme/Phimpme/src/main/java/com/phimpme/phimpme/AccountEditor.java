@@ -34,7 +34,9 @@ public class AccountEditor extends ActionBarActivity {
 					accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/xmlrpc.php");
 				} else if (accountCategory.equals("drupal")) {
 					accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/drupal/drupapp");
-				}
+				} else if (accountCategory.equals("joomla")) {
+                    accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/joomla");
+                }
 				accountInfo.commit();
 				finish();
 			}

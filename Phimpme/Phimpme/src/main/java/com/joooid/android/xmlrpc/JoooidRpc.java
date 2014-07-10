@@ -9,35 +9,122 @@ package com.joooid.android.xmlrpc;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.joooid.android.model.Article;
-import com.joooid.android.model.Category;
 import com.joooid.android.model.User;
 
 
 public class JoooidRpc {
+    private XMLRPCClient rpcClient;
+    private String httpUser;
+    private String httpPass;
+    private String url;
+    private int version;
+    private static JoooidRpc uniqueInstance = null;
 
-	private XMLRPCClient rpcClient;
-	private static String httpUser;
-	private static String httpPass;
-	private static int version;
-	private static String url;
-	private static String uri;
+    public JoooidRpc(String url, String httpUser, String httpPwd) {
+        rpcClient = new XMLRPCClient(url, httpUser, httpPwd);
+        this.httpUser = httpUser;
+        this.httpPass = httpPwd;
+        this.url = url;
+    }
 
-	private static JoooidRpc uniqueInstance = null;
-	String error;
+    public JoooidRpc getInstance(String uriString, int jVersion) {
+        synchronized (JoooidRpc.class) {
 
-	public JoooidRpc(String url, String httpUser, String  httpPwd) {
-		rpcClient = new XMLRPCClient(url, httpUser, httpPwd);
-	}
-	
-	public String getResponseString(){
+            if (uriString == null) {
+                switch (jVersion) {
+                    case User.JOOMLA_15:
+                        this.version = User.JOOMLA_15;
+                        uriString = Constants.TASK_WS_URI_J15;
+                        break;
+
+                    case User.JOOMLA_16:
+                        this.version = User.JOOMLA_16;
+                        uriString = Constants.TASK_WS_URI_J17;
+                        break;
+                }
+            }
+
+            uniqueInstance = new JoooidRpc(this.url + uriString, this.httpUser, this.httpPass);
+        }
+        return uniqueInstance;
+    }
+
+    public String newPost(String catid, String title, String alias, String[] introtext, String fulltext, Integer state, Integer access, Boolean front, String date)
+            throws XMLRPCException {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentDate = formatter.format(new Date());
+        String resp = null;
+        switch (this.version) {
+            case User.JOOMLA_15:
+                return (String) rpcClient.call("joooid.newPost", "key", catid, this.httpUser, this.httpPass, title, alias, introtext, fulltext, state, access, front, date, currentDate);
+
+            case User.JOOMLA_16:
+                return (String) rpcClient.call("blogger.newPost", "key", catid, this.httpUser, this.httpPass, title, alias, introtext, fulltext, state, access, front, date, currentDate);
+
+            default:
+                return resp;
+        }
+    }
+
+    public String uploadFile(File aFile, String dir)
+            throws XMLRPCException {
+        String encodedText = "";
+        Map<String, Object> app = new HashMap<String, Object>();
+        try {
+            InputStream is = new FileInputStream(aFile);
+            long length = aFile.length();
+            byte[] bytes = new byte[(int) length];
+            int offset = 0;
+            int numRead;
+            while (offset < bytes.length
+                    && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+                offset += numRead;
+            }
+            if (offset < bytes.length) {
+                throw new XMLRPCException("Could not completely read file "
+                        + aFile.getName());
+            }
+            encodedText = new String(Base64Coder.encode(bytes));
+            app.put("name", aFile.getName());
+            app.put("bits", encodedText);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        switch (version) {
+            case User.JOOMLA_15:
+                return (String) rpcClient.call(
+                        "joooid.uploadFile",
+                        this.httpUser,
+                        this.httpPass,
+                        dir,
+                        app);
+            case User.JOOMLA_16:
+                return (String) rpcClient.call(
+                        "metaWeblog.newMediaObject",
+                        0,
+                        this.httpUser,
+                        this.httpPass,
+                        dir,
+                        app.put("name", aFile.getName()),
+                        encodedText);
+            default:
+                return null;
+        }
+    }
+
+	/*public String getResponseString(){
 		return rpcClient.responseString;
 	}
 	
@@ -45,7 +132,7 @@ public class JoooidRpc {
 		return rpcClient.errorString;
 	}
 	
-	/*public String getErrorMessage(String err, Context context){
+	public String getErrorMessage(String err, Context context){
 
 		String errorMessage = err;
 		
@@ -111,45 +198,9 @@ public class JoooidRpc {
 
 		return errorMessage;
 	
-	}*/
-	
-	public static JoooidRpc getInstance(String urlString, String uriString, String httpUsr, String httpPwd, int jVersion) {
-		synchronized(JoooidRpc.class) {
-			
-			if (uriString == null){
-				switch (jVersion) {
-				case User.JOOMLA_15:
-					uriString = Constants.TASK_WS_URI_J15;
-					break;
-
-				case User.JOOMLA_16:
-					uriString = Constants.TASK_WS_URI_J17;
-					break;
-				}
-			}
-			
-//			if(uniqueInstance == null) {
-				httpUser = httpUsr;
-				httpPass = httpPwd;
-				version = jVersion;
-				url = urlString;
-				uri = uriString;
-				uniqueInstance = new JoooidRpc(url+uri, httpUsr, httpPwd);
-//			}else if (!(url+uri).equals(urlString + uriString) ||
-//						!httpUser.equals(httpUsr) || 
-//							!httpPass.equals(httpPwd) ||
-//								version != jVersion ){
-//				httpUser = httpUsr;
-//				httpPass = httpPwd;
-//				version = jVersion;
-//				url = urlString;
-//				uri = uriString;
-//				uniqueInstance = new JoooidRpc(url + uri, httpUsr, httpPwd);
-//			}
-			
-		}
-		return uniqueInstance;
 	}
+	
+
 	
 	@SuppressWarnings("unchecked")
 	public User userInfo(String joomlaUser,String joomlaPass) throws XMLRPCException {
@@ -334,77 +385,7 @@ public class JoooidRpc {
 		}
 	}
 
-	public String uploadFile(String user, String password, File aFile, String dir)
-			throws XMLRPCException {
-		switch (version) {
 
-		case User.JOOMLA_15:
-			try {
-				InputStream is = new FileInputStream(aFile);
-				long length = aFile.length();
-				byte[] bytes = new byte[(int) length];
-				int offset = 0;
-				int numRead = 0;
-				while (offset < bytes.length
-						&& (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
-					offset += numRead;
-				}
-				if (offset < bytes.length) {
-					throw new XMLRPCException("Could not completely read file "
-							+ aFile.getName());
-				}
-				String encodedText = new String(Base64Coder.encode(bytes));
-				Map<String, Object> app = new HashMap<String, Object>();
-				app.put("name", aFile.getName());
-				app.put("bits", encodedText);
-				String res = (String) rpcClient.call(
-						"joooid.uploadFile", 
-						user, 
-						password, 
-						dir, 
-						app);
-				return res;
-		} catch (Exception e) {
-			error = e.toString();
-			throw new XMLRPCException(e.toString());
-		}
-		
-		case User.JOOMLA_16:
-			try {
-				InputStream is = new FileInputStream(aFile);
-				long length = aFile.length();
-				byte[] bytes = new byte[(int) length];
-				int offset = 0;
-				int numRead = 0;
-				while (offset < bytes.length
-						&& (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
-					offset += numRead;
-				}
-				if (offset < bytes.length) {
-					throw new XMLRPCException("Could not completely read file "
-							+ aFile.getName());
-				}
-				String encodedText = new String(Base64Coder.encode(bytes));
-				Map<String, Object> app = new HashMap<String, Object>();
-				app.put("name", aFile.getName());
-				app.put("bits", encodedText);
-				String res = (String) rpcClient.call(
-						"metaWeblog.newMediaObject",
-						0,
-						user,	
-						password,
-						dir,
-						app.put("name", aFile.getName()),
-						encodedText);
-				return res;
-			} catch (Exception e) {
-				error = e.toString();
-				throw new XMLRPCException(e.toString());
-			}
-		default: 
-			return null;
-		}
-	}
 
 	public String uploadImage(String user, String pass, String strFile, String base64, String dir, String blogId) throws XMLRPCException{
 
@@ -431,23 +412,7 @@ public class JoooidRpc {
 		
 	}
 
-	public String newPost (String user, String pass, String catid, String title, String alias, String introtext, String fulltext, Integer state, Integer access, Boolean front, String date) 
-		throws XMLRPCException{
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String currentDate = formatter.format(new Date());
-		String resp = null;
-		switch (version) {
-			case User.JOOMLA_15:
-				return resp = (String)rpcClient.call("joooid.newPost", "key", catid, user, pass, title, alias, introtext, fulltext, state, access, front, date, currentDate);
-		
-		case User.JOOMLA_16:
-				return resp = (String)rpcClient.call("blogger.newPost", "key", catid, user, pass, title, alias, introtext, fulltext, state, access, front, date, currentDate);
 
-		default:
-			return resp;
-		}
-	}
 	
 	public Boolean editPost (String user, String pass, String postid, String catId, String title, String alias, String introtext, String fulltext, Integer state, Integer access, Boolean front, String date) throws XMLRPCException{
 		
@@ -590,7 +555,7 @@ public Boolean editCategory (String user, String pass, String title, String alia
 
 	public String getError() {
 		return error;
-	}
+	}*/
 
 }
 

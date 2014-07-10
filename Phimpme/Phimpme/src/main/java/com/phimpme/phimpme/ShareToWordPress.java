@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShareToWordPress {
-	protected Context context;
-	protected AccountInfo accountInfo;
-	protected String imagePath;
+    private Context context;
+    private AccountInfo accountInfo;
+    private String imagePath;
 
 	public ShareToWordPress(Context context, AccountInfo accountInfo, String imagePath) {
 		assert (context != null);
@@ -28,9 +28,9 @@ public class ShareToWordPress {
 		new WordPressUploadProgress().execute();
 	}
 
-	private class WordPressUploadProgress extends AsyncTask<Integer, Integer, Boolean> {
+	private class WordPressUploadProgress extends AsyncTask<Void, Integer, Boolean> {
 		@Override
-		protected Boolean doInBackground(Integer... params) {
+		protected Boolean doInBackground(Void... unused) {
 			String userName = accountInfo.getUserName();
 			String passWord = accountInfo.getPassWord();
 			String userUrl = Configuration.WORDPRESS_ROOT_URL;

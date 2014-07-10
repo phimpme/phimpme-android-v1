@@ -179,7 +179,7 @@ public class UploadActivity extends ActionBarActivity {
                     if (joomlaAccount.getAccountCategory() == null) {
                         AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "joomla");
                     } else {
-                        new ShareToJoomla().uploadPhoto(imageUri.getPath());
+                        new ShareToJoomla(joomlaAccount, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
                     }
                 }
             }
