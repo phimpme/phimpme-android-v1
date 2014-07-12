@@ -224,7 +224,7 @@ public class UploadActivity extends ActionBarActivity {
 
 		locationButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View view) {
-				Intent intent = new Intent(UploadActivity.this, GPSManagerActivity.class);
+				Intent intent = new Intent(UploadActivity.this, GeographicalLocationActivity.class);
 				intent.putExtra("imageUri", imageUri);
 				startActivity(intent);
 			}

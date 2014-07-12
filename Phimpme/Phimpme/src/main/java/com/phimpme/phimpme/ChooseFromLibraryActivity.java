@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 
 
 /**
@@ -24,6 +25,7 @@ public class ChooseFromLibraryActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				// User chose an image
 				imageUri = data.getData();
+				System.out.println("aaaaaaaaaaaa " + imageUri.getAuthority());
 				if (imageUri != null) {
 					imageUri = new FileOperations().fileChannelCopy(ChooseFromLibraryActivity.this, imageUri);
 					Intent intent = new Intent(this, PreviewActivity.class);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -90,8 +91,11 @@ public class MapActivity extends ActionBarActivity {
 		mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 			@Override
 			public boolean onMarkerClick(Marker marker) {
-				imageUri = Uri.parse("content://media/external/images/media/" + marker.getSnippet());
-				startActivityForResult(new Intent(Intent.ACTION_EDIT, imageUri), EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
+				imageUri = new FileOperations().fileChannelCopy(MapActivity.this, Uri.parse("file://" + marker.getSnippet()));
+				//startActivityForResult(new Intent(Intent.ACTION_EDIT, imageUri), EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
+				Intent toPreviewIntent = new Intent(MapActivity.this, PreviewActivity.class);
+				toPreviewIntent.putExtra("imageUri", imageUri);
+				startActivity(toPreviewIntent);
 				return true;
 			}
 		});
@@ -103,18 +107,21 @@ public class MapActivity extends ActionBarActivity {
 				new String[]{MediaStore.Images.Media.LATITUDE,
 						MediaStore.Images.Media.LONGITUDE,
 						MediaStore.Images.Media.DISPLAY_NAME,
-						MediaStore.Images.Media._ID},
+						MediaStore.Images.Media.DATA},
 				null, null, null
 		);
+
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Bitmap image = null;
-			try {
-				image = MediaStore.Images.Media.getBitmap(
-						this.getContentResolver(), Uri.parse("content://media/external/images/media/" + cursor.getString(3)));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Bitmap image = BitmapFactory.decodeFile(cursor.getString(3));
+			//System.out.println("4 " + cursor.getString(4));
+			//try {
+			//	image =
+				//MediaStore.Images.Media.getBitmap(
+				//		this.getContentResolver(), Uri.parse(cursor.getString(4)/*"content://media/external/images/media/" + cursor.getString(3)*/));
+			//} catch (IOException e) {
+			//	e.printStackTrace();
+			//}
 			if (image != null) {
 				Bitmap icon = Bitmap.createScaledBitmap(image, 75, 100, false);
 				image.recycle();
@@ -133,19 +140,18 @@ public class MapActivity extends ActionBarActivity {
 		}
 	}
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-			case EDIT_IMAGE_ACTIVITY_REQUEST_CODE: {
-				// Enter PreviewActivity
-				Toast.makeText(this, "Now in PreviewActivity.", Toast.LENGTH_LONG).show();
-				Intent toPreviewIntent = new Intent();
-				toPreviewIntent.setClass(MapActivity.this, PreviewActivity.class);
-				toPreviewIntent.putExtra("imageUri", imageUri);
-				startActivity(toPreviewIntent);
-				break;
-			}
-		}
-	}
+//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//		switch (requestCode) {
+//			case EDIT_IMAGE_ACTIVITY_REQUEST_CODE: {
+//				// Enter PreviewActivity
+//				Intent toPreviewIntent = new Intent();
+//				toPreviewIntent.setClass(MapActivity.this, PreviewActivity.class);
+//				toPreviewIntent.putExtra("imageUri", imageUri);
+//				startActivity(toPreviewIntent);
+//				break;
+//			}
+//		}
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 
-public class GPSManagerActivity extends ActionBarActivity {
+public class GeographicalLocationActivity extends ActionBarActivity {
 	GoogleMap mMap;
 	Uri imageUri;
 
@@ -69,9 +69,9 @@ public class GPSManagerActivity extends ActionBarActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Toast.makeText(GPSManagerActivity.this, position.target.latitude + " " + position.target.longitude, Toast.LENGTH_LONG).show();
+            Toast.makeText(GeographicalLocationActivity.this, position.target.latitude + " " + position.target.longitude, Toast.LENGTH_LONG).show();
 			toUploadActivity.putExtra("imageUri", imageUri);
-			toUploadActivity.setClass(GPSManagerActivity.this, UploadActivity.class);
+			toUploadActivity.setClass(GeographicalLocationActivity.this, UploadActivity.class);
 			startActivity(toUploadActivity);
 			return true;
 		}

@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.phimpme.phimpme.GPSManagerActivity">
+                tools:context="com.phimpme.phimpme.GeographicalLocationActivity">
 
 	<fragment
 		android:id="@+id/GPSManagerActivityMap"
