@@ -11,7 +11,7 @@ We provide Phimpme-debug-unaligned.apk for quick install. It's the debug version
 Development Environment
 -------
 
-This project is created by Android Studio 0.8.1. You can download the newest version from [Android Developers site](https://developer.android.com/sdk/installing/studio.html).
+This project is created by Android Studio 0.8.2. You can download the newest version from [Android Developers site](https://developer.android.com/sdk/installing/studio.html).
 
 The following in Android SDK is required:
 * Tools/Android SDK Tools
@@ -29,7 +29,7 @@ To import this project, download and install Android Studio, launch it and hit "
 Testing
 -------
 
-The testing devices are Nexus 5 and Nexus 4, with Android 4.4.2. The minimum Android version we plan to support is 2.3.
+The testing devices are Nexus 5 and Nexus 4, with Android 4.4.4. The minimum Android version we plan to support is 2.3.
 
 Project Details
 -------
