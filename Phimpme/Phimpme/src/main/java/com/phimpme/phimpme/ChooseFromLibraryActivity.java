@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import java.io.IOException;
+
 
 /**
  * The code for selecting a photo from built-in Gallery.
@@ -25,10 +27,13 @@ public class ChooseFromLibraryActivity extends Activity {
 			if (resultCode == RESULT_OK) {
 				// User chose an image
 				imageUri = data.getData();
-				System.out.println("aaaaaaaaaaaa " + imageUri.getAuthority());
 				if (imageUri != null) {
-					imageUri = new FileOperations().fileChannelCopy(ChooseFromLibraryActivity.this, imageUri);
-					Intent intent = new Intent(this, PreviewActivity.class);
+                    try {
+                        imageUri = new FileOperations().fileChannelCopy(ChooseFromLibraryActivity.this, imageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Intent intent = new Intent(this, PreviewActivity.class);
 					intent.putExtra("imageUri", imageUri);
 					startActivity(intent);
 				}
