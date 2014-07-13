@@ -111,7 +111,7 @@ public class MapActivity extends ActionBarActivity {
                         }
                 );*/
                 latLng = new LatLng(0.0, 0.0);
-            }else {
+            } else {
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
             }
             CameraPosition cameraPosition = new CameraPosition.Builder().
