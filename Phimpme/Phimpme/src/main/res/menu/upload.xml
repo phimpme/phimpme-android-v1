@@ -6,6 +6,6 @@
 	<item
 		android:id="@+id/action_send"
 		android:orderInCategory="100"
-		android:title="GPSManager"
-		app:showAsAction="never"/>
+		android:title="AccountManager"
+		app:showAsAction="always"/>
 </menu>

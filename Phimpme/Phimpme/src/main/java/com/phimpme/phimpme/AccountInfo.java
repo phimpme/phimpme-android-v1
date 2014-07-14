@@ -26,9 +26,8 @@ public class AccountInfo implements Serializable {
     public static void createAndSaveAccountInfo(Context context, String accountCategory) {
         // TODO: Encryption
         // TODO: Do not put this here, move to UploadActivity
-        Intent toAccoutEditor = new Intent();
+        Intent toAccoutEditor = new Intent(context, AccountEditor.class);
         toAccoutEditor.putExtra("accountCategory", accountCategory);
-        toAccoutEditor.setClass(context, AccountEditor.class);
         context.startActivity(toAccoutEditor);
     }
 
