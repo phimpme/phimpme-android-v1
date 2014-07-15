@@ -31,24 +31,27 @@
 		</activity>
 		<activity
 			android:name=".ChooseFromLibraryActivity"
-			android:label="@string/title_activity_select">
+			android:label="@string/title_activity_select"
+            android:parentActivityName=".MainActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.phimpme.phimpme.MainActivity"/>
+				android:value=".MainActivity"/>
 		</activity>
 		<activity
 			android:name=".PreviewActivity"
-			android:label="@string/title_activity_preview">
+			android:label="@string/title_activity_preview"
+            android:parentActivityName=".MainActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.phimpme.phimpme.ChooseFromLibraryActivity"/>
+				android:value=".MainActivity"/>
 		</activity>
 		<activity
 			android:name=".UploadActivity"
-			android:label="@string/title_activity_upload">
+			android:label="@string/title_activity_upload"
+            android:parentActivityName=".PreviewActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.phimpme.phimpme.PreviewActivity"/>
+				android:value=".PreviewActivity"/>
 		</activity>
 
 		<meta-data
@@ -60,28 +63,32 @@
 
 		<activity
 			android:name=".MapActivity"
-			android:label="@string/title_activity_map">
+			android:label="@string/title_activity_map"
+            android:parentActivityName=".MainActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.phimpme.phimpme.MainActivity"/>
+				android:value=".MainActivity"/>
 		</activity>
 		<activity
 			android:name=".GeographicalLocationActivity"
-			android:label="@string/title_activity_gpsmanager">
+			android:label="@string/title_activity_gpsmanager"
+            android:parentActivityName=".UploadActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.phimpme.phimpme.UploadActivity"/>
+				android:value=".UploadActivity"/>
 		</activity>
 		<activity
 			android:name=".CaptureActivity"
-			android:label="@string/title_activity_capture">
+			android:label="@string/title_activity_capture"
+            android:parentActivityName=".MainActivity">
 			<meta-data
 				android:name="android.support.PARENT_ACTIVITY"
-				android:value="com.phimpme.phimpme.MainActivity"/>
+				android:value=".MainActivity"/>
 		</activity>
 		<activity
 			android:name=".AccountEditor"
-			android:label="@string/title_activity_account_editor">
+			android:label="@string/title_activity_account_editor"
+            android:parentActivityName=".UploadActivity">
 		</activity>
 	</application>
 

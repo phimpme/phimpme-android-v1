@@ -24,4 +24,10 @@ public class Configuration {
     public static final String WORDPRESS_ROOT_URL = "http://www.yuzhiqiang.org/xmlrpc.php";
     public static final String DRUPAL_ROOT_URL = "http://www.yuzhiqiang.org/drupal/drupapp";
     public static final String JOOMLA_ROOT_URL = "http://www.yuzhiqiang.org/joomla";
+
+    // Website Strings
+    public static final String WORDPRESS_CATEGORY = "Phimpme for Android";
+    public static final String DRUPAL_CATEGORY = "Phimpme for Android";
+    public static final String JOOMLA_DIR = "Phimpme for Android";
+    public static final String JOOMLA_CATEGORY = "2";
 }

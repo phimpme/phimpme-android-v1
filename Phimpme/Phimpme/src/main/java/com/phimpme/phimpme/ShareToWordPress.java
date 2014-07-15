@@ -101,7 +101,7 @@ public class ShareToWordPress {
         contentStruct.put("wp_password", "");
         contentStruct.put("description", content);
         contentStruct.put("mt_keywords", "");
-        contentStruct.put("categories", new String[]{"phimpme mobile"});
+        contentStruct.put("categories", new String[]{Configuration.WORDPRESS_CATEGORY});
         contentStruct.put("mt_excerpt", "");
         contentStruct.put("post_status", "publish");
         if (featuredImageID != -1) {

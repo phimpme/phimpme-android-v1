@@ -24,6 +24,8 @@ public class AccountEditor extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_editor);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         accountCategory = getIntent().getStringExtra("accountCategory");
         tempAccountCategory = "wordPress";
         userName = (EditText) findViewById(R.id.accountEditorActivityUserName);
@@ -98,6 +100,9 @@ public class AccountEditor extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == android.R.id.home){
+            this.finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

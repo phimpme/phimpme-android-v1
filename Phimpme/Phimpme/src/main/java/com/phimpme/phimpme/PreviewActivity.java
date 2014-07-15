@@ -67,6 +67,9 @@ public class PreviewActivity extends ActionBarActivity {
             intent.setDataAndType(imageUri, "image/*");
             startActivityForResult(intent, EDIT_IMAGE_ACTIVITY_REQUEST_CODE);
             return true;
+        } else if (id == android.R.id.home){
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

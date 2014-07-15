@@ -38,10 +38,10 @@ public class ShareToJoomla {
                     getInstance(joomlaURL, null, accountInfo.getUserName(), accountInfo.getPassWord(), User.JOOMLA_16);
             try {
                 final File imageFile = new File(imagePath);
-                joooidRpc.uploadFile(userName, passWord, imageFile, "phimpme");
+                joooidRpc.uploadFile(userName, passWord, imageFile, Configuration.JOOMLA_DIR);
                 final String currentDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 // TODO fulltext -> image
-                joooidRpc.newPost(userName, passWord, "2", imageFile.getName(), imageFile.getName(), params, "fulltext", 1, 1, true, currentDate);
+                // joooidRpc.newPost(userName, passWord, Configuration.JOOMLA_CATEGORY, imageFile.getName(), imageFile.getName(), params, "fulltext", 1, 1, true, currentDate);
                 ShareToJoomla.this.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
