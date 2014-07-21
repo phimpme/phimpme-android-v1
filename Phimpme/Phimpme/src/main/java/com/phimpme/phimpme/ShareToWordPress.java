@@ -11,6 +11,7 @@ import org.xmlrpc.android.XMLRPCException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class ShareToWordPress {
         new WordPressUploadProgress().execute();
     }
 
-    public boolean upload() {
+    public boolean upload() throws IOException {
         String userName = accountInfo.getUserName();
         String passWord = accountInfo.getPassWord();
         String userUrl = Configuration.WORDPRESS_ROOT_URL;
@@ -82,6 +83,8 @@ public class ShareToWordPress {
             e.printStackTrace();
             return false;
         }
+
+        String[] position = new ConvertLatlng().convertToDegreeForm(imagePath).split(";");
         String articleUploadAlignmentCSS = "class=\"" + "alignnone" + "\" ";
         String content = "";
         if (imageuploadResultURL != null) {
@@ -91,7 +94,8 @@ public class ShareToWordPress {
                     + mediaFile.getTitle() + "\" "
                     + articleUploadAlignmentCSS
                     + "alt=\"image\" src=\""
-                    + imageuploadResultURL + "\" /></a>";
+                    + imageuploadResultURL + "\" /></a>"
+                    + "[google-map-sc address=\"" + position[0] + "," + position[1] + "\"]";
 
         }
         Map<String, Object> contentStruct = new HashMap<String, Object>();
@@ -121,17 +125,22 @@ public class ShareToWordPress {
     private class WordPressUploadProgress extends AsyncTask<Void, Integer, Void> {
         @Override
         protected Void doInBackground(Void... unused) {
-            final boolean result = upload();
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (result) {
-                        Toast.makeText(ShareToWordPress.this.context, "Upload succeed.", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(ShareToWordPress.this.context, "Upload failed.", Toast.LENGTH_LONG).show();
+            final boolean result;
+            try {
+                result = upload();
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result) {
+                            Toast.makeText(ShareToWordPress.this.context, "Upload succeed.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(ShareToWordPress.this.context, "Upload failed.", Toast.LENGTH_LONG).show();
+                        }
                     }
-                }
-            });
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return null;
         }
     }

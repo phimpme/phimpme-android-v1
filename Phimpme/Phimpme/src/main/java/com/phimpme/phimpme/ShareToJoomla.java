@@ -9,6 +9,7 @@ import com.joooid.android.xmlrpc.JoooidRpc;
 import com.joooid.android.xmlrpc.XMLRPCException;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,9 +40,22 @@ public class ShareToJoomla {
             try {
                 final File imageFile = new File(imagePath);
                 joooidRpc.uploadFile(userName, passWord, imageFile, Configuration.JOOMLA_DIR);
-                final String currentDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 // TODO fulltext -> image
-                // joooidRpc.newPost(userName, passWord, Configuration.JOOMLA_CATEGORY, imageFile.getName(), imageFile.getName(), params, "fulltext", 1, 1, true, currentDate);
+                try {
+                    final String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                    String[] position = new ConvertLatlng().convertToDegreeForm(imagePath).split(";");
+                    System.out.println("aaaaaaaaaaaaaaa " + currentDate);
+                    joooidRpc.newPost(userName,
+                            passWord,
+                            Configuration.JOOMLA_CATEGORY,
+                            imageFile.getName(),
+                            imageFile.getName(),
+                            params,
+                            "{mosmap lat='" + position[0] + "'|lon='" + position[1] + "'}",
+                            1, 1, true, currentDate);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 ShareToJoomla.this.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

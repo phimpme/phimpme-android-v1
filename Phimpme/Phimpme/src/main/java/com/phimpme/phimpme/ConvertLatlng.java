@@ -10,8 +10,8 @@ import java.math.BigDecimal;
  * Created by sensing on 14-7-6.
  */
 public class ConvertLatlng {
-    public String convertToDegreeForm(Uri imageUri) throws IOException {
-        ExifInterface exifInterface = new ExifInterface(imageUri.getPath());
+    public String convertToDegreeForm(String imagePath) throws IOException {
+        ExifInterface exifInterface = new ExifInterface(imagePath);
         return getDegree(exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE),
                 exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF))
                 + ";"

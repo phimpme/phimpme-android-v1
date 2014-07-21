@@ -33,7 +33,7 @@ public class GeographicalLocationActivity extends ActionBarActivity {
         } else if (mMap != null) {
             imageUri = (Uri) getIntent().getExtras().get("imageUri");
             try {
-                String degreeGPS = new ConvertLatlng().convertToDegreeForm(imageUri);
+                String degreeGPS = new ConvertLatlng().convertToDegreeForm(imageUri.getPath());
                 String[] position = degreeGPS.split(";");
                 CameraPosition cameraPosition = new CameraPosition.Builder().
                         target(new LatLng(Double.parseDouble(position[0]), Double.parseDouble(position[1])))
