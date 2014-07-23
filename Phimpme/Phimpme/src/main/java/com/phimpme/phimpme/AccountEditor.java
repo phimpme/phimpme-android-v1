@@ -36,7 +36,7 @@ public class AccountEditor extends ActionBarActivity {
         saveAccountInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(accountCategory.equals("null")) {
+                if (accountCategory.equals("null")) {
                     accountCategory = tempAccountCategory;
                 }
                 SharedPreferences.Editor accountInfo =
@@ -60,7 +60,7 @@ public class AccountEditor extends ActionBarActivity {
 
     private void setSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.accountEditorActivityAccountCategory);
-        final String[] spinnerItems = new String[] {"wordPress", "drupal", "joomla"};
+        final String[] spinnerItems = new String[]{"wordPress", "drupal", "joomla"};
         spinner.setAdapter(
                 new ArrayAdapter<String>(
                         AccountEditor.this,
@@ -72,10 +72,10 @@ public class AccountEditor extends ActionBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 AccountInfo accountInfo = AccountInfo.getSavedAccountInfo(AccountEditor.this, spinnerItems[position]);
                 tempAccountCategory = spinnerItems[position];
-                if(accountInfo.getAccountCategory() != null) {
+                if (accountInfo.getAccountCategory() != null) {
                     userName.setText(accountInfo.getUserName());
                     passWord.setText(accountInfo.getPassWord());
-                }else {
+                } else {
                     userName.setText("Your userName");
                 }
             }
@@ -86,6 +86,7 @@ public class AccountEditor extends ActionBarActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -101,7 +102,7 @@ public class AccountEditor extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == android.R.id.home){
+        } else if (id == android.R.id.home) {
             this.finish();
             return true;
         }

@@ -4,8 +4,14 @@
       tools:context="com.phimpme.phimpme.UploadActivity">
 
 	<item
-		android:id="@+id/action_send"
+		android:id="@+id/UploadActivityAccountManger"
 		android:orderInCategory="100"
 		android:title="AccountManager"
-		app:showAsAction="always"/>
+		app:showAsAction="never"/>
+
+    <item android:id="@+id/UploadActivityUpload"
+        android:icon="@drawable/common_signin_btn_icon_focus_dark"
+        android:title="Upload"
+        app:showAsAction="always"/>
+
 </menu>

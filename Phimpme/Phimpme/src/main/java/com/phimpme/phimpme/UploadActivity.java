@@ -1,5 +1,7 @@
 package com.phimpme.phimpme;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
@@ -10,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UploadActivity extends ActionBarActivity {
     private Button AndroidSharingListButton;
@@ -173,9 +177,9 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    AccountInfo drupalAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "drupal");
+                    AccountInfo drupalAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "Drupal");
                     if (drupalAccount.getAccountCategory() == null) {
-                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "drupal");
+                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "Drupal");
                     } else {
                         new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath(), imageDescription).uploadPhoto();
                     }
@@ -189,9 +193,9 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    AccountInfo joomlaAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "joomla");
+                    AccountInfo joomlaAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "Joomla");
                     if (joomlaAccount.getAccountCategory() == null) {
-                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "joomla");
+                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "Joomla");
                     } else {
                         new ShareToJoomla(UploadActivity.this, joomlaAccount, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
                     }
@@ -205,9 +209,9 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onClick(View view) {
                 if (imageUri != null) {
-                    AccountInfo wordpressAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "wordPress");
+                    AccountInfo wordpressAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "WordPress");
                     if (wordpressAccount.getAccountCategory() == null) {
-                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "wordPress");
+                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "WordPress");
                     } else {
                         new ShareToWordPress(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
                     }
@@ -233,6 +237,38 @@ public class UploadActivity extends ActionBarActivity {
         });
     }
 
+    private void creatUploadDialog() {
+        final ArrayList<String> arrayList = new ArrayList<String>();
+        if (Configuration.ENABLE_SHARING_TO_WORDPRESS) arrayList.add("WordPress");
+        if (Configuration.ENABLE_SHARING_TO_DRUPAL) arrayList.add("Drupal");
+        if (Configuration.ENABLE_SHARING_TO_JOOMLA) arrayList.add("Joomla");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, arrayList);
+
+        new AlertDialog.Builder(this).setTitle("Upload image to:")
+                .setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String item = arrayList.get(which);
+                        if (imageUri != null) {
+                            AccountInfo accountInfo = AccountInfo.getSavedAccountInfo(UploadActivity.this, item);
+                            if (accountInfo.getAccountCategory() == null) {
+                                AccountInfo.createAndSaveAccountInfo(UploadActivity.this, item);
+                            } else {
+                                if(item.equals("WordPress")) new ShareToWordPress(UploadActivity.this, accountInfo, imageUri.getPath()).uploadPhoto();
+                                if(item.equals("Drupal")) new ShareToDrupal(UploadActivity.this, accountInfo, imageUri.getPath(), imageDescription).uploadPhoto();
+                                if(item.equals("Joomla")) new ShareToJoomla(UploadActivity.this, accountInfo, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
+                            }
+                        }
+                    }
+                })
+                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }})
+                .setNegativeButton("Cancel", null).show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -246,12 +282,15 @@ public class UploadActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_send) {
+        if (id == R.id.UploadActivityAccountManger) {
             Intent intent = new Intent(UploadActivity.this, AccountEditor.class);
             intent.putExtra("accountCategory", "null");
             startActivity(intent);
             return true;
-        } else if (id == android.R.id.home){
+        } else if (id == R.id.UploadActivityUpload) {
+            creatUploadDialog();
+            return true;
+        } else if (id == android.R.id.home) {
             this.finish();
             return true;
         }

@@ -108,9 +108,9 @@ public class ShareToWordPress {
         contentStruct.put("categories", new String[]{Configuration.WORDPRESS_CATEGORY});
         contentStruct.put("mt_excerpt", "");
         contentStruct.put("post_status", "publish");
-        if (featuredImageID != -1) {
+        /*if (featuredImageID != -1) {
             contentStruct.put("wp_post_thumbnail", featuredImageID);
-        }
+        }*/
 
         Object[] articleUploadParams = new Object[]{1, userName, passWord, contentStruct, false};
         try {
