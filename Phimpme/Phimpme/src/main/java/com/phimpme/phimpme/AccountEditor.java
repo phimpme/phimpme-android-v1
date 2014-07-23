@@ -27,7 +27,7 @@ public class AccountEditor extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         accountCategory = getIntent().getStringExtra("accountCategory");
-        tempAccountCategory = "wordPress";
+        tempAccountCategory = "WordPress";
         userName = (EditText) findViewById(R.id.accountEditorActivityUserName);
         passWord = (EditText) findViewById(R.id.accountEditorActivityPassword);
         setSpinner();
@@ -44,11 +44,11 @@ public class AccountEditor extends ActionBarActivity {
                 accountInfo.putString(accountCategory, accountCategory);
                 accountInfo.putString("userName", userName.getText().toString());
                 accountInfo.putString("passWord", passWord.getText().toString());
-                if (accountCategory.equals("wordPress")) {
+                if (accountCategory.equals("WordPress")) {
                     accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/xmlrpc.php");
-                } else if (accountCategory.equals("drupal")) {
+                } else if (accountCategory.equals("Drupal")) {
                     accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/drupal/drupapp");
-                } else if (accountCategory.equals("joomla")) {
+                } else if (accountCategory.equals("Joomla")) {
                     accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/joomla");
                 }
                 accountInfo.commit();
@@ -60,7 +60,7 @@ public class AccountEditor extends ActionBarActivity {
 
     private void setSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.accountEditorActivityAccountCategory);
-        final String[] spinnerItems = new String[]{"wordPress", "drupal", "joomla"};
+        final String[] spinnerItems = new String[]{"WordPress", "Drupal", "Joomla"};
         spinner.setAdapter(
                 new ArrayAdapter<String>(
                         AccountEditor.this,
