@@ -1,5 +1,7 @@
 package com.phimpme.phimpme;
 
+import android.net.Uri;
+
 /**
  * This is the configuration file of Phimpme app.
  * The generator can change values of constants here to customize this app.
@@ -14,6 +16,11 @@ public class Configuration {
     public static final boolean ENABLE_NFC = true;
     public static final boolean ENABLE_BLUETOOTH = true;
     public static final boolean ENABLE_ANDROID_SHARING = true;
+
+    // Home page configurations
+    public static final boolean HOME_PAGE_WEBSITE = true;
+    public static final String HOME_PAGE_WEBSITE_URL = "http://www.bing.com/";
+    public static final Uri HOME_PAGE_IMAGE_PATH = Uri.parse("file:///storage/emulated/0/Pictures/MyCameraApp/IMG_20140726_123245.jpg");
 
     // Website systems
     public static final boolean ENABLE_SHARING_TO_WORDPRESS = true;

@@ -10,7 +10,7 @@
 		app:showAsAction="never"/>
 
     <item android:id="@+id/UploadActivityUpload"
-        android:icon="@drawable/common_signin_btn_icon_focus_dark"
+        android:icon="@drawable/abc_ic_cab_done_holo_dark"
         android:title="Upload"
         app:showAsAction="always"/>
 

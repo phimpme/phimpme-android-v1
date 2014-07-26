@@ -1,17 +1,42 @@
 package com.phimpme.phimpme;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
+
+import java.io.IOException;
 
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        if (Configuration.HOME_PAGE_WEBSITE) {
+            setContentView(R.layout.activity_main_webview);
+            WebView webView = (WebView) findViewById(R.id.webView);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.loadUrl(Configuration.HOME_PAGE_WEBSITE_URL);
+            webView.setWebViewClient(new WebViewClient(){
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+            });
+        } else {
+            setContentView(R.layout.activity_main_image);
+            ImageView imageView = (ImageView) findViewById(R.id.imageView);
+            try {
+                imageView.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), Configuration.HOME_PAGE_IMAGE_PATH));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

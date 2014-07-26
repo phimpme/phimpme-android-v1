@@ -27,9 +27,9 @@ import java.util.ArrayList;
 public class UploadActivity extends ActionBarActivity {
     private Button AndroidSharingListButton;
     private Button bluetoothButton;
-    private Button drupalButton;
-    private Button wordPressButton;
-    private Button joomlaButton;
+    // private Button drupalButton;
+    // private Button wordPressButton;
+    // private Button joomlaButton;
     private ImageView preview;
     private TextView descriptionEditText;
     private TextView nfcTextView;
@@ -60,9 +60,9 @@ public class UploadActivity extends ActionBarActivity {
     private void find_views() {
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         AndroidSharingListButton = (Button) findViewById(R.id.otherButton);
-        drupalButton = (Button) findViewById(R.id.drupalButton);
-        wordPressButton = (Button) findViewById(R.id.wordPressButton);
-        joomlaButton = (Button) findViewById(R.id.joomlaButton);
+        // drupalButton = (Button) findViewById(R.id.drupalButton);
+        // wordPressButton = (Button) findViewById(R.id.wordPressButton);
+        // joomlaButton = (Button) findViewById(R.id.joomlaButton);
         preview = (ImageView) findViewById(R.id.imageView);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         nfcTextView = (TextView) findViewById(R.id.nfcTextView);
@@ -107,7 +107,7 @@ public class UploadActivity extends ActionBarActivity {
             bluetoothButton.setVisibility(View.GONE);
         }
 
-        if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
+        /*if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
             enable_drupal();
         } else {
             drupalButton.setVisibility(View.GONE);
@@ -123,7 +123,7 @@ public class UploadActivity extends ActionBarActivity {
             enable_wordpress();
         } else {
             wordPressButton.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     private boolean enable_nfc() {
@@ -172,7 +172,7 @@ public class UploadActivity extends ActionBarActivity {
         });
     }
 
-    private void enable_drupal() {
+    /*private void enable_drupal() {
         drupalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -218,7 +218,7 @@ public class UploadActivity extends ActionBarActivity {
                 }
             }
         });
-    }
+    }*/
 
     private void enable_location_modification() {
         locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
