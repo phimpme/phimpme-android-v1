@@ -54,13 +54,6 @@
 				android:value=".PreviewActivity"/>
 		</activity>
 
-		<meta-data
-			android:name="com.google.android.gms.version"
-			android:value="@integer/google_play_services_version"/>
-		<meta-data
-			android:name="com.google.android.maps.v2.API_KEY"
-			android:value="AIzaSyCuzvQQSFuURP8unPWb7ihlYptJRdOBeMs"/>
-
 		<activity
 			android:name=".MapActivity"
 			android:label="@string/title_activity_map"
@@ -69,6 +62,7 @@
 				android:name="android.support.PARENT_ACTIVITY"
 				android:value=".MainActivity"/>
 		</activity>
+
 		<activity
 			android:name=".GeographicalLocationActivity"
 			android:label="@string/title_activity_gpsmanager"
@@ -90,6 +84,16 @@
 			android:label="@string/title_activity_account_editor"
             android:parentActivityName=".UploadActivity">
 		</activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyCuzvQQSFuURP8unPWb7ihlYptJRdOBeMs"/>
+
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 	</application>
 
 </manifest>

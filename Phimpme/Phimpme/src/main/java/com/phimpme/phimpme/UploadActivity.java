@@ -1,5 +1,6 @@
 package com.phimpme.phimpme;
 
+import com.google.android.gms.ads.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,14 +18,15 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class UploadActivity extends ActionBarActivity {
+    private AdView adView;
     private Button AndroidSharingListButton;
     private Button bluetoothButton;
     // private Button drupalButton;
@@ -43,6 +45,11 @@ public class UploadActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // 以查询资源的方式查询AdView并加载请求。
+        AdView adView = (AdView) this.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         find_views();
 

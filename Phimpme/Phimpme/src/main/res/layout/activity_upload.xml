@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -72,68 +73,36 @@
 		android:layout_below="@+id/locationSwitch"
 		android:text="Change geographical location"/>
 
-	<GridLayout
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:layout_above="@+id/nfcTextView"
-		android:layout_alignParentEnd="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentStart="true"
-		android:layout_below="@+id/otherButton"
-		android:columnCount="4"
-		android:columnOrderPreserved="true"
-		android:rowCount="5"
-		android:rowOrderPreserved="true"
-		android:useDefaultMargins="false">
-
-		<Button
-			android:id="@+id/bluetoothButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_column="0"
-			android:layout_row="0"
-			android:text="Bluetooth"/>
-        <!--
-		<Button
-			android:id="@+id/wordPressButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_centerHorizontal="true"
-			android:layout_centerVertical="true"
-			android:layout_column="1"
-			android:layout_row="0"
-			android:text="WordPress"/>
-
-		<Button
-			android:id="@+id/drupalButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_column="2"
-			android:layout_row="0"
-			android:text="Drupal"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Joomla"
-            android:id="@+id/joomlaButton"
-            android:layout_row="4"
-            android:layout_column="0" />
-            -->
-    </GridLayout>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adUnitId="ca-app-pub-4687951665870209/1099290350"
+        ads:adSize="BANNER"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/otherButton"
+        android:layout_alignEnd="@+id/otherButton" />
 
 	<TextView
 		android:id="@+id/nfcTextView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentEnd="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentStart="true"
-		android:gravity="center_horizontal"
+        android:gravity="center_horizontal"
 		android:text="Android Beam (NFC) is active\nTap devices together to beam this photo"
-		/>
+        android:layout_above="@+id/adView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/bluetoothButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="0"
+        android:layout_row="10"
+        android:text="Bluetooth"
+        android:layout_below="@+id/otherButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
