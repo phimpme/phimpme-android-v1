@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -29,6 +28,7 @@ public class UploadActivity extends ActionBarActivity {
     private AdView adView;
     private Button AndroidSharingListButton;
     private Button bluetoothButton;
+    private Button donateButton;
     // private Button drupalButton;
     // private Button wordPressButton;
     // private Button joomlaButton;
@@ -46,11 +46,6 @@ public class UploadActivity extends ActionBarActivity {
         setContentView(R.layout.activity_upload);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // 以查询资源的方式查询AdView并加载请求。
-        AdView adView = (AdView) this.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
         find_views();
 
         // Automatically update imageDescription with descriptionEditText
@@ -67,6 +62,7 @@ public class UploadActivity extends ActionBarActivity {
     private void find_views() {
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         AndroidSharingListButton = (Button) findViewById(R.id.otherButton);
+        donateButton = (Button) findViewById(R.id.donateButton);
         // drupalButton = (Button) findViewById(R.id.drupalButton);
         // wordPressButton = (Button) findViewById(R.id.wordPressButton);
         // joomlaButton = (Button) findViewById(R.id.joomlaButton);
@@ -112,6 +108,16 @@ public class UploadActivity extends ActionBarActivity {
             enable_bluetooth();
         } else {
             bluetoothButton.setVisibility(View.GONE);
+        }
+
+        if (Configuration.ENABLE_DONATE) {
+            enable_donate();
+        } else {
+            donateButton.setVisibility(View.GONE);
+        }
+
+        if (Configuration.ENABLE_ADVERTISEMENT) {
+            enable_adView();
         }
 
         /*if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
@@ -177,6 +183,19 @@ public class UploadActivity extends ActionBarActivity {
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
             }
         });
+    }
+
+    private void enable_donate() {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(Configuration.DONATE_URL);
+        startActivity(intent);
+    }
+
+    private void enable_adView() {
+        // 以查询资源的方式查询AdView并加载请求。
+        adView = (AdView) findViewById(R.id.adView);
+        adView.loadAd(new AdRequest.Builder().build());
     }
 
     /*private void enable_drupal() {

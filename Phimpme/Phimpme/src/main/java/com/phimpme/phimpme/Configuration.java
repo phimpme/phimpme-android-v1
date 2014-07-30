@@ -16,11 +16,14 @@ public class Configuration {
     public static final boolean ENABLE_NFC = true;
     public static final boolean ENABLE_BLUETOOTH = true;
     public static final boolean ENABLE_ANDROID_SHARING = true;
+    public static final boolean ENABLE_DONATE = true;
+    public static final boolean ENABLE_ADVERTISEMENT = true;
 
     // Home page configurations
     public static final boolean HOME_PAGE_WEBSITE = true;
     public static final String HOME_PAGE_WEBSITE_URL = "http://www.bing.com/";
     public static final Uri HOME_PAGE_IMAGE_PATH = Uri.parse("file:///storage/emulated/0/Pictures/MyCameraApp/IMG_20140726_123245.jpg");
+    public static final Uri DONATE_URL = Uri.parse("");
 
     // Website systems
     public static final boolean ENABLE_SHARING_TO_WORDPRESS = true;
