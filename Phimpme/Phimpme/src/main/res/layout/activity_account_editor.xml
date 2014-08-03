@@ -12,15 +12,22 @@
 		android:id="@+id/textView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Account Category:"/>
+		android:text="Account Category:"
+		android:layout_alignRight="@+id/spinnerCategory"
+		android:layout_alignEnd="@+id/spinnerCategory"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"/>
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/accountEditorActivityAccountCategory"
+        android:id="@+id/spinnerCategory"
         android:layout_below="@+id/textView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"/>
 
 	<TextView
 		android:id="@+id/textView2"
@@ -28,16 +35,20 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:layout_below="@+id/accountEditorActivityAccountCategory"
-		android:text="User Name:"/>
+		android:layout_below="@+id/spinnerCategory"
+		android:text="User Name:"
+		android:layout_alignRight="@+id/editTextUsername"
+		android:layout_alignEnd="@+id/editTextUsername"/>
 
 	<EditText
-		android:id="@+id/accountEditorActivityUserName"
+		android:id="@+id/editTextUsername"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:layout_below="@+id/textView2"/>
+		android:layout_below="@+id/textView2"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"/>
 
 	<TextView
 		android:id="@+id/textView3"
@@ -45,27 +56,33 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:layout_below="@+id/accountEditorActivityUserName"
+		android:layout_below="@+id/editTextUsername"
 		android:text="Password:"
-		android:textAppearance="?android:attr/textAppearanceMedium"/>
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:layout_alignRight="@+id/editTextPassword"
+		android:layout_alignEnd="@+id/editTextPassword"/>
 
 	<EditText
-		android:id="@+id/accountEditorActivityPassword"
+		android:id="@+id/editTextPassword"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
 		android:layout_below="@+id/textView3"
 		android:ems="10"
-		android:inputType="textPassword"/>
+		android:inputType="textPassword"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"/>
 
 	<Button
-		android:id="@+id/accountEditorActivityButton"
+		android:id="@+id/buttonSave"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"
 		android:layout_centerVertical="true"
-		android:text="Save"/>
+		android:text="Save"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

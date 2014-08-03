@@ -1,6 +1,5 @@
 package com.phimpme.phimpme;
 
-import com.google.android.gms.ads.*;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,10 +30,6 @@ public class UploadActivity extends ActionBarActivity {
     private AdView adView;
     private Button AndroidSharingListButton;
     private Button bluetoothButton;
-    private Button donateButton;
-    // private Button drupalButton;
-    // private Button wordPressButton;
-    // private Button joomlaButton;
     private ImageView preview;
     private TextView descriptionEditText;
     private TextView nfcTextView;
@@ -62,10 +60,6 @@ public class UploadActivity extends ActionBarActivity {
     private void find_views() {
         bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         AndroidSharingListButton = (Button) findViewById(R.id.otherButton);
-        donateButton = (Button) findViewById(R.id.donateButton);
-        // drupalButton = (Button) findViewById(R.id.drupalButton);
-        // wordPressButton = (Button) findViewById(R.id.wordPressButton);
-        // joomlaButton = (Button) findViewById(R.id.joomlaButton);
         preview = (ImageView) findViewById(R.id.imageView);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         nfcTextView = (TextView) findViewById(R.id.nfcTextView);
@@ -110,33 +104,9 @@ public class UploadActivity extends ActionBarActivity {
             bluetoothButton.setVisibility(View.GONE);
         }
 
-        if (Configuration.ENABLE_DONATE) {
-            enable_donate();
-        } else {
-            donateButton.setVisibility(View.GONE);
-        }
-
         if (Configuration.ENABLE_ADVERTISEMENT) {
             enable_adView();
         }
-
-        /*if (Configuration.ENABLE_SHARING_TO_DRUPAL) {
-            enable_drupal();
-        } else {
-            drupalButton.setVisibility(View.GONE);
-        }
-
-        if (Configuration.ENABLE_SHARING_TO_JOOMLA) {
-            enable_joomla();
-        } else {
-            joomlaButton.setVisibility(View.GONE);
-        }
-
-        if (Configuration.ENABLE_SHARING_TO_WORDPRESS) {
-            enable_wordpress();
-        } else {
-            wordPressButton.setVisibility(View.GONE);
-        }*/
     }
 
     private boolean enable_nfc() {
@@ -185,66 +155,11 @@ public class UploadActivity extends ActionBarActivity {
         });
     }
 
-    private void enable_donate() {
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(Configuration.DONATE_URL);
-        startActivity(intent);
-    }
-
     private void enable_adView() {
         // 以查询资源的方式查询AdView并加载请求。
         adView = (AdView) findViewById(R.id.adView);
         adView.loadAd(new AdRequest.Builder().build());
     }
-
-    /*private void enable_drupal() {
-        drupalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageUri != null) {
-                    AccountInfo drupalAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "Drupal");
-                    if (drupalAccount.getAccountCategory() == null) {
-                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "Drupal");
-                    } else {
-                        new ShareToDrupal(UploadActivity.this, drupalAccount, imageUri.getPath(), imageDescription).uploadPhoto();
-                    }
-                }
-            }
-        });
-    }
-
-    private void enable_joomla() {
-        joomlaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageUri != null) {
-                    AccountInfo joomlaAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "Joomla");
-                    if (joomlaAccount.getAccountCategory() == null) {
-                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "Joomla");
-                    } else {
-                        new ShareToJoomla(UploadActivity.this, joomlaAccount, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
-                    }
-                }
-            }
-        });
-    }
-
-    private void enable_wordpress() {
-        wordPressButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (imageUri != null) {
-                    AccountInfo wordpressAccount = AccountInfo.getSavedAccountInfo(UploadActivity.this, "WordPress");
-                    if (wordpressAccount.getAccountCategory() == null) {
-                        AccountInfo.createAndSaveAccountInfo(UploadActivity.this, "WordPress");
-                    } else {
-                        new ShareToWordPress(UploadActivity.this, wordpressAccount, imageUri.getPath()).uploadPhoto();
-                    }
-                }
-            }
-        });
-    }*/
 
     private void enable_location_modification() {
         locationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {

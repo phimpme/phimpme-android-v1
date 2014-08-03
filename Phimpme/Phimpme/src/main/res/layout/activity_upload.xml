@@ -79,11 +79,9 @@
         android:layout_height="wrap_content"
         ads:adUnitId="ca-app-pub-4687951665870209/1099290350"
         ads:adSize="BANNER"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/otherButton"
-        android:layout_alignEnd="@+id/otherButton" />
+        android:layout_alignParentBottom="true"/>
 
 	<TextView
 		android:id="@+id/nfcTextView"
@@ -102,13 +100,5 @@
         android:layout_below="@+id/otherButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Donate"
-        android:id="@+id/donateButton"
-        android:layout_below="@+id/otherButton"
-        android:layout_toRightOf="@+id/imageView" />
 
 </RelativeLayout>

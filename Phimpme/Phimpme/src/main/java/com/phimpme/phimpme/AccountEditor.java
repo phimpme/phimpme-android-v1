@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 public class AccountEditor extends ActionBarActivity {
 
@@ -28,17 +27,16 @@ public class AccountEditor extends ActionBarActivity {
 
         accountCategory = getIntent().getStringExtra("accountCategory");
         tempAccountCategory = "WordPress";
-        userName = (EditText) findViewById(R.id.accountEditorActivityUserName);
-        passWord = (EditText) findViewById(R.id.accountEditorActivityPassword);
+        userName = (EditText) findViewById(R.id.editTextUsername);
+        passWord = (EditText) findViewById(R.id.editTextPassword);
         setSpinner();
 
-        Button saveAccountInfo = (Button) findViewById(R.id.accountEditorActivityButton);
+        Button saveAccountInfo = (Button) findViewById(R.id.buttonSave);
         saveAccountInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (accountCategory.equals("null")) {
+                if (accountCategory.equals("null"))
                     accountCategory = tempAccountCategory;
-                }
                 SharedPreferences.Editor accountInfo =
                         getSharedPreferences(accountCategory, MODE_PRIVATE).edit();
                 accountInfo.putString(accountCategory, accountCategory);
@@ -51,7 +49,7 @@ public class AccountEditor extends ActionBarActivity {
                 } else if (accountCategory.equals("Joomla")) {
                     accountInfo.putString("userUrl", "http://www.yuzhiqiang.org/joomla");
                 }
-                accountInfo.commit();
+                accountInfo.apply();
                 finish();
             }
         });
@@ -59,14 +57,9 @@ public class AccountEditor extends ActionBarActivity {
     }
 
     private void setSpinner() {
-        Spinner spinner = (Spinner) findViewById(R.id.accountEditorActivityAccountCategory);
+        Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
         final String[] spinnerItems = new String[]{"WordPress", "Drupal", "Joomla"};
-        spinner.setAdapter(
-                new ArrayAdapter<String>(
-                        AccountEditor.this,
-                        android.R.layout.simple_spinner_item,
-                        spinnerItems)
-        );
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerItems));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -75,14 +68,11 @@ public class AccountEditor extends ActionBarActivity {
                 if (accountInfo.getAccountCategory() != null) {
                     userName.setText(accountInfo.getUserName());
                     passWord.setText(accountInfo.getPassWord());
-                } else {
-                    userName.setText("Your userName");
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                userName.setText("Your userName");
             }
         });
     }
