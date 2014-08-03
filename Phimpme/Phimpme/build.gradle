@@ -39,7 +39,7 @@ dependencies {
 	compile files('libs/tagsoup-1.2.1.jar')
 	compile files('libs/httpmime-4.1.1.jar')
 	compile 'com.android.support:appcompat-v7:19.1.0'
-	compile 'com.android.support:gridlayout-v7:19.1.0'
+	compile 'com.android.support:gridlayout-v7:19.1.0' // You must install or update the Support Repository through the SDK manager to use this dependency.
 	compile 'com.android.support:support-v4:19.1.0'
 	compile 'com.google.android.gms:play-services:4.3.23'
 }

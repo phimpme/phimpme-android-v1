@@ -1,5 +1,6 @@
 package com.phimpme.phimpme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
@@ -50,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
         if (id == R.id.action_settings) {
-            // TODO: Implement the settings part
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+		android:key="pref_key_account_settings"
+		android:title="Account">
+		<Preference
+			android:key="pref_key_account_wordpress"
+			android:title="WordPress">
+		</Preference>
+		<Preference
+			android:key="pref_key_account_drupal"
+			android:title="Drupal">
+		</Preference>
+		<Preference
+			android:key="pref_key_account_joomla"
+			android:title="Joomla">
+		</Preference>
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:key="pref_key_about_settings"
+		android:title="About">
+		<Preference
+			android:key="pref_key_about"
+			android:title="About">
+			<intent android:action="org.yuzhiqiang.itsmine.ABOUT"/>
+		</Preference>
+	</PreferenceCategory>
+</PreferenceScreen>

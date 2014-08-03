@@ -31,7 +31,6 @@ public class SelectDialogFragment extends DialogFragment {
             action.add(Behavior.MAP);
         }
         // If only one function is enabled, just perform it.
-        assert (!action.isEmpty());
         if (action.size() == 1) {
             perform(action.get(0));
         }
