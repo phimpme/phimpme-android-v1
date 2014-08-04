@@ -35,19 +35,6 @@
 		android:hint="Description..."
 		android:inputType="textMultiLine"/>
 
-	<Button
-		android:id="@+id/otherButton"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentEnd="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentStart="true"
-		android:layout_below="@+id/locationButton"
-		android:layout_gravity="fill"
-		android:layout_marginTop="46dp"
-		android:text="Other Destinations"/>
-
 	<Switch
 		android:id="@+id/locationSwitch"
 		android:layout_width="wrap_content"
@@ -57,6 +44,7 @@
 		android:layout_alignParentRight="true"
 		android:layout_alignParentStart="true"
 		android:layout_below="@+id/imageView"
+        android:layout_gravity="fill"
 		android:checked="true"
 		android:paddingBottom="12dp"
 		android:paddingTop="12dp"
@@ -66,12 +54,34 @@
 		android:id="@+id/locationButton"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignParentEnd="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentStart="true"
-		android:layout_below="@+id/locationSwitch"
-		android:text="Change geographical location"/>
+        android:text="Change geographical location"
+        android:layout_below="@+id/locationSwitch"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="fill" />
+
+    <Button
+        android:id="@+id/otherButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
+        android:text="Other Destinations"
+        android:layout_below="@+id/locationButton"
+        android:layout_alignLeft="@+id/locationButton"
+        android:layout_alignStart="@+id/locationButton"
+        android:layout_alignRight="@+id/locationButton"
+        android:layout_alignEnd="@+id/locationButton" />
+
+	<TextView
+		android:id="@+id/nfcTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Android Beam (NFC) is active\nTap devices together to beam this photo"
+        android:layout_gravity="fill"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/otherButton"
+        android:layout_centerHorizontal="true" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -79,26 +89,9 @@
         android:layout_height="wrap_content"
         ads:adUnitId="ca-app-pub-4687951665870209/1099290350"
         ads:adSize="BANNER"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"/>
-
-	<TextView
-		android:id="@+id/nfcTextView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-		android:text="Android Beam (NFC) is active\nTap devices together to beam this photo"
-        android:layout_above="@+id/adView"
+        android:layout_gravity="fill"
+        android:layout_below="@+id/nfcTextView"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/bluetoothButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bluetooth"
-        android:layout_below="@+id/otherButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

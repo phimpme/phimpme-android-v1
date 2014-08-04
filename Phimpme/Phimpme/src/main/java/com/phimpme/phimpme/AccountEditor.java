@@ -6,16 +6,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 public class AccountEditor extends ActionBarActivity {
 
     private String accountCategory;
-    private String tempAccountCategory;
     private EditText userName;
     private EditText passWord;
 
@@ -26,17 +22,13 @@ public class AccountEditor extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         accountCategory = getIntent().getStringExtra("accountCategory");
-        tempAccountCategory = "WordPress";
         userName = (EditText) findViewById(R.id.editTextUsername);
         passWord = (EditText) findViewById(R.id.editTextPassword);
-        setSpinner();
 
         Button saveAccountInfo = (Button) findViewById(R.id.buttonSave);
         saveAccountInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (accountCategory.equals("null"))
-                    accountCategory = tempAccountCategory;
                 SharedPreferences.Editor accountInfo =
                         getSharedPreferences(accountCategory, MODE_PRIVATE).edit();
                 accountInfo.putString(accountCategory, accountCategory);
@@ -54,27 +46,6 @@ public class AccountEditor extends ActionBarActivity {
             }
         });
 
-    }
-
-    private void setSpinner() {
-        Spinner spinner = (Spinner) findViewById(R.id.spinnerCategory);
-        final String[] spinnerItems = new String[]{"WordPress", "Drupal", "Joomla"};
-        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerItems));
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                AccountInfo accountInfo = AccountInfo.getSavedAccountInfo(AccountEditor.this, spinnerItems[position]);
-                tempAccountCategory = spinnerItems[position];
-                if (accountInfo.getAccountCategory() != null) {
-                    userName.setText(accountInfo.getUserName());
-                    passWord.setText(accountInfo.getPassWord());
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
     }
 
     @Override

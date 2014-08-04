@@ -29,7 +29,6 @@ import java.util.ArrayList;
 public class UploadActivity extends ActionBarActivity {
     private AdView adView;
     private Button AndroidSharingListButton;
-    private Button bluetoothButton;
     private ImageView preview;
     private TextView descriptionEditText;
     private TextView nfcTextView;
@@ -58,7 +57,6 @@ public class UploadActivity extends ActionBarActivity {
     }
 
     private void find_views() {
-        bluetoothButton = (Button) findViewById(R.id.bluetoothButton);
         AndroidSharingListButton = (Button) findViewById(R.id.otherButton);
         preview = (ImageView) findViewById(R.id.imageView);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
@@ -98,12 +96,6 @@ public class UploadActivity extends ActionBarActivity {
             AndroidSharingListButton.setVisibility(View.GONE);
         }
 
-        if (Configuration.ENABLE_BLUETOOTH) {
-            enable_bluetooth();
-        } else {
-            bluetoothButton.setVisibility(View.GONE);
-        }
-
         if (Configuration.ENABLE_ADVERTISEMENT) {
             enable_adView();
         }
@@ -136,20 +128,6 @@ public class UploadActivity extends ActionBarActivity {
                 uploadPhotoIntent.setType("image/*");
                 uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
                 uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
-                startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
-            }
-        });
-    }
-
-    private void enable_bluetooth() {
-        bluetoothButton.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent uploadPhotoIntent = new Intent(Intent.ACTION_SEND);
-                uploadPhotoIntent.setType("image/*");
-                uploadPhotoIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                uploadPhotoIntent.putExtra(Intent.EXTRA_TEXT, descriptionEditText.getText().toString());
-                uploadPhotoIntent.setPackage("com.android.bluetooth");
                 startActivity(Intent.createChooser(uploadPhotoIntent, "Share Image To:"));
             }
         });

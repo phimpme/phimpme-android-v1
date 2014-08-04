@@ -21,11 +21,11 @@ public class SettingsActivity extends PreferenceActivity {
 
 		Intent intent = new Intent(this, AccountEditor.class);
 		if (key.equals("pref_key_account_wordpress")) {
-			intent.putExtra("wordpress", true);
+			intent.putExtra("accountCategory", "WordPress");
 		} else if (key.equals("pref_key_account_drupal")) {
-			intent.putExtra("drupal", true);
+			intent.putExtra("accountCategory", "Drupal");
 		} else if (key.equals("pref_key_account_joomla")) {
-			intent.putExtra("joomla", true);
+			intent.putExtra("accountCategory", "Joomla");
 		}
 		startActivity(intent);
 

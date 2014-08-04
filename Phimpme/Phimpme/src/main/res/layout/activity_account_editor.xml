@@ -9,34 +9,13 @@
                 tools:context="com.phimpme.phimpme.AccountEditor">
 
 	<TextView
-		android:id="@+id/textView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Account Category:"
-		android:layout_alignRight="@+id/spinnerCategory"
-		android:layout_alignEnd="@+id/spinnerCategory"
-		android:layout_alignParentTop="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentStart="true"/>
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerCategory"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
-
-	<TextView
 		android:id="@+id/textView2"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentStart="true"
-		android:layout_below="@+id/spinnerCategory"
 		android:text="User Name:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
 		android:layout_alignRight="@+id/editTextUsername"
 		android:layout_alignEnd="@+id/editTextUsername"/>
 
