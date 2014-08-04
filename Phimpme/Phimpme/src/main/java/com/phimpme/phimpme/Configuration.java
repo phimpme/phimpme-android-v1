@@ -16,10 +16,10 @@ public class Configuration {
 	public static final boolean ENABLE_ANDROID_SHARING = true;
 	public static final boolean ENABLE_DONATE = true;
 	public static final boolean ENABLE_ADVERTISEMENT = true;
-	public static final String DONATE_URL = "";
+	public static final String DONATE_URL = "http://phimp.me/";
 
 	// Home page configurations
-	public static final boolean HOME_SHOW_WEBPAGE = true;
+	public static final boolean HOME_SHOW_WEBPAGE = false;
 	public static final String HOME_WEBPAGE_URL = "http://www.google.com/";
 
 	// WordPress
