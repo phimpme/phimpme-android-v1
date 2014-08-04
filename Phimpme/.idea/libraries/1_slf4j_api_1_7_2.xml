@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="1_slf4j-api-1.7.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Phimpme/slf4j-api-1.7.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

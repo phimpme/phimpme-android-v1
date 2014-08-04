@@ -87,29 +87,6 @@ public class MapActivity extends ActionBarActivity {
             location = locationManager.getLastKnownLocation(locationManager.getBestProvider(getCriteria(), true));
             LatLng latLng;
             if (location == null) {
-                /*locationManager.requestLocationUpdates(
-                        locationManager.getBestProvider(getCriteria(), true), 60000, 50, new LocationListener() {
-                            @Override
-                            public void onLocationChanged(Location location) {
-                                MapActivity.this.location = location;
-                            }
-
-                            @Override
-                            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                            }
-
-                            @Override
-                            public void onProviderEnabled(String provider) {
-
-                            }
-
-                            @Override
-                            public void onProviderDisabled(String provider) {
-
-                            }
-                        }
-                );*/
                 latLng = new LatLng(0.0, 0.0);
             } else {
                 latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -167,7 +144,7 @@ public class MapActivity extends ActionBarActivity {
         cursor.close();
     }
 
-    public Criteria getCriteria() {
+    public static Criteria getCriteria() {
         Criteria c = new Criteria();
         c.setAccuracy(Criteria.ACCURACY_FINE);
         c.setSpeedRequired(false);

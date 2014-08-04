@@ -57,7 +57,7 @@ public class SelectDialogFragment extends DialogFragment {
                 intent.setClass(getActivity(), ChooseFromLibraryActivity.class);
                 break;
             case MAP:
-                intent.setClass(getActivity(), MapActivity.class);
+                intent.setClass(getActivity(), OpenStreetMapActivity.class);
                 break;
         }
         startActivity(intent);
