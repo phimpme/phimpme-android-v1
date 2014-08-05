@@ -15,20 +15,20 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_main);
-	    WebView webView = (WebView) findViewById(R.id.webView);
-	    if (Configuration.HOME_SHOW_WEBPAGE) {
+        setContentView(R.layout.activity_main);
+        WebView webView = (WebView) findViewById(R.id.webView);
+        if (Configuration.HOME_SHOW_WEBPAGE) {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.loadUrl(Configuration.HOME_WEBPAGE_URL);
-            webView.setWebViewClient(new WebViewClient(){
+            webView.setWebViewClient(new WebViewClient() {
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
                     view.loadUrl(url);
                     return true;
                 }
             });
         } else {
-		    webView.setVisibility(View.GONE);
-		    // The background image is src/main/res/drawable-xxhdpi/background.jpg
+            webView.setVisibility(View.GONE);
+            // The background image is src/main/res/drawable-xxhdpi/background.jpg
         }
     }
 

@@ -33,12 +33,13 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class OpenStreetMapActivity extends ActionBarActivity {
 
     private MapView mMapView;
     private Uri imageUri;
-    private DefaultResourceProxyImpl mResourceProxy;
+    private DefaultResourceProxyImpl mResourceProxy = new DefaultResourceProxyImpl(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +53,25 @@ public class OpenStreetMapActivity extends ActionBarActivity {
         mMapView = (MapView) findViewById(R.id.myOSMmapview);
         MapController mController = mMapView.getController();
 
-        //ResourceProxy init
-        mResourceProxy = new DefaultResourceProxyImpl(this);
-
         mMapView.setTileSource(TileSourceFactory.MAPNIK);
         mMapView.setBuiltInZoomControls(true);
         mMapView.setMultiTouchControls(true);
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(MapActivity.getCriteria(), true));
-        LatLng latLng;
-        if (location == null) {
-            latLng = new LatLng(0.0, 0.0);
-        } else {
-            latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        }
+        LatLng latLng = getCurrentLocation();
         GeoPoint center = new GeoPoint(latLng.latitude, latLng.longitude);
         mController.setCenter(center);
         mController.setZoom(13);
+    }
+
+    public LatLng getCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(
+                locationManager.getBestProvider(MapActivity.getCriteria(), true));
+        if (location == null) {
+            return new LatLng(0.0, 0.0);
+        } else {
+            return new LatLng(location.getLatitude(), location.getLongitude());
+        }
     }
 
     private void set_thumbnails() {
@@ -127,7 +129,8 @@ public class OpenStreetMapActivity extends ActionBarActivity {
                                                    final OverlayItem item) {
                         return false;
                     }
-                }, mResourceProxy);
+                }, mResourceProxy
+        );
         mLocationOverlay.setFocusItemsOnTap(true);
         mLocationOverlay.setFocusedItem(0);
         mMapView.getOverlays().add(mLocationOverlay);

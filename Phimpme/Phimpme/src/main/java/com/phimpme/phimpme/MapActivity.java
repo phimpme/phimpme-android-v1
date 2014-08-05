@@ -35,7 +35,6 @@ public class MapActivity extends ActionBarActivity {
 
     private GoogleMap mMap;
     private Uri imageUri;
-    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,19 +82,10 @@ public class MapActivity extends ActionBarActivity {
         } else if (mMap != null) {
             // The Map is verified. It is now safe to manipulate the map.
             // Animate to user location
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            location = locationManager.getLastKnownLocation(locationManager.getBestProvider(getCriteria(), true));
-            LatLng latLng;
-            if (location == null) {
-                latLng = new LatLng(0.0, 0.0);
-            } else {
-                latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            }
-            CameraPosition cameraPosition = new CameraPosition.Builder().
-                    target(latLng)
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().
+                    target(getCurrentLocation())
                     .zoom(13)
-                    .build();
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    .build()));
         }
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -111,6 +101,16 @@ public class MapActivity extends ActionBarActivity {
                 return true;
             }
         });
+    }
+
+    public LatLng getCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(getCriteria(), true));
+        if (location == null) {
+            return new LatLng(0.0, 0.0);
+        } else {
+            return new LatLng(location.getLatitude(), location.getLongitude());
+        }
     }
 
     private void setThumbnails() {

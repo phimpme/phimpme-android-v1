@@ -159,11 +159,11 @@ public class UploadActivity extends ActionBarActivity {
     private void creatUploadDialog() {
         final ArrayList<String> arrayList = new ArrayList<String>();
         if (Configuration.ENABLE_SHARING_TO_WORDPRESS)
-	        arrayList.add("WordPress");
+            arrayList.add("WordPress");
         if (Configuration.ENABLE_SHARING_TO_DRUPAL)
-	        arrayList.add("Drupal");
+            arrayList.add("Drupal");
         if (Configuration.ENABLE_SHARING_TO_JOOMLA)
-	        arrayList.add("Joomla");
+            arrayList.add("Joomla");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, arrayList);
 
@@ -176,12 +176,12 @@ public class UploadActivity extends ActionBarActivity {
                             if (accountInfo.getAccountCategory() == null) {
                                 AccountInfo.createAndSaveAccountInfo(UploadActivity.this, item);
                             } else {
-                                if(item.equals("WordPress"))
-	                                new ShareToWordPress(UploadActivity.this, accountInfo, imageUri.getPath()).uploadPhoto();
-                                if(item.equals("Drupal"))
-	                                new ShareToDrupal(UploadActivity.this, accountInfo, imageUri.getPath(), imageDescription).uploadPhoto();
-                                if(item.equals("Joomla"))
-	                                new ShareToJoomla(UploadActivity.this, accountInfo, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
+                                if (item.equals("WordPress"))
+                                    new ShareToWordPress(UploadActivity.this, accountInfo, imageUri.getPath()).uploadPhoto();
+                                if (item.equals("Drupal"))
+                                    new ShareToDrupal(UploadActivity.this, accountInfo, imageUri.getPath(), imageDescription).uploadPhoto();
+                                if (item.equals("Joomla"))
+                                    new ShareToJoomla(UploadActivity.this, accountInfo, imageUri.getPath()).uploadPhoto(descriptionEditText.getText().toString());
                             }
                         }
                     }
@@ -190,7 +190,8 @@ public class UploadActivity extends ActionBarActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                    }})
+                    }
+                })
                 .setNegativeButton("Cancel", null).show();
     }
 

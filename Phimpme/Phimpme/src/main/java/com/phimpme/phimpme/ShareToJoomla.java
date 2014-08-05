@@ -34,21 +34,21 @@ public class ShareToJoomla {
         @Override
         protected Void doInBackground(String... params) {
             final String username = accountInfo.getUserName();
-	        final String password = accountInfo.getPassWord();
+            final String password = accountInfo.getPassWord();
             JoooidRpc joooidRpc = JoooidRpc.getInstance(joomlaURL, null, username, password, User.JOOMLA_16);
             try {
                 final File imageFile = new File(imagePath);
                 String res = joooidRpc.uploadFile(username, password, imageFile, Configuration.JOOMLA_DIR);
-	            String imageUrl = res.replaceAll("^<value><string>(.+)</string></value>$", "$1");
+                String imageUrl = res.replaceAll("^<value><string>(.+)</string></value>$", "$1");
                 // TODO fulltext -> image
                 try {
                     final String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                     String[] position = new ConvertLatlng().convertToDegreeForm(imagePath).split(";");
-	                // TODO: Add description text to the end of below
-	                String[] introduction = new String[]{"<img src=\"" + imageUrl + "\" />"};
-	                String content = "";
-	                if(Configuration.JOOMLA_SHOW_MAP_IN_POST)
-	                    content += "{mosmap lat='" + position[0] + "'|lon='" + position[1] + "'}";
+                    // TODO: Add description text to the end of below
+                    String[] introduction = new String[]{"<img src=\"" + imageUrl + "\" />"};
+                    String content = "";
+                    if (Configuration.JOOMLA_SHOW_MAP_IN_POST)
+                        content += "{mosmap lat='" + position[0] + "'|lon='" + position[1] + "'}";
                     joooidRpc.newPost(username,
                             password,
                             Configuration.JOOMLA_CATEGORY,

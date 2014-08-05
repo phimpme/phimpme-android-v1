@@ -57,7 +57,11 @@ public class SelectDialogFragment extends DialogFragment {
                 intent.setClass(getActivity(), ChooseFromLibraryActivity.class);
                 break;
             case MAP:
-                intent.setClass(getActivity(), OpenStreetMapActivity.class);
+                if (Configuration.ENABLE_GOOGLEMAP) {
+                    intent.setClass(getActivity(), MapActivity.class);
+                } else {
+                    intent.setClass(getActivity(), OpenStreetMapActivity.class);
+                }
                 break;
         }
         startActivity(intent);

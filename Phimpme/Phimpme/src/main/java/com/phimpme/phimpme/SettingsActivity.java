@@ -7,28 +7,28 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 
 public class SettingsActivity extends PreferenceActivity {
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// Load the preferences from an XML resource
-		addPreferencesFromResource(R.xml.preferences);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Load the preferences from an XML resource
+        addPreferencesFromResource(R.xml.preferences);
+    }
 
-	@SuppressWarnings("NullableProblems")
-	@Override
-	public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-		String key = preference.getKey();
+    @SuppressWarnings("NullableProblems")
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        String key = preference.getKey();
 
-		Intent intent = new Intent(this, AccountEditor.class);
-		if (key.equals("pref_key_account_wordpress")) {
-			intent.putExtra("accountCategory", "WordPress");
-		} else if (key.equals("pref_key_account_drupal")) {
-			intent.putExtra("accountCategory", "Drupal");
-		} else if (key.equals("pref_key_account_joomla")) {
-			intent.putExtra("accountCategory", "Joomla");
-		}
-		startActivity(intent);
+        Intent intent = new Intent(this, AccountEditor.class);
+        if (key.equals("pref_key_account_wordpress")) {
+            intent.putExtra("accountCategory", "WordPress");
+        } else if (key.equals("pref_key_account_drupal")) {
+            intent.putExtra("accountCategory", "Drupal");
+        } else if (key.equals("pref_key_account_joomla")) {
+            intent.putExtra("accountCategory", "Joomla");
+        }
+        startActivity(intent);
 
-		return super.onPreferenceTreeClick(preferenceScreen, preference);
-	}
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
 }
