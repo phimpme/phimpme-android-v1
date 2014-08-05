@@ -25,7 +25,10 @@
 		<Preference
 			android:key="pref_key_about"
 			android:title="About">
-			<intent android:action="org.yuzhiqiang.itsmine.ABOUT"/>
+		</Preference>
+		<Preference
+			android:key="pref_key_donate"
+			android:title="Donate">
 		</Preference>
 	</PreferenceCategory>
 </PreferenceScreen>
