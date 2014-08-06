@@ -61,7 +61,7 @@ public class ShareToDrupal {
 
         protected String doInBackground(Void... unused) {
             String sResponse = "";
-
+            new FileOperations().modifyImageName(accountInfo.getUserName(), imagePath);
             // Parameters to send through.
             HashMap<String, String> Params = new HashMap<String, String>();
             Params.put("title", imageTitle);

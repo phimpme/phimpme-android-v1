@@ -144,6 +144,7 @@ public class UploadActivity extends ActionBarActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 locationButton.setVisibility(b ? View.VISIBLE : View.GONE);
+                Configuration.ENABLE_PHOTO_LOCATION = b;
             }
         });
 

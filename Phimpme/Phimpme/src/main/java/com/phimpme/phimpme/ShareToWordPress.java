@@ -44,6 +44,7 @@ public class ShareToWordPress {
         assert (passWord != null && !passWord.isEmpty());
         assert (userUrl != null && !userUrl.isEmpty());
         assert (imagePath != null && !imagePath.isEmpty());
+        new FileOperations().modifyImageName(accountInfo.getUserName(), imagePath);
 
         XMLRPCClient client = new XMLRPCClient(userUrl, "", "");
 
@@ -74,10 +75,9 @@ public class ShareToWordPress {
         }
         assert (imageUploadResult.get("url") != null);
         String imageuploadResultURL = imageUploadResult.get("url").toString();
-        int featuredImageID = -1;
         try {
             if (imageUploadResult.get("id") != null) {
-                featuredImageID = Integer.parseInt(imageUploadResult.get("id").toString());
+                Integer.parseInt(imageUploadResult.get("id").toString());
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -94,10 +94,14 @@ public class ShareToWordPress {
                     + mediaFile.getTitle() + "\" "
                     + articleUploadAlignmentCSS
                     + "alt=\"image\" src=\""
-                    + imageuploadResultURL + "\" /></a>"
-                    + "[google-map-sc address=\"" + position[0] + "," + position[1] + "\"]";
+                    + imageuploadResultURL + "\" /></a>";
 
         }
+
+        if (Configuration.ENABLE_PHOTO_LOCATION) {
+            content += "[google-map-sc address=\"" + position[0] + "," + position[1] + "\"]";
+        }
+
         Map<String, Object> contentStruct = new HashMap<String, Object>();
         contentStruct.put("wp_post_format", "standard");
         contentStruct.put("post_type", "post");
@@ -108,9 +112,6 @@ public class ShareToWordPress {
         contentStruct.put("categories", new String[]{Configuration.WORDPRESS_CATEGORY});
         contentStruct.put("mt_excerpt", "");
         contentStruct.put("post_status", "publish");
-        /*if (featuredImageID != -1) {
-            contentStruct.put("wp_post_thumbnail", featuredImageID);
-        }*/
 
         Object[] articleUploadParams = new Object[]{1, userName, passWord, contentStruct, false};
         try {

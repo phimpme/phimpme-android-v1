@@ -37,6 +37,7 @@ public class ShareToJoomla {
             final String password = accountInfo.getPassWord();
             JoooidRpc joooidRpc = JoooidRpc.getInstance(joomlaURL, null, username, password, User.JOOMLA_16);
             try {
+                new FileOperations().modifyImageName(accountInfo.getUserName(), imagePath);
                 final File imageFile = new File(imagePath);
                 String res = joooidRpc.uploadFile(username, password, imageFile, Configuration.JOOMLA_DIR);
                 String imageUrl = res.replaceAll("^<value><string>(.+)</string></value>$", "$1");
@@ -47,7 +48,7 @@ public class ShareToJoomla {
                     // TODO: Add description text to the end of below
                     String[] introduction = new String[]{"<img src=\"" + imageUrl + "\" />"};
                     String content = "";
-                    if (Configuration.JOOMLA_SHOW_MAP_IN_POST)
+                    if (Configuration.ENABLE_PHOTO_LOCATION)
                         content += "{mosmap lat='" + position[0] + "'|lon='" + position[1] + "'}";
                     joooidRpc.newPost(username,
                             password,

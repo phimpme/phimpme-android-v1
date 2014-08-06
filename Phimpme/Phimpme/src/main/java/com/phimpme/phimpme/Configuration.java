@@ -11,6 +11,7 @@ public class Configuration {
     public static final boolean ENABLE_PHOTO_CAPTURING = true;
     public static final boolean ENABLE_CHOOSE_FROM_LIBRARY = true;
     public static final boolean ENABLE_PHOTO_MANIPULATION = true;
+    public static boolean ENABLE_PHOTO_LOCATION = true;
     public static final boolean ENABLE_PHOTO_LOCATION_MODIFICATION = true;
     public static final boolean ENABLE_NFC = true;
     public static final boolean ENABLE_ANDROID_SHARING = true;
@@ -26,7 +27,6 @@ public class Configuration {
     public static final boolean ENABLE_SHARING_TO_WORDPRESS = true;
     public static final String WORDPRESS_ROOT_URL = "http://www.yuzhiqiang.org/xmlrpc.php";
     public static final String WORDPRESS_CATEGORY = "Phimpme for Android";
-    public static final boolean WORDPRESS_SHOW_MAP_IN_POST = true;
 
     // Drupal
     public static final boolean ENABLE_SHARING_TO_DRUPAL = true;
@@ -38,5 +38,4 @@ public class Configuration {
     public static final String JOOMLA_ROOT_URL = "http://www.yuzhiqiang.org/joomla";
     public static final String JOOMLA_DIR = "Phimpme"; // No space
     public static final String JOOMLA_CATEGORY = "2";
-    public static final boolean JOOMLA_SHOW_MAP_IN_POST = true;
 }

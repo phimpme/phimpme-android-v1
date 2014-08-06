@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by sensing on 14-6-14.
@@ -47,5 +49,16 @@ public class FileOperations {
         fileOutputStream.close();
         outFileChannel.close();
         return target;
+    }
+
+    public void modifyImageName(String userName, String imagePath) {
+        File image = new File(imagePath);
+        image.renameTo(
+                new File(image.getPath()
+                        + File.separator
+                        + userName
+                        + "_"
+                        + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date())
+                ));
     }
 }
