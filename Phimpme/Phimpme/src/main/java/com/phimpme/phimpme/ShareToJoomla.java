@@ -46,7 +46,7 @@ public class ShareToJoomla {
                     final String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                     String[] position = new ConvertLatlng().convertToDegreeForm(imagePath).split(";");
                     // TODO: Add description text to the end of below
-                    String[] introduction = new String[]{"<img src=\"" + imageUrl + "\" />"};
+                    String[] introduction = new String[]{"<img src=\"" + imageUrl + "\" />", params};
                     String content = "";
                     if (Configuration.ENABLE_PHOTO_LOCATION)
                         content += "{mosmap lat='" + position[0] + "'|lon='" + position[1] + "'}";
