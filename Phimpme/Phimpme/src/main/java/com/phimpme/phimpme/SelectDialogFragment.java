@@ -35,7 +35,8 @@ public class SelectDialogFragment extends DialogFragment {
             perform(action.get(0));
         }
 
-        builder.setTitle("Upload a Photo")
+	    //noinspection ToArrayCallWithZeroLengthArrayArgument
+	    builder.setTitle("Upload a Photo")
                 .setItems(title.toArray(new String[0]), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // The 'which' argument contains the index position

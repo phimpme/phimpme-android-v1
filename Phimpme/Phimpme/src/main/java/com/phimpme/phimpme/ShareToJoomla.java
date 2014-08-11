@@ -46,7 +46,7 @@ public class ShareToJoomla {
                     final String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                     String[] position = new ConvertLatlng().convertToDegreeForm(imagePath).split(";");
                     // TODO: Add description text to the end of below
-                    String[] introduction = new String[]{"<img src=\"" + imageUrl + "\" />", params};
+                    String[] introduction = new String[]{"<img src=\"" + imageUrl + "\" />", params[0]};
                     String content = "";
                     if (Configuration.ENABLE_PHOTO_LOCATION)
                         content += "{mosmap lat='" + position[0] + "'|lon='" + position[1] + "'}";
@@ -64,14 +64,14 @@ public class ShareToJoomla {
                 ShareToJoomla.this.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ShareToJoomla.this.activity.getApplicationContext(), "Upload succeed.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ShareToJoomla.this.activity.getApplicationContext(), "Upload successfully.", Toast.LENGTH_SHORT).show();
                     }
                 });
             } catch (XMLRPCException e) {
                 ShareToJoomla.this.activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(ShareToJoomla.this.activity.getApplicationContext(), "Upload failed.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ShareToJoomla.this.activity.getApplicationContext(), "Upload failed.", Toast.LENGTH_SHORT).show();
                     }
                 });
                 e.printStackTrace();

@@ -4,16 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-
 import org.wordpress.android.models.MediaFile;
 import org.xmlrpc.android.XMLRPCClient;
 import org.xmlrpc.android.XMLRPCException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import static com.phimpme.phimpme.MainActivity.assertNotNullOrEmpty;
 
 public class ShareToWordPress {
     private Activity activity;
@@ -24,7 +23,7 @@ public class ShareToWordPress {
     public ShareToWordPress(Activity activity, AccountInfo accountInfo, String imagePath) {
         assert (activity != null);
         assert (accountInfo != null);
-        assert (imagePath != null && !imagePath.isEmpty());
+	    assertNotNullOrEmpty(imagePath);
         this.activity = activity;
         this.context = activity.getApplicationContext();
         this.accountInfo = accountInfo;
@@ -40,10 +39,10 @@ public class ShareToWordPress {
         String passWord = accountInfo.getPassWord();
         String userUrl = Configuration.WORDPRESS_ROOT_URL;
 
-        assert (userName != null && !userName.isEmpty());
-        assert (passWord != null && !passWord.isEmpty());
-        assert (userUrl != null && !userUrl.isEmpty());
-        assert (imagePath != null && !imagePath.isEmpty());
+	    assertNotNullOrEmpty(userName);
+	    assertNotNullOrEmpty(passWord);
+	    assertNotNullOrEmpty(userUrl);
+	    assertNotNullOrEmpty(imagePath);
         new FileOperations().modifyImageName(accountInfo.getUserName(), imagePath);
 
         XMLRPCClient client = new XMLRPCClient(userUrl, "", "");
@@ -73,11 +72,12 @@ public class ShareToWordPress {
             e.printStackTrace();
             return false;
         }
-        assert (imageUploadResult.get("url") != null);
-        String imageuploadResultURL = imageUploadResult.get("url").toString();
+	    assertNotNullOrEmpty (imageUploadResult.get("url"));
+        String imageUploadResultURL = imageUploadResult.get("url").toString();
         try {
             if (imageUploadResult.get("id") != null) {
-                Integer.parseInt(imageUploadResult.get("id").toString());
+	            //noinspection ResultOfMethodCallIgnored
+	            Integer.parseInt(imageUploadResult.get("id").toString());
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -87,14 +87,14 @@ public class ShareToWordPress {
         String[] position = new ConvertLatlng().convertToDegreeForm(imagePath).split(";");
         String articleUploadAlignmentCSS = "class=\"" + "alignnone" + "\" ";
         String content = "";
-        if (imageuploadResultURL != null) {
+        if (imageUploadResultURL != null) {
             content += "<a href=\""
-                    + imageuploadResultURL
+                    + imageUploadResultURL
                     + "\"><img title=\""
                     + mediaFile.getTitle() + "\" "
                     + articleUploadAlignmentCSS
                     + "alt=\"image\" src=\""
-                    + imageuploadResultURL + "\" /></a>";
+                    + imageUploadResultURL + "\" /></a>";
 
         }
 
@@ -133,9 +133,9 @@ public class ShareToWordPress {
                     @Override
                     public void run() {
                         if (result) {
-                            Toast.makeText(ShareToWordPress.this.context, "Upload succeed.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ShareToWordPress.this.context, "Upload succeed.", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(ShareToWordPress.this.context, "Upload failed.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ShareToWordPress.this.context, "Upload failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
