@@ -27,10 +27,10 @@ public class ShareToDrupal {
 	private boolean uploadResult;
 
 	public ShareToDrupal(Activity activity, AccountInfo accountInfo, String imagePath, String imageTitle) {
-		assertNotNullOrEmpty(context);
+		assertNotNullOrEmpty(activity);
 		assertNotNullOrEmpty(accountInfo);
-		assertNotNullOrEmpty(imageTitle);
 		assertNotNullOrEmpty(imagePath);
+		assertNotNullOrEmpty(imageTitle);
 
 		this.activity = activity;
 		this.context = activity.getApplicationContext();
